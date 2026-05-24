@@ -48,7 +48,7 @@ body{
 
 .group .power-container #power-point{
     height: 100%;
-    width: 0;
+    width: 0%;
     background-color: red;
     transition: width 0.3s ease;
 }
