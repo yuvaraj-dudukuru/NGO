@@ -6,7 +6,7 @@ const taskList = document.getElementById('taskList');
 // Arrow function to handle adding a new task
 const addTask = () => {
     // ES6: const instead of var
-    const taskText = taskInput.value.trim();
+    const taskText = taskInput.value.trim(); 
 
     if (taskText === '') return alert('Please enter a task!');
 
