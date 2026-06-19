@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 40px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        input, select, button {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            background: #1e1e1e;
+            color: white;
+            font-size: 16px;
+        }
+        input { flex: 2; }
+        select { flex: 1; }
+        button {
+            background-color: #007bff;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: #0056b3; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .card h3 { margin: 0 0 10px 0; color: #61dafb; }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #333;
+        }
+        .badge.critical { background: #f44336; }
+        .badge.stable { background: #4caf50; }
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .remove-btn:hover { color: #f44336; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Project Allocation Hub</h2>
+        
+        <div class="form-group">
+            <input type="text" id="internName" placeholder="Enter Name...">
+            <select id="projectRole">
+                <option value="Python Trainer">Python Trainer</option>
+                <option value="React Developer">React Developer</option>
+                <option value="ML Engineer">ML Engineer</option>
+            </select>
+            <button id="addBtn">Allocate Resource</button>
+        </div>
+
+        <div class="grid" id="dashboardGrid"></div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // ES6 Core: Scoped Memory (Array of structured items acting as state)
+        // ============================================================================
+        const internData = [
+            { id: 1, name: "Abrar", role: "Python Trainer" },
+            { id: 2, name: "Haresh", role: "ML Engineer" }
+        ];
+
+        // ============================================================================
+        // DOM Elements Selection
+        // ============================================================================
+        const grid = document.getElementById('dashboardGrid');
+        const addBtn = document.getElementById('addBtn');
+        const nameInput = document.getElementById('internName');
+        const roleSelect = document.getElementById('projectRole');
+
+        // ============================================================================
+        // ES6 Core: Arrow Functions & Functional UI Render Loop
+        // ============================================================================
+        const renderDashboard = () => {
+            // Clear current container layout to prevent duplicated view anomalies
+            grid.innerHTML = '';
+
+            // Using ES6 Array methods instead of vintage, slower loops
+            internData.forEach(intern => {
+                // ES6 Destructuring: Extract properties cleanly in one execution path
+                const { id, name, role } = intern;
+
+                // ES6 Template Literals: Write multi-line component strings natively
+                const cardHTML = `
+                    <div class="card">
+                        <button class="remove-btn" onclick="removeResource(${id})">&times;</button>
+                        <h3>${name}</h3>
+                        <p>Role: <span class="badge ${role === 'ML Engineer' ? 'critical' : 'stable'}">${role}</span></p>
+                    </div>
+                `;
+                
+                // DOM Mutation: Append the template chunk to the rendering layout
+                grid.innerHTML += cardHTML;
+            });
+        };
+
+        // ============================================================================
+        // Interaction Logic & Mutations
+        // ============================================================================
+        addBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const role = roleSelect.value;
+
+            // Simple conditional protection routine
+            if (name === '') {
+                alert('Raw validation alert: Name string cannot be left empty.');
+                return;
+            }
+
+            // Construct new data object using shorthand definitions
+            const newResource = {
+                id: Date.now(), // Unique structural identifier token
+                name,
+                role
+            };
+
+            // Array Manipulation
+            internData.push(newResource);
+
+            // Reset UI View tracking state
+            nameInput.value = '';
+            
+            // Re-render display layout
+            renderDashboard();
+        });
+
+        // Exposing global removal execution target mapping directly to array deletions
+        window.removeResource = (resourceId) => {
+            // ES6 Array Filtering: Immutably isolate targets
+            const index = internData.findIndex(item => item.id === resourceId);
+            if (index !== -1) {
+                internData.splice(index, 1);
+            }
+            renderDashboard();
+        };
+
+        // Initial Layout Mount Execution
+        renderDashboard();
+    </script>
+</body>
+</html>

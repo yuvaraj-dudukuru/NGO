@@ -1,0 +1,9 @@
+node_modules/
+.claude/
+.claude-flow/
+.mcp.json
+*.env
+.env*
+__pycache__/
+*.pyc
+.DS_Store
