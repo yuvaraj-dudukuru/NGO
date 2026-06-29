@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Practical Lab</title>
+</head>
+<body id="top">
+
+  <!-- Step 2: Headings -->
+  <h1>My HTML5 Practice Page</h1>
+  <h2>Section One: Headings</h2>
+  <h3>A smaller subheading</h3>
+
+  <!-- Step 3: Paragraphs and text formatting -->
+  <p>This is a normal paragraph of text.</p>
+  <p>This paragraph has <strong>important</strong> and
+    <em>emphasized</em> words.</p>
+  <hr>
+  <p>Water is H<sub>2</sub>O and five squared is 5<sup>2</sup>.</p>
+
+  <!-- Step 4: Image -->
+  <h2>Section Two: Image</h2>
+  <img src="https://via.placeholder.com/250"
+       alt="A placeholder image 250 by 250 pixels"
+       width="250" height="250">
+
+  <!-- Step 5: Links -->
+  <h2>Section Three: Links</h2>
+  <p><a href="https://www.wikipedia.org" target="_blank"
+        rel="noopener noreferrer">Visit Wikipedia (new tab)</a></p>
+  <p><a href="mailto:test@example.com">Email me</a></p>
+  <p><a href="#top">Back to top</a></p>
+
+  <!-- Step 6: Table -->
+  <h2>Section Four: Table</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HTML</td>
+        <td>95</td>
+      </tr>
+      <tr>
+        <td>CSS</td>
+        <td>88</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Step 7: Form -->
+  <h2>Section Five: Form</h2>
+  <form action="/submit" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"
+           placeholder="Your name" required><br><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"
+           placeholder="you@example.com" required><br><br>
+    <label for="msg">Message:</label><br>
+    <textarea id="msg" name="msg" rows="3" cols="30"></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio page for alex — about, education, skills and contact.">
+  <title>alex — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation: links scroll to each section via id anchors -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <span class="brand">alex</span>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#media">Media</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HOME / HERO -->
+    <section id="home" class="hero">
+      <img
+        src="https://placehold.co/180x180/2563eb/ffffff?text=AC"
+        alt="Portrait photo of Alex"
+        width="180"
+        height="180"
+        class="avatar">
+      <h1>alex</h1>
+      <p class="tagline">Web &amp; App Developer · Student</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        Hello! I am alex, a developer passionate about building clean,
+        accessible web and mobile experiences. I enjoy turning ideas into
+        working products and I am always learning something new. This page is a
+        short introduction to my background, skills and the best ways to reach me.
+      </p>
+      <p>
+        You can read more of my work and writing on my
+        <a href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">
+          favourite learning resource (opens in a new tab)</a>.
+      </p>
+    </section>
+
+    <!-- EDUCATION (table) -->
+    <section id="education">
+      <h2>Education</h2>
+      <table>
+        <caption>My educational background</caption>
+        <thead>
+          <tr>
+            <th scope="col">Years</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Institution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2023 &ndash; Present</td>
+            <td>B.Tech, Computer Science</td>
+            <td>Placeholder University</td>
+          </tr>
+          <tr>
+            <td>2021 &ndash; 2023</td>
+            <td>Higher Secondary (Science)</td>
+            <td>Placeholder Junior College</td>
+          </tr>
+          <tr>
+            <td>2020 &ndash; 2021</td>
+            <td>Secondary School (SSC)</td>
+            <td>Placeholder High School</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SKILLS (list) -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>HTML5 &amp; semantic markup</li>
+        <li>CSS3 &amp; responsive layouts</li>
+        <li>JavaScript (ES6+)</li>
+        <li>Git &amp; version control</li>
+        <li>Python</li>
+        <li>Problem solving &amp; teamwork</li>
+      </ul>
+    </section>
+
+    <!-- MEDIA (embedded audio/video with controls) -->
+    <section id="media">
+      <h2>Media</h2>
+      <p>A short sample clip embedded with native controls:</p>
+      <video controls width="480" poster="https://placehold.co/480x270/1e293b/ffffff?text=Sample+Video">
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+          type="video/mp4">
+        Your browser does not support the video element.
+      </video>
+
+      <p>Or listen to a short audio sample:</p>
+      <button type="button" onclick="(function(){ var u = new SpeechSynthesisUtterance('Hello everyone'); window.speechSynthesis.speak(u); })()">
+        ▶ Play "Hello everyone"
+      </button>
+    </section>
+
+    <!-- CONTACT (form + email link + telephone link) -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        Prefer a quick message? Email me at
+        <a href="mailto:alex.carter@example.com">alex.carter@example.com</a>
+        or call
+        <a href="tel:+910000000000">+91 00000 00000</a>.
+      </p>
+
+      <form action="#" method="post" class="contact-form">
+        <p>
+          <label for="name">Name</label><br>
+          <input type="text" id="name" name="name" required>
+        </p>
+        <p>
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" required>
+        </p>
+        <p>
+          <label for="message">Message</label><br>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </p>
+        <p>
+          <button type="submit">Send Message</button>
+        </p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ale. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

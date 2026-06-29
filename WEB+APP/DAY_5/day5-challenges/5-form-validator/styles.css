@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    color: #333;
+}
+
+form { display: flex; flex-direction: column; gap: 0.6rem; }
+
+input {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    color: white;
+    background: #2563eb;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+button:hover { background: #1d4ed8; }
+
+.message {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.message.error   { color: #dc2626; }
+.message.success { color: #16a34a; }
+
+a { color: #2563eb; }

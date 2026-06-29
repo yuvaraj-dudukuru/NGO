@@ -1,0 +1,84 @@
+/* Step 2: Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Step 3: Typography */
+h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+/* Step 4: Header and Footer */
+.header {
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Step 5: Container */
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+/* Step 6: Cards */
+.card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* Step 7: Skills list */
+.skills {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.skills li {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+}
+
+/* Step 8: Responsive layout */
+@media (max-width: 500px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,61 @@
+/* styles.css - Day 4 Challenges */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.header {
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+.card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0.3rem;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+#result {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.footer {
+    background-color: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 1rem;
+}

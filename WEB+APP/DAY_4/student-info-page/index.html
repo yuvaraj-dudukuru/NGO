@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1 id="pageTitle">Student Information</h1>
+    </header>
+
+    <main class="container">
+        <!-- Student info card -->
+        <section class="card">
+            <h2>Profile</h2>
+            <p><strong>Name:</strong> <span id="studentName">Not set</span></p>
+            <p><strong>Course:</strong> Web Development Internship</p>
+            <p><strong>Day:</strong> 4 - JavaScript Basics</p>
+        </section>
+
+        <!-- Interactive buttons -->
+        <section class="card">
+            <h2>Actions</h2>
+            <button onclick="enterName()">Enter Your Name</button>
+            <button onclick="calculateAverage()">Calculate Average Marks</button>
+            <button onclick="changeTitle()">Change Page Title</button>
+        </section>
+
+        <!-- Result area -->
+        <section class="card">
+            <h2>Result</h2>
+            <p id="result">Results will appear here.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 My Course. Day 4 Project.</p>
+    </footer>
+
+    <!-- Link JavaScript at the end of the body -->
+    <script src="script.js"></script>
+</body>
+</html>

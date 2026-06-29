@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of a web development student.">
+    <title>Priya Sharma - Portfolio</title>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <h1>Priya Sharma</h1>
+        <p>Aspiring Web Developer</p>
+    </header>
+    <!-- ===== NAVIGATION ===== -->
+    <nav>
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        <!-- Profile -->
+        <section id="profile">
+            <h2>Profile</h2>
+            <img src="images/profile.jpg" alt="Photo of Priya Sharma" width="200" height="200">
+            <p>Hello! I am a first-year student passionate about
+               building websites and learning new technologies.</p>
+        </section>
+        <!-- About -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am currently learning <strong>web development</strong>
+               through an intensive internship program. I enjoy solving
+               problems and turning ideas into working websites.</p>
+            <p>My goal is to become a skilled <em>full stack developer</em>
+               and build applications that help people.</p>
+        </section>
+        <!-- Education -->
+        <section id="education">
+            <h2>Education</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Qualification</th>
+                        <th>Institution</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>B.Tech (Computer Science)</td>
+                        <td>ABC University</td>
+                        <td>2024 - 2028</td>
+                    </tr>
+                    <tr>
+                        <td>Higher Secondary</td>
+                        <td>XYZ Junior College</td>
+                        <td>2022 - 2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <!-- Skills -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3 (learning)</li>
+                <li>JavaScript (learning)</li>
+                <li>Git and GitHub</li>
+                <li>Problem solving</li>
+            </ul>
+        </section>
+        <!-- Contact -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Email:
+               <a href="mailto:priya@example.com">priya@example.com</a></p>
+            <p>Phone:
+               <a href="tel:+919876543210">+91 98765 43210</a></p>
+            <form action="/submit" method="post">
+                <label for="visitor-name">Your Name:</label><br>
+                <input type="text" id="visitor-name" name="visitor-name"
+                       placeholder="Enter your name" required><br><br>
+                <label for="visitor-email">Your Email:</label><br>
+                <input type="email" id="visitor-email" name="visitor-email"
+                       placeholder="you@example.com" required><br><br>
+                <label for="visitor-message">Message:</label><br>
+                <textarea id="visitor-message" name="visitor-message"
+                          rows="4" cols="40"
+                          placeholder="Your message"></textarea><br><br>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; 2026 Priya Sharma. All rights reserved.</p>
+    </footer>
+</body>
+</html>

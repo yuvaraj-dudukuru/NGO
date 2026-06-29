@@ -1,0 +1,47 @@
+/* Shared landing-page styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.header {
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 2rem auto;
+}
+
+.challenge-list { list-style: none; }
+
+.challenge-list li {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+}
+
+.challenge-list a {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.challenge-list a:hover { text-decoration: underline; }
+
+.challenge-list span {
+    display: block;
+    color: #555;
+    font-size: 0.9rem;
+}

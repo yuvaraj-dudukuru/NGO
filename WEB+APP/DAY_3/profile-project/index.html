@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile — Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Requirement 3: sticky navigation bar -->
+    <nav class="navbar">
+        <div class="nav-brand">Alex C.</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero / profile header -->
+    <header class="hero">
+        <!-- Requirement 2: circular profile photo via border-radius: 50% -->
+        <img class="avatar"
+             src="https://placehold.co/160x160/2563eb/ffffff?text=AC"
+             alt="Profile photo">
+        <h1>Alex Carter</h1>
+        <p class="tagline">Web Developer &middot; HTML / CSS / JavaScript</p>
+    </header>
+
+    <main class="container">
+        <!-- About card -->
+        <section id="about" class="card">
+            <h2>About Me</h2>
+            <p>
+                I'm a beginner web developer learning to build clean, responsive
+                interfaces. This page is styled entirely with external CSS using a
+                reset, base typography, a responsive container, cards, and a styled
+                navigation bar.
+            </p>
+        </section>
+
+        <!-- Skills card -->
+        <section id="skills" class="card">
+            <h2>Skills</h2>
+            <ul class="skills">
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>Responsive Design</li>
+                <li>Git</li>
+            </ul>
+        </section>
+
+        <!-- Projects card -->
+        <section id="projects" class="card">
+            <h2>Projects</h2>
+            <div class="project">
+                <h3>CSS3 Practical Lab</h3>
+                <p>A card-based responsive page built from a reusable CSS pattern.</p>
+            </div>
+            <div class="project">
+                <h3>Personal Portfolio</h3>
+                <p>This very page — a styled, responsive personal profile.</p>
+            </div>
+        </section>
+
+        <!-- Contact card -->
+        <section id="contact" class="card">
+            <h2>Contact</h2>
+            <p>Reach out or check my work:</p>
+            <!-- Requirement 4: hover effects on buttons/links -->
+            <div class="button-row">
+                <a class="btn" href="mailto:alex.carter@example.com">Email Me</a>
+                <a class="btn btn-outline" href="#">View GitHub</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Alex Carter &middot; Built with HTML &amp; CSS</p>
+    </footer>
+</body>
+</html>

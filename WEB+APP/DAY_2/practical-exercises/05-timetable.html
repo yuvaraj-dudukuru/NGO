@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Class Timetable</title>
+  <style>
+    table { border-collapse: collapse; }
+    caption { font-weight: bold; margin-bottom: 0.5rem; }
+    th, td { border: 1px solid #333; padding: 0.4rem 0.7rem; text-align: center; }
+    thead th { background: #eef; }
+  </style>
+</head>
+<body>
+  <h1>Weekly Class Timetable</h1>
+
+  <table>
+    <caption>My weekly timetable</caption>
+    <thead>
+      <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">09:00 – 10:00</th>
+        <td>Maths</td>
+        <td>Physics</td>
+        <td>Maths</td>
+        <td>Chemistry</td>
+        <td>English</td>
+      </tr>
+      <tr>
+        <th scope="row">10:00 – 11:00</th>
+        <td>Physics</td>
+        <td>Maths</td>
+        <td>English</td>
+        <td>Physics</td>
+        <td>Maths</td>
+      </tr>
+      <tr>
+        <th scope="row">11:00 – 12:00</th>
+        <!-- colspan: one break runs across all five days -->
+        <td colspan="5">Break</td>
+      </tr>
+      <tr>
+        <th scope="row">12:00 – 13:00</th>
+        <td>Computer Science</td>
+        <!-- rowspan: a two-hour lab spans two time slots -->
+        <td rowspan="2">Science Lab</td>
+        <td>Computer Science</td>
+        <td>English</td>
+        <td>Chemistry</td>
+      </tr>
+      <tr>
+        <th scope="row">13:00 – 14:00</th>
+        <td>Chemistry</td>
+        <td>Maths</td>
+        <td>Physics</td>
+        <td>Computer Science</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
