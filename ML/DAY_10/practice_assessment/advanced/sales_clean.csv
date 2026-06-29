@@ -1,0 +1,12 @@
+OrderID,Customer,City,Category,Amount,Quantity,OrderDate
+401,Neha,Pune,Electronics,60000.0,1.0,2026-05-01
+402,Rohit,Mumbai,Grocery,1500.0,7.0,2026-05-01
+403,Sara,Delhi,Clothing,2800.0,2.0,2026-05-02
+404,Amit,Pune,Electronics,47000.0,1.0,2026-05-03
+406,Priya,Mumbai,Grocery,1900.0,5.0,2026-05-04
+407,Vikas,Delhi,Clothing,3500.0,2.0,2026-05-05
+408,Tina,Pune,Electronics,55000.0,1.0,2026-05-06
+409,Mohit,Mumbai,Grocery,3500.0,6.0,2026-05-07
+410,Zoya,Delhi,Clothing,4100.0,3.0,2026-05-08
+411,Arjun,Mumbai,Electronics,3500.0,2.5,2026-05-09
+412,Kavya,Pune,Grocery,1700.0,8.0,2026-05-10

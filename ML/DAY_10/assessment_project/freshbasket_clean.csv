@@ -1,0 +1,10 @@
+OrderID,Customer,City,Category,Amount,Quantity,OrderDate
+201,Ravi,Pune,Electronics,45000.0,1.0,2026-05-01
+202,Asha,Mumbai,Grocery,1200.0,8.0,2026-05-01
+203,Imran,Pune,Electronics,38000.0,1.0,2026-05-02
+205,Divya,Delhi,Grocery,3200.0,6.0,2026-05-03
+206,Karan,Mumbai,Clothing,2500.0,2.0,2026-05-04
+207,Meena,Delhi,Grocery,3200.0,2.0,2026-05-05
+208,Sahil,Pune,Electronics,52000.0,1.0,2026-05-06
+209,Tara,Mumbai,Clothing,3200.0,2.0,2026-05-07
+210,Asha,Mumbai,Grocery,1500.0,5.0,2026-05-08

@@ -1,0 +1,10 @@
+RideID,Driver,City,Distance,Fare,RideDate
+1,Ravi,Pune,5.2,120.0,2026-05-01
+2,Asha,Mumbai,12.0,300.0,2026-05-01
+3,Imran,Pune,3.5,160.0,2026-05-02
+5,Divya,Delhi,8.0,200.0,2026-05-03
+6,Karan,Mumbai,2.1,60.0,2026-05-04
+7,Meena,Delhi,7.25,110.0,2026-05-05
+8,Sahil,Pune,15.0,380.0,2026-05-06
+9,Tara,Mumbai,6.5,160.0,2026-05-07
+10,Asha,Mumbai,6.875,160.0,2026-05-08
