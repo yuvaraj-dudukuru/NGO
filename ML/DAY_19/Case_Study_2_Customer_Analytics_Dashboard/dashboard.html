@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Analytics Dashboard</title>
+<style>
+  :root {
+    --panel: #ffffff; --muted: #64748b; --ink: #0f172a; --line: #e2e8f0;
+    --accent: #0d9488; --accent-2: #14b8a6;
+    --shadow: 0 1px 3px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; color: var(--ink); background: #f1f5f9; }
+  header.app { background: linear-gradient(120deg, #042f2e 0%, #0f766e 55%, #0d9488 100%); color: #fff; padding: 22px 28px; }
+  header.app h1 { margin: 0; font-size: 22px; }
+  header.app p { margin: 6px 0 0; color: #99f6e4; font-size: 13px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 20px 28px 48px; }
+
+  .slicers { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); margin-top: -28px; position: relative; }
+  .slicer { display: flex; flex-direction: column; gap: 8px; }
+  .slicer .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: #f8fafc; color: var(--ink); padding: 6px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .15s ease; }
+  .chip:hover { border-color: var(--accent-2); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(13,148,136,.35); }
+  .reset { margin-left: auto; align-self: center; border: none; background: #ccfbf1; color: var(--accent); font-weight: 600; padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; }
+  .reset:hover { background: #99f6e4; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 18px 0; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .kpi::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--accent); }
+  .kpi .k-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .k-value { font-size: 30px; font-weight: 800; margin-top: 8px; letter-spacing: -.5px; }
+  .kpi .k-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi:nth-child(2)::before { background: #0ea5e9; }
+  .kpi:nth-child(3)::before { background: #f59e0b; }
+  .kpi:nth-child(4)::before { background: #8b5cf6; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 8px; box-shadow: var(--shadow); }
+  .card.full { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 2px; font-size: 15px; }
+  .card .hint { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+  .chart-box { position: relative; height: 300px; }
+  .chart-box.tall { height: 320px; }
+  footer.note { color: var(--muted); font-size: 12px; margin-top: 22px; text-align: center; }
+  @media (max-width: 880px) { .kpis { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="app">
+  <h1>Customer Analytics Dashboard</h1>
+  <p>Customer base value, composition &amp; growth &middot; Day 19 BI Case Study 2</p>
+</header>
+
+<div class="wrap">
+  <div class="slicers">
+    <div class="slicer"><span class="lbl">Segment</span><div class="chips" id="slc-segment"></div></div>
+    <div class="slicer"><span class="lbl">Region</span><div class="chips" id="slc-region"></div></div>
+    <div class="slicer"><span class="lbl">Signup Year</span><div class="chips" id="slc-period"></div></div>
+    <button class="reset" id="reset">Reset filters</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k-label">Total Customers</div><div class="k-value" id="kpi-cust">—</div><div class="k-sub" id="kpi-cust-sub"></div></div>
+    <div class="kpi"><div class="k-label">Avg Customer Value</div><div class="k-value" id="kpi-acv">—</div><div class="k-sub">revenue per customer</div></div>
+    <div class="kpi"><div class="k-label">Retention Rate</div><div class="k-value" id="kpi-ret">—</div><div class="k-sub" id="kpi-ret-sub"></div></div>
+    <div class="kpi"><div class="k-label">Total Revenue</div><div class="k-value" id="kpi-rev">—</div><div class="k-sub">across customer base</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card full">
+      <h3>Customer Growth Over Time</h3>
+      <p class="hint">Cumulative customers by signup month — reveals the acquisition trend.</p>
+      <div class="chart-box tall"><canvas id="chartGrowth"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Segment</h3>
+      <p class="hint">Which segments are most valuable.</p>
+      <div class="chart-box"><canvas id="chartSegRev"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Customer Distribution by Segment</h3>
+      <p class="hint">Composition of the customer base.</p>
+      <div class="chart-box"><canvas id="chartSegDist"></canvas></div>
+    </div>
+  </div>
+
+  <footer class="note">
+    Data is 100% synthetic and generated for training purposes — no personal data. Built with Chart.js (vendored locally).
+  </footer>
+</div>
+
+<script src="lib/chart.umd.min.js"></script>
+<script src="data/customer_data.js"></script>
+<script>
+(function () {
+  const DATA = window.CUSTOMER_DATA || [];
+  const fmtMoney = n => "$" + Math.round(n).toLocaleString();
+  const fmtMoneyK = n => n >= 1e6 ? "$" + (n/1e6).toFixed(2) + "M" : (n >= 1e3 ? "$" + Math.round(n/1e3) + "K" : "$" + Math.round(n));
+  const uniq = (arr, key) => [...new Set(arr.map(r => r[key]))];
+
+  const SEG_ORDER = ["Premium", "Standard", "Basic"];
+  const SEG_COLORS = { Premium: "#0d9488", Standard: "#38bdf8", Basic: "#fbbf24" };
+
+  const state = { segment: "All", region: "All", period: "All" };
+  const segments = ["All", ...SEG_ORDER.filter(s => uniq(DATA, "Segment").includes(s))];
+  const regions = ["All", ...uniq(DATA, "Region").sort()];
+  const years = [...new Set(DATA.map(r => r.SignupDate.slice(0, 4)))].sort();
+  const periods = ["All", ...years];
+
+  function buildChips(containerId, values, stateKey) {
+    const box = document.getElementById(containerId);
+    box.innerHTML = "";
+    values.forEach(v => {
+      const c = document.createElement("button");
+      c.className = "chip" + (state[stateKey] === v ? " active" : "");
+      c.textContent = v;
+      c.onclick = () => { state[stateKey] = v; [...box.children].forEach(ch => ch.classList.toggle("active", ch.textContent === v)); refresh(); };
+      box.appendChild(c);
+    });
+  }
+
+  function applyFilters() {
+    return DATA.filter(r =>
+      (state.segment === "All" || r.Segment === state.segment) &&
+      (state.region === "All" || r.Region === state.region) &&
+      (state.period === "All" || r.SignupDate.slice(0, 4) === state.period)
+    );
+  }
+
+  Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif';
+  Chart.defaults.color = "#64748b";
+
+  const growth = new Chart(document.getElementById("chartGrowth"), {
+    type: "line",
+    data: { labels: [], datasets: [{ label: "Cumulative customers", data: [], borderColor: "#0d9488", backgroundColor: "rgba(13,148,136,.12)", fill: true, tension: .3, borderWidth: 2.5, pointRadius: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: "#eef2f7" }, beginAtZero: true }, x: { grid: { display: false } } } }
+  });
+
+  const segRev = new Chart(document.getElementById("chartSegRev"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Revenue", data: [], backgroundColor: [], borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } }, scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } } }
+  });
+
+  const segDist = new Chart(document.getElementById("chartSegDist"), {
+    type: "doughnut",
+    data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 2, borderColor: "#fff" }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: "55%", plugins: { legend: { position: "right" }, tooltip: { callbacks: { label: c => c.label + ": " + c.parsed + " (" + (c.parsed / c.dataset.data.reduce((a,b)=>a+b,0) * 100).toFixed(1) + "%)" } } } }
+  });
+
+  function refresh() {
+    const rows = applyFilters();
+    const totRev = rows.reduce((s, r) => s + r.TotalRevenue, 0);
+    const retained = rows.reduce((s, r) => s + r.Retained, 0);
+    const n = rows.length;
+
+    document.getElementById("kpi-cust").textContent = n.toLocaleString();
+    document.getElementById("kpi-acv").textContent = n ? fmtMoney(totRev / n) : "$0";
+    document.getElementById("kpi-ret").textContent = n ? (retained / n * 100).toFixed(1) + "%" : "0%";
+    document.getElementById("kpi-rev").textContent = fmtMoney(totRev);
+    document.getElementById("kpi-cust-sub").textContent = state.segment === "All" ? "all segments" : state.segment + " segment";
+    document.getElementById("kpi-ret-sub").textContent = retained.toLocaleString() + " retained";
+
+    // growth: cumulative by signup month
+    const monthly = {};
+    rows.forEach(r => { const k = r.SignupDate.slice(0, 7); monthly[k] = (monthly[k] || 0) + 1; });
+    const months = Object.keys(monthly).sort();
+    let cum = 0; const cumData = months.map(m => (cum += monthly[m]));
+    growth.data.labels = months; growth.data.datasets[0].data = cumData; growth.update();
+
+    // segment aggregates
+    const present = SEG_ORDER.filter(s => rows.some(r => r.Segment === s));
+    const revBySeg = present.map(s => rows.filter(r => r.Segment === s).reduce((a, r) => a + r.TotalRevenue, 0));
+    const cntBySeg = present.map(s => rows.filter(r => r.Segment === s).length);
+
+    segRev.data.labels = present;
+    segRev.data.datasets[0].data = revBySeg;
+    segRev.data.datasets[0].backgroundColor = present.map(s => SEG_COLORS[s]);
+    segRev.update();
+
+    segDist.data.labels = present;
+    segDist.data.datasets[0].data = cntBySeg;
+    segDist.data.datasets[0].backgroundColor = present.map(s => SEG_COLORS[s]);
+    segDist.update();
+  }
+
+  buildChips("slc-segment", segments, "segment");
+  buildChips("slc-region", regions, "region");
+  buildChips("slc-period", periods, "period");
+  document.getElementById("reset").onclick = () => {
+    state.segment = "All"; state.region = "All"; state.period = "All";
+    buildChips("slc-segment", segments, "segment");
+    buildChips("slc-region", regions, "region");
+    buildChips("slc-period", periods, "period");
+    refresh();
+  };
+  refresh();
+})();
+</script>
+</body>
+</html>

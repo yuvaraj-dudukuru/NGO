@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Business Performance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0b1120; --panel:#141d33; --panel-2:#1a2440; --line:#27365a;
+    --ink:#eaf0fc; --muted:#9fb0d0; --rev:#3b82f6; --profit:#22c55e;
+    --good:#22c55e; --bad:#ef4444; --warn:#f59e0b; --cust:#14b8a6; --exp:#ef4444;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1240px;margin:0 auto;padding:22px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  header.top h1{margin:0;font-size:24px}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .period{text-align:right}
+  .period .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+  .period .val{font-size:18px;font-weight:600}
+  .slicers{display:flex;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:12px 16px;margin-bottom:18px}
+  .slicer{display:flex;flex-direction:column;gap:5px}
+  .slicer label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .slicer select{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;font-size:14px;min-width:150px}
+  button.reset{background:#22304f;color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:9px 14px;font-size:13px;cursor:pointer;height:38px}
+  button.reset:hover{border-color:var(--rev)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+  .kpi{background:linear-gradient(160deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:14px;padding:18px 20px;position:relative;overflow:hidden}
+  .kpi .name{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .kpi .num{font-size:30px;font-weight:700;margin-top:8px;line-height:1}
+  .kpi .delta{font-size:13px;margin-top:10px;font-weight:600}
+  .kpi .target{font-size:11px;color:var(--muted);margin-top:6px}
+  .kpi .bar{position:absolute;left:0;top:0;height:100%;width:5px}
+  .up{color:var(--good)} .down{color:var(--bad)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card.full{grid-column:1 / -1}
+  .card h3{margin:0 0 4px;font-size:15px}
+  .card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .canvas-box{position:relative;height:260px}
+  .canvas-box.tall{height:300px}
+  footer{color:var(--muted);font-size:12px;margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Business Performance Dashboard</h1>
+      <div class="sub">Integrated view of sales, customer, and financial health of the organisation</div>
+    </div>
+    <div class="period">
+      <div class="label">Reporting Period</div>
+      <div class="val" id="periodLabel">FY 2025 · Jan–Dec</div>
+    </div>
+  </header>
+
+  <div class="slicers">
+    <div class="slicer">
+      <label for="fRegion">Region</label>
+      <select id="fRegion"><option value="ALL">All regions</option></select>
+    </div>
+    <div class="slicer">
+      <label for="fPeriod">Period</label>
+      <select id="fPeriod">
+        <option value="ALL">Full year</option>
+        <option value="H1">H1 (Jan–Jun)</option>
+        <option value="H2">H2 (Jul–Dec)</option>
+        <option value="Q4">Q4 (Oct–Dec)</option>
+      </select>
+    </div>
+    <div class="slicer">
+      <label>&nbsp;</label>
+      <button class="reset" id="resetBtn">Reset filters</button>
+    </div>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><div class="bar" style="background:var(--rev)"></div>
+      <div class="name">Revenue</div><div class="num" id="kRev">—</div>
+      <div class="delta" id="kRevDelta">—</div><div class="target" id="kRevTgt">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--profit)"></div>
+      <div class="name">Profit</div><div class="num" id="kProfit">—</div>
+      <div class="delta" id="kProfitDelta">—</div><div class="target" id="kProfitTgt">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--cust)"></div>
+      <div class="name">Customer Count</div><div class="num" id="kCust">—</div>
+      <div class="delta" id="kCustDelta">—</div><div class="target" id="kCustTgt">—</div></div>
+    <div class="kpi"><div class="bar" id="kGrowthBar"></div>
+      <div class="name">Growth vs Target</div><div class="num" id="kGrowth">—</div>
+      <div class="delta" id="kGrowthDelta">—</div><div class="target" id="kGrowthTgt">—</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card full">
+      <h3>Revenue &amp; Profit Trend</h3>
+      <p class="hint">The trajectory of the top and bottom line over the period.</p>
+      <div class="canvas-box tall"><canvas id="rpChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Region</h3>
+      <p class="hint">Breakdown across markets — any localized problem surfaces here.</p>
+      <div class="canvas-box"><canvas id="regionChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Customer Growth</h3>
+      <p class="hint">Cumulative customer base — expansion at a glance.</p>
+      <div class="canvas-box"><canvas id="custChart"></canvas></div>
+    </div>
+    <div class="card full">
+      <h3>Financial Summary — Revenue vs Expenses</h3>
+      <p class="hint">Are finances within plan? The gap is profit.</p>
+      <div class="canvas-box"><canvas id="finChart"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    Synthetic sample data for demonstration of dashboard design principles (Day 20). No real or personal data is used.
+  </footer>
+</div>
+
+<script>
+/* ----------------------------------------------------------------------
+   Synthetic integrated business model (no real/personal data).
+   Per region x month: revenue, expenses, profit, customers.
+   Targets are defined so KPIs can show conditional (green/red) colour.
+---------------------------------------------------------------------- */
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const REGIONS=['North','South','East','West'];
+
+const baseRev={North:360,South:330,East:300,West:350};       // $K / month
+const revSlope={North:6,South:1.5,East:5,West:6};            // South lagging
+const expRate={North:0.74,South:0.80,East:0.75,West:0.73};   // expenses as % of rev
+const startCust={North:2480,South:2240,East:2060,West:2380};
+const custAdd={North:82,South:70,East:74,West:80};
+
+const DATA=[];
+REGIONS.forEach(r=>{
+  let cust=startCust[r];
+  for(let m=0;m<12;m++){
+    const noise=((m*5+r.length)%5-2)*2;
+    const rev=baseRev[r]+revSlope[r]*m+noise;
+    const exp=rev*expRate[r];
+    const profit=rev-exp;
+    cust+=custAdd[r]+((m+r.length)%3-1);
+    DATA.push({month:m,region:r,rev:rev,exp:exp,profit:profit,cust:cust});
+  }
+});
+
+// Targets (full-year, all regions)
+const REV_TARGET=16800, PROFIT_TARGET=4100, CUST_TARGET=10400;
+
+function periodMonths(p){
+  if(p==='H1')return[0,1,2,3,4,5];
+  if(p==='H2')return[6,7,8,9,10,11];
+  if(p==='Q4')return[9,10,11];
+  return[0,1,2,3,4,5,6,7,8,9,10,11];
+}
+function filtered(){
+  const r=document.getElementById('fRegion').value;
+  const months=periodMonths(document.getElementById('fPeriod').value);
+  return DATA.filter(d=>(r==='ALL'||d.region===r)&&months.includes(d.month));
+}
+const fmt$=v=>'$'+(v>=1000?(v/1000).toFixed(2)+'M':Math.round(v)+'K');
+const fmtNum=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
+
+let rpChart,regionChart,custChart,finChart;
+const GRID='#27365a',TICK='#9fb0d0';
+Chart.defaults.color=TICK;Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+
+function scaleFor(){
+  const regAll=document.getElementById('fRegion').value==='ALL';
+  const months=periodMonths(document.getElementById('fPeriod').value);
+  return (regAll?1:0.25)*(months.length/12);
+}
+
+function render(){
+  const rows=filtered();
+  const months=periodMonths(document.getElementById('fPeriod').value);
+  const lastMonth=Math.max(...months);
+  const sc=scaleFor();
+
+  const totRev=rows.reduce((s,d)=>s+d.rev,0);
+  const totProfit=rows.reduce((s,d)=>s+d.profit,0);
+  const totCust=rows.filter(d=>d.month===lastMonth).reduce((s,d)=>s+d.cust,0);
+
+  const revTgt=REV_TARGET*sc, profitTgt=PROFIT_TARGET*sc;
+  const custTgt=CUST_TARGET*(document.getElementById('fRegion').value==='ALL'?1:0.25);
+  const growth=((totRev-revTgt)/revTgt)*100;
+
+  setKpi('kRev',fmt$(totRev),totRev>=revTgt,'kRevDelta','kRevTgt','Target '+fmt$(revTgt));
+  setKpi('kProfit',fmt$(totProfit),totProfit>=profitTgt,'kProfitDelta','kProfitTgt','Target '+fmt$(profitTgt));
+  setKpi('kCust',fmtNum(totCust),totCust>=custTgt,'kCustDelta','kCustTgt','Target '+fmtNum(custTgt));
+
+  document.getElementById('kGrowth').textContent=(growth>=0?'+':'')+growth.toFixed(1)+'%';
+  document.getElementById('kGrowth').className='num '+(growth>=0?'up':'down');
+  document.getElementById('kGrowthDelta').innerHTML='<span class="'+(growth>=0?'up':'down')+'">'+(growth>=0?'▲ above plan':'▼ below plan')+'</span>';
+  document.getElementById('kGrowthTgt').textContent='Revenue vs target';
+  document.getElementById('kGrowthBar').style.background=growth>=0?'var(--good)':'var(--bad)';
+
+  // Revenue & profit trend
+  const revSeries=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.rev,0));
+  const profitSeries=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.profit,0));
+  drawRP(months.map(m=>MONTHS[m]),revSeries,profitSeries);
+
+  // Region breakdown
+  const regAgg=REGIONS.map(r=>rows.filter(d=>d.region===r).reduce((s,d)=>s+d.rev,0));
+  drawRegion(regAgg);
+
+  // Customer growth
+  const custSeries=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.cust,0));
+  drawCust(months.map(m=>MONTHS[m]),custSeries);
+
+  // Financial summary: revenue vs expenses by month
+  const expSeries=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.exp,0));
+  drawFin(months.map(m=>MONTHS[m]),revSeries,expSeries);
+}
+
+function setKpi(numId,text,good,deltaId,tgtId,tgtText){
+  document.getElementById(numId).textContent=text;
+  document.getElementById(numId).className='num '+(good?'up':'down');
+  document.getElementById(deltaId).innerHTML='<span class="'+(good?'up':'down')+'">'+(good?'▲ on / above target':'▼ below target')+'</span>';
+  document.getElementById(tgtId).textContent=tgtText;
+}
+
+function drawRP(labels,rev,profit){
+  const ctx=document.getElementById('rpChart');if(rpChart)rpChart.destroy();
+  rpChart=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Revenue',data:rev,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.12)',fill:true,tension:.35,borderWidth:3,pointRadius:3},
+    {label:'Profit',data:profit,borderColor:'#22c55e',backgroundColor:'rgba(34,197,94,.10)',fill:true,tension:.35,borderWidth:3,pointRadius:3}
+  ]},options:opts(true,true)});
+}
+function drawRegion(vals){
+  const ctx=document.getElementById('regionChart');if(regionChart)regionChart.destroy();
+  const colors=vals.map((v,i)=>REGIONS[i]==='South'?'#f59e0b':'#3b82f6');
+  regionChart=new Chart(ctx,{type:'bar',data:{labels:REGIONS,datasets:[
+    {label:'Revenue',data:vals,backgroundColor:colors,borderRadius:6}]},options:opts(true,false)});
+}
+function drawCust(labels,vals){
+  const ctx=document.getElementById('custChart');if(custChart)custChart.destroy();
+  custChart=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Customers',data:vals,borderColor:'#14b8a6',backgroundColor:'rgba(20,184,166,.15)',fill:true,tension:.35,borderWidth:3,pointRadius:3}]},
+    options:opts(false,false)});
+}
+function drawFin(labels,rev,exp){
+  const ctx=document.getElementById('finChart');if(finChart)finChart.destroy();
+  finChart=new Chart(ctx,{type:'bar',data:{labels,datasets:[
+    {label:'Revenue',data:rev,backgroundColor:'#3b82f6',borderRadius:5},
+    {label:'Expenses',data:exp,backgroundColor:'#ef4444',borderRadius:5}
+  ]},options:opts(true,true)});
+}
+function opts(money,legend){
+  return{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:legend,labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>{const v=c.parsed.y!=null?c.parsed.y:c.parsed.x;return (c.dataset.label||'')+': '+(money?fmt$(v):fmtNum(v));}}}},
+    scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID}}}};
+}
+
+function fillSelect(id,opts){const s=document.getElementById(id);opts.forEach(o=>{const e=document.createElement('option');e.value=o;e.textContent=o;s.appendChild(e);});}
+fillSelect('fRegion',REGIONS);
+['fRegion','fPeriod'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{updatePeriodLabel();render();}));
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  document.getElementById('fRegion').value='ALL';
+  document.getElementById('fPeriod').value='ALL';
+  updatePeriodLabel();render();
+});
+function updatePeriodLabel(){
+  const p=document.getElementById('fPeriod').value;
+  const map={ALL:'FY 2025 · Jan–Dec',H1:'FY 2025 · Jan–Jun',H2:'FY 2025 · Jul–Dec',Q4:'FY 2025 · Oct–Dec'};
+  document.getElementById('periodLabel').textContent=map[p];
+}
+updatePeriodLabel();render();
+</script>
+</body>
+</html>

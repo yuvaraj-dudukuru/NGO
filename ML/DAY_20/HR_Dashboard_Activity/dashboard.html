@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Northwind — Workforce Analytics Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/data.js"></script>
+<style>
+  :root{
+    --bg:#0c1322; --panel:#16203a; --panel-2:#1c2845; --line:#28365a;
+    --ink:#eaf0fc; --muted:#9fb0d0; --accent:#6366f1; --rev:#3b82f6;
+    --good:#22c55e; --bad:#ef4444; --warn:#f59e0b; --chip:#22304f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1280px;margin:0 auto;padding:22px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  header.top h1{margin:0;font-size:23px}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  header.top a.back{color:var(--muted);text-decoration:none}header.top a.back:hover{color:var(--accent)}
+  .period{text-align:right}
+  .period .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+  .period .val{font-size:18px;font-weight:600}
+  .slicers{display:flex;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:12px 16px;margin-bottom:18px}
+  .slicer{display:flex;flex-direction:column;gap:5px}
+  .slicer label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .slicer select{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;font-size:14px;min-width:150px}
+  button.reset{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:9px 14px;font-size:13px;cursor:pointer;height:38px}
+  button.reset:hover{border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}
+  .kpi{background:linear-gradient(160deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;position:relative;overflow:hidden}
+  .kpi .name{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  .kpi .num{font-size:24px;font-weight:700;margin-top:7px;line-height:1}
+  .kpi .delta{font-size:12px;margin-top:8px;font-weight:600}
+  .kpi .bar{position:absolute;left:0;top:0;height:100%;width:4px;background:var(--accent)}
+  .up{color:var(--good)}.down{color:var(--bad)}.neu{color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card.full{grid-column:1 / -1}
+  .card h3{margin:0 0 4px;font-size:15px}.card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .canvas-box{position:relative;height:255px}.canvas-box.tall{height:300px}
+  footer{color:var(--muted);font-size:12px;margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+  @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Northwind — Workforce Analytics Dashboard</h1>
+      <div class="sub">Monitoring attrition, engagement &amp; headcount health · FY2025 &nbsp;|&nbsp;
+        <a class="back" href="index.html">← back to the activity walkthrough</a></div>
+    </div>
+    <div class="period">
+      <div class="label">Reporting Period</div>
+      <div class="val" id="periodLabel">FY 2025 · Full year</div>
+    </div>
+  </header>
+
+  <div class="slicers">
+    <div class="slicer"><label for="fDept">Department</label>
+      <select id="fDept"><option value="ALL">All departments</option></select></div>
+    <div class="slicer"><label for="fLoc">Location</label>
+      <select id="fLoc"><option value="ALL">All locations</option></select></div>
+    <div class="slicer"><label for="fBand">Tenure band</label>
+      <select id="fBand"><option value="ALL">All tenures</option></select></div>
+    <div class="slicer"><label for="fQ">Quarter</label>
+      <select id="fQ"><option value="ALL">Full year</option>
+        <option value="1">Q1</option><option value="2">Q2</option>
+        <option value="3">Q3</option><option value="4">Q4</option></select></div>
+    <div class="slicer"><label>&nbsp;</label><button class="reset" id="resetBtn">Reset</button></div>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><div class="bar" style="background:#3b82f6"></div>
+      <div class="name">Headcount</div><div class="num" id="kHead">—</div><div class="delta" id="kHeadD">—</div></div>
+    <div class="kpi"><div class="bar" id="kAttrBar" style="background:var(--bad)"></div>
+      <div class="name">Attrition Rate</div><div class="num" id="kAttr">—</div><div class="delta" id="kAttrD">—</div></div>
+    <div class="kpi"><div class="bar" id="kEngBar" style="background:var(--warn)"></div>
+      <div class="name">Avg Engagement</div><div class="num" id="kEng">—</div><div class="delta" id="kEngD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:#14b8a6"></div>
+      <div class="name">Avg Tenure</div><div class="num" id="kTen">—</div><div class="delta" id="kTenD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:#22c55e"></div>
+      <div class="name">New Hires</div><div class="num" id="kHire">—</div><div class="delta" id="kHireD">—</div></div>
+    <div class="kpi"><div class="bar" id="kNetBar" style="background:#8b5cf6"></div>
+      <div class="name">Net Headcount Δ</div><div class="num" id="kNet">—</div><div class="delta" id="kNetD">—</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card full">
+      <h3>Headcount &amp; Attrition Trend</h3>
+      <p class="hint">Monthly active headcount (line) against monthly attrition rate (orange) — attrition climbs into Q4.</p>
+      <div class="canvas-box tall"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Attrition Rate by Department</h3>
+      <p class="hint">Where people are leaving — Engineering is the clear hotspot (red).</p>
+      <div class="canvas-box"><canvas id="deptChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Avg Engagement by Department</h3>
+      <p class="hint">The likely root cause — Engineering scores lowest.</p>
+      <div class="canvas-box"><canvas id="engChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Attrition Rate by Tenure</h3>
+      <p class="hint">Risk is front-loaded — early-tenure employees leave most.</p>
+      <div class="canvas-box"><canvas id="bandChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Top Exit Reasons</h3>
+      <p class="hint">Why leavers say they left — growth &amp; compensation lead.</p>
+      <div class="canvas-box"><canvas id="reasonChart"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    Synthetic HR dataset (661 employee records, FY2025). Generated locally — no real or personal data.
+    Built for Day 20 (Dashboard Design Principles) · Hands-On Activity.
+  </footer>
+</div>
+
+<script>
+const HD=(window.HR_DATA||[]).map(e=>({...e,
+  _hire:Date.parse(e.hire_date),
+  _exit:e.exit_date?Date.parse(e.exit_date):null,
+  _exitM:e.exit_date&&e.exit_date.startsWith('2025')?+e.exit_date.slice(5,7):null,
+  _hireM:e.hire_date.startsWith('2025')?+e.hire_date.slice(5,7):null}));
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DEPTS=[...new Set(HD.map(e=>e.department))];
+const LOCS=[...new Set(HD.map(e=>e.location))];
+const BANDS=['0-18 mo','18-36 mo','3-5 yrs','5+ yrs'];
+const REASONS=[...new Set(HD.filter(e=>e.exit_reason).map(e=>e.exit_reason))];
+const GRID='#28365a',TICK='#9fb0d0';
+Chart.defaults.color=TICK;Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+
+function v(id){return document.getElementById(id).value;}
+function qMonths(q){return q==='ALL'?[1,2,3,4,5,6,7,8,9,10,11,12]:
+  {'1':[1,2,3],'2':[4,5,6],'3':[7,8,9],'4':[10,11,12]}[q];}
+function baseFilter(){
+  const d=v('fDept'),l=v('fLoc'),b=v('fBand');
+  return HD.filter(e=>(d==='ALL'||e.department===d)&&(l==='ALL'||e.location===l)&&(b==='ALL'||e.tenure_band===b));
+}
+function attrRate(emps,months){
+  const active=emps.filter(e=>e.status==='Active').length;
+  const exits=emps.filter(e=>e._exitM!=null&&months.includes(e._exitM)).length;
+  return (active+exits)? exits/(active+exits)*100 : 0;
+}
+const monthEndTs=m=>Date.UTC(2025,m,0);
+
+let trendChart,deptChart,engChart,bandChart,reasonChart;
+
+function render(){
+  const emps=baseFilter();
+  const months=qMonths(v('fQ'));
+  const active=emps.filter(e=>e.status==='Active');
+  const exits=emps.filter(e=>e._exitM!=null&&months.includes(e._exitM));
+  const hires=emps.filter(e=>e._hireM!=null&&months.includes(e._hireM));
+  const head=active.length;
+  const attr=attrRate(emps,months);
+  const eng=active.length?active.reduce((s,e)=>s+e.engagement_score,0)/active.length:0;
+  const ten=active.length?active.reduce((s,e)=>s+e.tenure_months,0)/active.length/12:0;
+  const net=hires.length-exits.length;
+
+  set('kHead',head.toLocaleString());
+  set('kAttr',attr.toFixed(1)+'%');
+  set('kEng',eng.toFixed(2)+' /5');
+  set('kTen',ten.toFixed(1)+' yrs');
+  set('kHire',hires.length);
+  set('kNet',(net>=0?'+':'')+net);
+
+  document.getElementById('kHeadD').innerHTML='<span class="neu">active employees</span>';
+  const attrHigh=attr>=15;
+  document.getElementById('kAttrD').innerHTML='<span class="'+(attrHigh?'down':'up')+'">'+(attrHigh?'▲ above healthy (~12%)':'within range')+'</span>';
+  document.getElementById('kAttrBar').style.background=attrHigh?'var(--bad)':'var(--good)';
+  const engLow=eng<3.4;
+  document.getElementById('kEngD').innerHTML='<span class="'+(engLow?'down':'up')+'">'+(engLow?'▼ below target (3.5)':'healthy')+'</span>';
+  document.getElementById('kEngBar').style.background=engLow?'var(--bad)':'var(--good)';
+  document.getElementById('kTenD').innerHTML='<span class="neu">average</span>';
+  document.getElementById('kHireD').innerHTML='<span class="neu">in period</span>';
+  document.getElementById('kNetD').innerHTML='<span class="'+(net>=0?'up':'down')+'">'+(net>=0?'growing':'shrinking')+'</span>';
+  document.getElementById('kNetBar').style.background=net>=0?'var(--good)':'var(--bad)';
+
+  drawTrend(emps,months);
+  drawDept(emps,months);
+  drawEng(active);
+  drawBand(emps,months);
+  drawReason(exits);
+}
+function set(id,t){document.getElementById(id).textContent=t;}
+
+function drawTrend(emps,months){
+  const labels=months.map(m=>MONTHS[m-1]);
+  const headSeries=months.map(m=>emps.filter(e=>e._hire<=monthEndTs(m)&&(e._exit===null||e._exit>monthEndTs(m))).length);
+  const attrSeries=months.map(m=>{
+    const start=Date.UTC(2025,m-1,1);
+    const hcStart=emps.filter(e=>e._hire<start&&(e._exit===null||e._exit>=start)).length;
+    const ex=emps.filter(e=>e._exitM===m).length;
+    return hcStart? +(ex/hcStart*100).toFixed(1):0;
+  });
+  if(trendChart)trendChart.destroy();
+  trendChart=new Chart(document.getElementById('trendChart'),{data:{labels,datasets:[
+    {type:'bar',label:'Active headcount',data:headSeries,backgroundColor:'rgba(59,130,246,.55)',borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Monthly attrition %',data:attrSeries,borderColor:'#f59e0b',backgroundColor:'#f59e0b',
+      borderWidth:3,tension:.35,pointRadius:3,yAxisID:'y1'}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?c.parsed.y+'%':c.parsed.y)}}},
+    scales:{x:{grid:{color:GRID}},
+      y:{position:'left',grid:{color:GRID},title:{display:true,text:'Headcount'}},
+      y1:{position:'right',grid:{drawOnChartArea:false},min:0,suggestedMax:6,ticks:{callback:v=>v+'%'}}}}});
+}
+function drawDept(emps,months){
+  const rows=DEPTS.map(d=>[d,attrRate(emps.filter(e=>e.department===d),months)])
+    .filter(r=>emps.some(e=>e.department===r[0])).sort((a,b)=>b[1]-a[1]);
+  const max=Math.max(...rows.map(r=>r[1]));
+  if(deptChart)deptChart.destroy();
+  deptChart=new Chart(document.getElementById('deptChart'),{type:'bar',
+    data:{labels:rows.map(r=>r[0]),datasets:[{label:'Attrition %',data:rows.map(r=>+r[1].toFixed(1)),
+      backgroundColor:rows.map(r=>r[1]===max?'#ef4444':'#6366f1'),borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.x+'%'}}},
+      scales:{x:{grid:{color:GRID},ticks:{callback:v=>v+'%'}},y:{grid:{color:GRID}}}}});
+}
+function drawEng(active){
+  const rows=DEPTS.map(d=>{const g=active.filter(e=>e.department===d);
+    return [d,g.length?g.reduce((s,e)=>s+e.engagement_score,0)/g.length:null];})
+    .filter(r=>r[1]!=null).sort((a,b)=>a[1]-b[1]);
+  const min=Math.min(...rows.map(r=>r[1]));
+  if(engChart)engChart.destroy();
+  engChart=new Chart(document.getElementById('engChart'),{type:'bar',
+    data:{labels:rows.map(r=>r[0]),datasets:[{label:'Engagement',data:rows.map(r=>+r[1].toFixed(2)),
+      backgroundColor:rows.map(r=>r[1]===min?'#ef4444':'#22c55e'),borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.x+' / 5'}}},
+      scales:{x:{grid:{color:GRID},min:0,max:5},y:{grid:{color:GRID}}}}});
+}
+function drawBand(emps,months){
+  const rows=BANDS.map(b=>[b,attrRate(emps.filter(e=>e.tenure_band===b),months)]);
+  if(bandChart)bandChart.destroy();
+  bandChart=new Chart(document.getElementById('bandChart'),{type:'bar',
+    data:{labels:BANDS,datasets:[{label:'Attrition %',data:rows.map(r=>+r[1].toFixed(1)),
+      backgroundColor:rows.map((r,i)=>i===0?'#ef4444':'#6366f1'),borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},
+      scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}}});
+}
+function drawReason(exits){
+  const counts={};REASONS.forEach(r=>counts[r]=0);
+  exits.forEach(e=>{if(e.exit_reason)counts[e.exit_reason]=(counts[e.exit_reason]||0)+1;});
+  const rows=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if(reasonChart)reasonChart.destroy();
+  reasonChart=new Chart(document.getElementById('reasonChart'),{type:'bar',
+    data:{labels:rows.map(r=>r[0]),datasets:[{label:'Exits',data:rows.map(r=>r[1]),
+      backgroundColor:'#f59e0b',borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID}}}}});
+}
+
+function fill(id,opts){const s=document.getElementById(id);opts.forEach(o=>{const e=document.createElement('option');e.value=o;e.textContent=o;s.appendChild(e);});}
+fill('fDept',DEPTS);fill('fLoc',LOCS);fill('fBand',BANDS);
+['fDept','fLoc','fBand','fQ'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{pl();render();}));
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  ['fDept','fLoc','fBand'].forEach(id=>document.getElementById(id).value='ALL');
+  document.getElementById('fQ').value='ALL';pl();render();});
+function pl(){const q=v('fQ');document.getElementById('periodLabel').textContent=q==='ALL'?'FY 2025 · Full year':'FY 2025 · Q'+q;}
+
+if(!HD.length){
+  document.querySelector('.wrap').insertAdjacentHTML('beforeend',
+    '<p style="color:#ef4444">Data not loaded. Run <code>node data/generate_data.js</code> first.</p>');
+}else{ pl(); render(); }
+</script>
+</body>
+</html>

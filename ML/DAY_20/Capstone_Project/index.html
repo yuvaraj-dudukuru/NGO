@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Capstone — GreenCart Profitability Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/data.js"></script>
+<style>
+  :root{
+    --bg:#f6f8fc; --card:#fff; --ink:#0f1b34; --muted:#5b6b88; --line:#e3e9f4;
+    --accent:#2563eb; --good:#16a34a; --bad:#dc2626; --warn:#d97706; --chip:#eef2fb;
+    --shadow:0 10px 30px rgba(15,27,52,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  nav{position:sticky;top:0;z-index:20;background:rgba(246,248,252,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:58px}
+  nav .brand{font-weight:700}.nav-links a{margin-left:18px;font-size:13.5px;color:var(--ink);font-weight:500}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  header.hero{padding:54px 0 30px;background:
+    radial-gradient(820px 320px at 90% -10%,rgba(37,99,235,.10),transparent)}
+  .eyebrow{display:inline-block;background:var(--chip);color:var(--accent);font-size:12px;font-weight:600;
+    letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+  h1{font-size:36px;margin:16px 0 6px;line-height:1.15}
+  .lead{font-size:17px;color:#33425f;max-width:720px}
+  .meta{margin-top:18px;display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .meta b{color:var(--ink)}
+  .cta{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--line);
+    background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+
+  section{padding:34px 0;border-bottom:1px solid var(--line)}
+  .stage-no{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--accent);text-transform:uppercase}
+  h2{font-size:24px;margin:6px 0 10px}
+  h3{font-size:16px;margin:18px 0 6px}
+  p{margin:8px 0}
+  ul{margin:8px 0;padding-left:20px}li{margin:4px 0}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+  .kpi .n{font-size:24px;font-weight:700}.kpi .l{font-size:12px;color:var(--muted)}
+  .kpi .d{font-size:12px;font-weight:600;margin-top:6px}
+  .up{color:var(--good)}.down{color:var(--bad)}.warnc{color:var(--warn)}
+
+  .chartcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+    box-shadow:var(--shadow);margin:16px 0}
+  .chartcard h4{margin:0 0 4px;font-size:15px}.chartcard p{color:var(--muted);font-size:13px;margin:0 0 12px}
+  .canvas-box{position:relative;height:280px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#f0f4fb;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  code{background:#eef2fb;padding:2px 6px;border-radius:6px;font-size:13px}
+
+  .insight{background:#f0f6ff;border-left:4px solid var(--accent);padding:12px 16px;border-radius:10px;margin:12px 0}
+  .rec{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:14px 16px;margin:10px 0;box-shadow:var(--shadow)}
+  .rec .num{font-weight:800;color:var(--accent);font-size:18px;min-width:26px}
+  .rec b{display:block}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+  .pill.bad{background:#fde8e8;color:var(--bad)}.pill.good{background:#e7f6ee;color:var(--good)}
+  .pill.warn{background:#fef3e2;color:var(--warn)}
+
+  .deliv{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+  @media(max-width:760px){.deliv{grid-template-columns:1fr}}
+  .deliv a{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    box-shadow:var(--shadow);display:block}
+  .deliv b{display:block;color:var(--ink)}.deliv span{font-size:13px;color:var(--muted)}
+  footer{padding:28px 0;color:var(--muted);font-size:13px;text-align:center}
+  .note{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:12px;padding:12px 16px;font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="brand">Capstone · GreenCart</div>
+  <div class="nav-links">
+    <a href="#problem">Problem</a><a href="#data">Data</a><a href="#analysis">Analysis</a>
+    <a href="#kpis">KPIs</a><a href="#insights">Insights</a><a href="#recs">Recommendations</a>
+    <a href="dashboard.html">Dashboard ↗</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Capstone Project · End-to-End Analysis &amp; Dashboard</span>
+  <h1>Why is GreenCart's profit growth lagging its revenue growth?</h1>
+  <p class="lead">An end-to-end analysis of a fictional online retailer — from raw orders, through cleaning
+    and analysis, to KPIs, a published-style dashboard, and actionable recommendations.</p>
+  <div class="meta">
+    <span><b>Domain:</b> E-commerce / retail</span>
+    <span><b>Period:</b> FY 2025</span>
+    <span><b>Records:</b> <span id="mRows">—</span> orders</span>
+    <span><b>Tools:</b> Data wrangling · KPIs · Dashboard design</span>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="dashboard.html">Open the interactive dashboard →</a>
+    <a class="btn" href="data/sales_clean.csv">Download cleaned dataset (CSV)</a>
+  </div>
+</div></header>
+
+<!-- 1 -->
+<section id="problem"><div class="wrap">
+  <div class="stage-no">Stage 1 · Define the business problem</div>
+  <h2>The business problem</h2>
+  <p>GreenCart, an online retailer, has seen <b>revenue climb steadily through FY2025</b> — but leadership
+    is concerned that <b>profit is not keeping pace</b>. The board needs to know:</p>
+  <ul>
+    <li><b>Is profit margin actually eroding</b>, and if so, by how much and where?</li>
+    <li><b>Which categories, regions, and customer segments</b> drive the gap between revenue and profit?</li>
+    <li><b>Where should the business focus</b> to restore profitability without sacrificing growth?</li>
+  </ul>
+  <p>The decision this supports: <b>where to tighten discounting and where to invest</b> over the next year.</p>
+</div></section>
+
+<!-- 2 -->
+<section id="data"><div class="wrap">
+  <div class="stage-no">Stage 2 · Select the dataset</div>
+  <h2>The dataset</h2>
+  <p>An order-level transactional dataset for FY2025 — one row per order line — covering four regions,
+    five product categories, and three customer segments. It is large and rich enough to support trend,
+    breakdown, and segmentation analysis.</p>
+  <table>
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>Grain</td><td>One row per order</td></tr>
+    <tr><td>Rows</td><td id="tRows">—</td></tr>
+    <tr><td>Customers</td><td id="tCust">—</td></tr>
+    <tr><td>Period</td><td>1 Jan 2025 – 31 Dec 2025</td></tr>
+    <tr><td>Dimensions</td><td>Region, Category, Segment, Customer</td></tr>
+    <tr><td>Measures</td><td>Units, Unit price, Discount %, Revenue, Cost, Profit, Margin %</td></tr>
+  </table>
+  <p>The full field list is documented in <a href="data/data_dictionary.md">data/data_dictionary.md</a>,
+    and the dataset is reproducible via <a href="data/generate_data.js">data/generate_data.js</a>.</p>
+</div></section>
+
+<!-- 3 -->
+<section id="cleaning"><div class="wrap">
+  <div class="stage-no">Stage 3 · Clean the data</div>
+  <h2>Cleaning &amp; validation</h2>
+  <p>The analysis-ready dataset (<code>sales_clean.csv</code>) was produced by applying a standard
+    cleaning and validation discipline:</p>
+  <ul>
+    <li><b>Typing &amp; parsing</b> — dates parsed to ISO, numerics coerced, categories normalised.</li>
+    <li><b>Derived fields</b> — <code>revenue = unit_price × units × (1 − discount)</code>,
+      <code>profit = revenue − cost</code>, <code>margin_pct = profit ÷ revenue</code>.</li>
+    <li><b>Validation rules</b> — discounts constrained to 0–55%; revenue, cost and units non-negative;
+      every order maps to a known customer; no duplicate order IDs.</li>
+    <li><b>New vs returning</b> — each order flagged <code>is_new_customer</code> on first appearance.</li>
+  </ul>
+  <p class="insight">The output is a single, trustworthy, tidy table — the foundation for everything that follows.</p>
+</div></section>
+
+<!-- 4 -->
+<section id="analysis"><div class="wrap">
+  <div class="stage-no">Stage 4 · Analyze the data</div>
+  <h2>Exploratory analysis</h2>
+  <p>Exploring trends, breakdowns, and relationships surfaced a clear and consistent story.</p>
+
+  <div class="chartcard">
+    <h4>Revenue is rising while margin is falling</h4>
+    <p>Monthly revenue (bars) climbs through the year, yet the profit-margin line (orange) slides downward —
+      the visual statement of the business problem.</p>
+    <div class="canvas-box"><canvas id="cTrend"></canvas></div>
+  </div>
+
+  <div class="two">
+    <div class="chartcard">
+      <h4>The driver: discount creep</h4>
+      <p>As the average discount rises month over month, margin falls in lock-step.</p>
+      <div class="canvas-box"><canvas id="cDisc"></canvas></div>
+    </div>
+    <div class="chartcard">
+      <h4>South: most revenue, least margin</h4>
+      <p>The South region sells the most but earns the least per dollar — it leans on discounting.</p>
+      <div class="canvas-box"><canvas id="cRegion"></canvas></div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="chartcard">
+      <h4>Category margins differ sharply</h4>
+      <p>Electronics dominates revenue but at a thin margin; Grocery is structurally low.</p>
+      <div class="canvas-box"><canvas id="cCat"></canvas></div>
+    </div>
+    <div class="chartcard">
+      <h4>Premium punches above its weight</h4>
+      <p>A minority of customers, the largest share of revenue — and the highest margin.</p>
+      <div class="canvas-box"><canvas id="cSeg"></canvas></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 5 -->
+<section id="kpis"><div class="wrap">
+  <div class="stage-no">Stage 5 · Create KPIs</div>
+  <h2>The KPIs that matter</h2>
+  <p>From the business objective — profitable growth — the following KPIs were selected and computed
+    across the full year:</p>
+  <div class="kpis" id="kpiGrid"><!-- filled by JS --></div>
+  <p class="note"><b>The headline tension in one line:</b> revenue grew strongly across the year, but the
+    profit margin fell from roughly 27% in Q1 to 19% in Q4 — profit grew, but far slower than revenue.</p>
+</div></section>
+
+<!-- 6 -->
+<section id="dashboard"><div class="wrap">
+  <div class="stage-no">Stage 6 · Design the dashboard</div>
+  <h2>The dashboard</h2>
+  <p>A professional, interactive dashboard turns this analysis into a monitoring tool. It leads with six
+    prominent KPIs, then a revenue/profit/margin trend, category and regional breakdowns, segment value,
+    and the discount-vs-margin relationship. Slicers for region, category, segment, and quarter let
+    leadership explore the problem themselves.</p>
+  <div class="cta">
+    <a class="btn primary" href="dashboard.html">Open the interactive dashboard →</a>
+  </div>
+  <p style="margin-top:14px;color:var(--muted);font-size:14px">Design principles applied: prominent KPIs,
+    clear hierarchy, fit-for-purpose charts, disciplined layout, conventional colour (green = healthy,
+    red = problem), and interactivity for focus.</p>
+</div></section>
+
+<!-- 7 -->
+<section id="insights"><div class="wrap">
+  <div class="stage-no">Stage 7 · Generate insights</div>
+  <h2>Insights</h2>
+  <div class="insight"><b>1 · Margin erosion is real and steady.</b> Revenue grew ~44% from H1 to H2,
+    yet profit margin fell from ~27% to ~19% across the year. Growth is being bought with discounts.</div>
+  <div class="insight"><b>2 · Discount creep is the driver.</b> The average order discount roughly doubled
+    over the year (~8% → ~18%). Margin tracks it down almost perfectly.</div>
+  <div class="insight"><b>3 · The damage concentrates in thin-margin Electronics.</b> Electronics is the
+    largest category by revenue but the lowest-margin of the majors, so rising discounts hurt it most.</div>
+  <div class="insight"><b>4 · The South region is the worst offender.</b> South leads on revenue but trails
+    badly on margin — its growth is the most discount-dependent.</div>
+  <div class="insight"><b>5 · Premium is the bright spot.</b> Under a fifth of customers generate the
+    largest share of revenue at the highest margin — the most valuable, most defensible part of the base.</div>
+</div></section>
+
+<!-- 8 -->
+<section id="recs"><div class="wrap">
+  <div class="stage-no">Stage 8 · Create recommendations</div>
+  <h2>Recommendations</h2>
+  <div class="rec"><div class="num">1</div><div><b>Introduce discount governance <span class="pill bad">priority</span></b>
+    Set approval thresholds on discounts, focused first on Electronics and the South region. Even halting
+    the discount creep would protect several points of margin.</div></div>
+  <div class="rec"><div class="num">2</div><div><b>Protect and grow Premium <span class="pill good">invest</span></b>
+    Direct retention and acquisition spend toward the high-value, high-margin Premium segment, and design
+    initiatives to migrate Regular customers upward.</div></div>
+  <div class="rec"><div class="num">3</div><div><b>Re-price or rationalise structurally low-margin lines <span class="pill warn">review</span></b>
+    Review Grocery (lowest margin) and thin Electronics SKUs for pricing, bundling, or assortment changes.</div></div>
+  <div class="rec"><div class="num">4</div><div><b>Fix the South region's commercial model <span class="pill bad">priority</span></b>
+    Investigate why South relies on discounting and rebuild its offer around value rather than price.</div></div>
+  <div class="rec"><div class="num">5</div><div><b>Monitor margin as a first-class KPI <span class="pill good">sustain</span></b>
+    Track profit margin and average discount on the dashboard monthly, so erosion is caught early next time.</div></div>
+</div></section>
+
+<!-- 9 -->
+<section id="deliverables"><div class="wrap">
+  <div class="stage-no">Stage 9 · Present the findings</div>
+  <h2>Deliverables</h2>
+  <p>The capstone produces a complete portfolio piece:</p>
+  <div class="deliv">
+    <a href="index.html"><b>📄 Documented analysis</b><span>This report — problem → data → analysis → recommendations</span></a>
+    <a href="data/sales_clean.csv"><b>🧹 Cleaned dataset</b><span>sales_clean.csv — analysis-ready, trustworthy</span></a>
+    <a href="dashboard.html"><b>📊 Professional dashboard</b><span>Interactive KPI dashboard (the centrepiece)</span></a>
+    <a href="INSIGHTS_AND_RECOMMENDATIONS.md"><b>📝 Written summary</b><span>Insights &amp; recommendations, standalone</span></a>
+    <a href="analysis/methodology.md"><b>🔬 Methodology</b><span>Cleaning &amp; analysis approach, reproducible</span></a>
+    <a href="data/data_dictionary.md"><b>📚 Data dictionary</b><span>Every field defined</span></a>
+  </div>
+  <div class="note" style="margin-top:18px"><b>Data &amp; privacy:</b> all figures are synthetic, generated
+    locally for demonstration. No real, proprietary, or personal data is included.</div>
+</div></section>
+
+<footer><div class="wrap">
+  Capstone Project · Day 20 (Dashboard Design Principles) — the final, fullest expression of the analyst workflow.
+</div></footer>
+
+<script>
+const DATA=window.CAPSTONE_DATA||[];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const REGIONS=[...new Set(DATA.map(d=>d.region))];
+const CATS=[...new Set(DATA.map(d=>d.category))];
+const SEGS=['Premium','Regular','Basic'];
+const SEG_COLORS={Premium:'#d97706',Regular:'#2563eb',Basic:'#94a3b8'};
+const GRID='#e3e9f4',TICK='#5b6b88';
+Chart.defaults.color=TICK;Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+const fmt$=v=>'$'+(Math.abs(v)>=1000?(v/1000).toFixed(2)+'M':Math.round(v)+'K');
+const fmtN=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
+const mMargin=m=>{const r=DATA.filter(d=>d.month===m);const rv=r.reduce((s,d)=>s+d.revenue,0);return rv?r.reduce((s,d)=>s+d.profit,0)/rv*100:0;};
+
+function boot(){
+  if(!DATA.length){document.getElementById('mRows').textContent='(run generate_data.js)';return;}
+  const rev=DATA.reduce((s,d)=>s+d.revenue,0);
+  const profit=DATA.reduce((s,d)=>s+d.profit,0);
+  const orders=DATA.length;
+  const custs=new Set(DATA.map(d=>d.customer_id)).size;
+  const aov=rev/orders;
+  const margin=profit/rev*100;
+  const newOrders=DATA.filter(d=>d.is_new_customer===1).length;
+  const repeat=(1-newOrders/orders)*100;
+
+  document.getElementById('mRows').textContent=orders.toLocaleString();
+  document.getElementById('tRows').textContent=orders.toLocaleString();
+  document.getElementById('tCust').textContent=custs.toLocaleString();
+
+  const kpis=[
+    {l:'Total Revenue',n:fmt$(rev),d:'▲ growing across FY2025',c:'up'},
+    {l:'Total Profit',n:fmt$(profit),d:'grew, but slower than revenue',c:'warnc'},
+    {l:'Profit Margin',n:margin.toFixed(1)+'%',d:'▼ eroding (27% → 19%)',c:'down'},
+    {l:'Avg Order Value',n:'$'+Math.round(aov),d:(DATA.reduce((s,d)=>s+d.units,0)/orders).toFixed(1)+' units/order',c:''},
+    {l:'Orders',n:fmtN(orders),d:repeat.toFixed(0)+'% from returning customers',c:''},
+    {l:'Active Customers',n:fmtN(custs),d:'across four regions',c:''},
+    {l:'Premium Revenue Share',n:segShare('Premium')+'%',d:'from '+segCustShare('Premium')+'% of customers',c:'up'},
+    {l:'South Region Margin',n:regionMargin('South').toFixed(1)+'%',d:'▼ lowest of all regions',c:'down'},
+  ];
+  document.getElementById('kpiGrid').innerHTML=kpis.map(k=>
+    '<div class="kpi"><div class="n">'+k.n+'</div><div class="l">'+k.l+'</div>'+
+    '<div class="d '+k.c+'">'+k.d+'</div></div>').join('');
+
+  drawAll();
+}
+function segShare(s){const t=DATA.reduce((a,d)=>a+d.revenue,0);const v=DATA.filter(d=>d.segment===s).reduce((a,d)=>a+d.revenue,0);return Math.round(v/t*100);}
+function segCustShare(s){const cs={};DATA.forEach(d=>cs[d.customer_id]=d.segment);const all=Object.values(cs);return Math.round(all.filter(x=>x===s).length/all.length*100);}
+function regionMargin(r){const rr=DATA.filter(d=>d.region===r);const rv=rr.reduce((s,d)=>s+d.revenue,0);return rv?rr.reduce((s,d)=>s+d.profit,0)/rv*100:0;}
+
+function drawAll(){
+  const months=[1,2,3,4,5,6,7,8,9,10,11,12];
+  const labels=MONTHS;
+  // trend
+  new Chart(document.getElementById('cTrend'),{data:{labels,datasets:[
+    {type:'bar',label:'Revenue',data:months.map(m=>DATA.filter(d=>d.month===m).reduce((s,d)=>s+d.revenue,0)),
+      backgroundColor:'rgba(37,99,235,.55)',borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Margin %',data:months.map(m=>+mMargin(m).toFixed(1)),borderColor:'#d97706',
+      backgroundColor:'#d97706',borderWidth:3,tension:.35,pointRadius:3,yAxisID:'y1'}
+  ]},options:combo(35)});
+  // discount vs margin
+  new Chart(document.getElementById('cDisc'),{data:{labels,datasets:[
+    {type:'line',label:'Avg discount %',data:months.map(m=>{const r=DATA.filter(d=>d.month===m);return +(r.reduce((s,d)=>s+d.discount_pct,0)/r.length).toFixed(1);}),
+      borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,.10)',fill:true,borderWidth:3,tension:.35,pointRadius:3},
+    {type:'line',label:'Margin %',data:months.map(m=>+mMargin(m).toFixed(1)),borderColor:'#16a34a',borderWidth:3,tension:.35,pointRadius:3}
+  ]},options:pct()});
+  // region rev vs margin
+  new Chart(document.getElementById('cRegion'),{data:{labels:REGIONS,datasets:[
+    {type:'bar',label:'Revenue',data:REGIONS.map(r=>DATA.filter(d=>d.region===r).reduce((s,d)=>s+d.revenue,0)),
+      backgroundColor:'rgba(37,99,235,.55)',borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Margin %',data:REGIONS.map(r=>+regionMargin(r).toFixed(1)),borderColor:'#d97706',
+      backgroundColor:'#d97706',borderWidth:3,pointRadius:4,yAxisID:'y1'}
+  ]},options:combo(35)});
+  // category
+  const cat=CATS.map(c=>[c,DATA.filter(d=>d.category===c).reduce((s,d)=>s+d.revenue,0)]).sort((a,b)=>b[1]-a[1]);
+  new Chart(document.getElementById('cCat'),{type:'bar',data:{labels:cat.map(c=>c[0]),
+    datasets:[{label:'Revenue',data:cat.map(c=>c[1]),backgroundColor:'#2563eb',borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>fmt$(c.parsed.x)}}},scales:{x:{grid:{color:GRID},ticks:{callback:v=>fmt$(v)}},y:{grid:{color:GRID}}}}});
+  // segment doughnut
+  new Chart(document.getElementById('cSeg'),{type:'doughnut',data:{labels:SEGS,
+    datasets:[{data:SEGS.map(s=>DATA.filter(d=>d.segment===s).reduce((a,d)=>a+d.revenue,0)),
+      backgroundColor:SEGS.map(s=>SEG_COLORS[s]),borderColor:'#fff',borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:c=>c.label+': '+fmt$(c.parsed)}}}}});
+}
+function combo(max){return{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?c.parsed.y+'%':fmt$(c.parsed.y))}}},
+  scales:{x:{grid:{color:GRID}},y:{position:'left',grid:{color:GRID},ticks:{callback:v=>fmt$(v)}},
+    y1:{position:'right',grid:{drawOnChartArea:false},min:0,max:max,ticks:{callback:v=>v+'%'}}}};}
+function pct(){return{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+  scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}};}
+boot();
+</script>
+</body>
+</html>

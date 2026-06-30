@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Data Analytics Portfolio — Demo</title>
+<style>
+  :root{
+    --bg:#f6f8fc; --card:#ffffff; --ink:#0f1b34; --muted:#5b6b88; --line:#e3e9f4;
+    --accent:#2563eb; --accent-2:#7c3aed; --good:#16a34a; --chip:#eef2fb;
+    --shadow:0 10px 30px rgba(15,27,52,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(246,248,252,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+  nav .brand{font-weight:700;letter-spacing:.3px}
+  nav .brand span{color:var(--accent)}
+  nav .links a{margin-left:22px;color:var(--ink);font-size:14px;font-weight:500}
+  nav .links a:hover{color:var(--accent);text-decoration:none}
+  @media(max-width:680px){nav .links{display:none}}
+
+  /* hero */
+  header.hero{padding:64px 0 40px;background:
+    radial-gradient(900px 360px at 85% -10%,rgba(124,58,237,.10),transparent),
+    radial-gradient(700px 320px at 10% 0%,rgba(37,99,235,.10),transparent)}
+  .hero .eyebrow{display:inline-block;background:var(--chip);color:var(--accent);font-size:12px;
+    font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+  .hero h1{font-size:42px;margin:18px 0 6px;line-height:1.1}
+  .hero h1 .accent{background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.role{font-size:18px;color:var(--muted);margin:0 0 18px}
+  .hero p.bio{max-width:680px;font-size:16px;color:#36476a}
+  .cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--line);
+    background:var(--card);color:var(--ink);cursor:pointer;box-shadow:var(--shadow)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .contacts{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .contacts b{color:var(--ink)}
+
+  /* stats strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:38px 0 8px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .stat .n{font-size:26px;font-weight:700}
+  .stat .l{font-size:13px;color:var(--muted)}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  section{padding:46px 0}
+  .sec-head{margin-bottom:8px}
+  .sec-head h2{font-size:26px;margin:0}
+  .sec-head p{color:var(--muted);margin:6px 0 0;max-width:720px}
+
+  /* skills */
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .skill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+    font-size:13px;font-weight:500;box-shadow:var(--shadow)}
+
+  /* filter */
+  .filter{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}
+  .filter button{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;
+    padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600}
+  .filter button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:14px}
+  @media(max-width:780px){.grid{grid-template-columns:1fr}}
+  .project{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+  .project:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(15,27,52,.12)}
+  .project.featured{grid-column:1 / -1;border-color:#c7d6f7}
+  .thumb{height:128px;display:flex;align-items:flex-end;padding:14px 18px;color:#fff;font-weight:700;
+    font-size:15px;letter-spacing:.3px}
+  .t-cap{background:linear-gradient(135deg,#2563eb,#4f46e5)}
+  .t-sql{background:linear-gradient(135deg,#0ea5e9,#0369a1)}
+  .t-stat{background:linear-gradient(135deg,#7c3aed,#a21caf)}
+  .t-viz{background:linear-gradient(135deg,#f59e0b,#ea580c)}
+  .t-dash{background:linear-gradient(135deg,#0f172a,#1e3a8a)}
+  .p-body{padding:18px;flex:1;display:flex;flex-direction:column}
+  .p-body h3{margin:0 0 4px;font-size:18px}
+  .p-body .tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+  .tag{background:var(--chip);color:var(--accent);font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .block{margin:8px 0}
+  .block .h{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700}
+  .block .b{font-size:14px;color:#33425f}
+  .insight{background:#f0f6ff;border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;
+    font-size:14px;margin-top:10px}
+  .p-foot{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+  .link-btn{font-size:13px;font-weight:600}
+  .feat-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:680px){.feat-links{grid-template-columns:1fr}}
+  .mini{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfcff}
+  .mini b{display:block;font-size:14px;margin-bottom:3px}
+  .mini span{font-size:12.5px;color:var(--muted)}
+
+  /* approach standards */
+  .standards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
+  @media(max-width:780px){.standards{grid-template-columns:repeat(2,1fr)}}
+  .std{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+  .std .num{font-weight:800;color:var(--accent)}
+  .std h4{margin:6px 0 4px;font-size:15px}
+  .std p{margin:0;font-size:13px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px;text-align:center}
+  .note{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:12px;padding:12px 16px;
+    font-size:13px;margin-top:26px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Analyst<span>.</span>Portfolio</div>
+    <div class="links">
+      <a href="#projects">Projects</a>
+      <a href="#dashboards">Dashboards</a>
+      <a href="#skills">Skills</a>
+      <a href="#standards">Standards</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Data Analytics · Portfolio Demo</span>
+    <h1>Turning data into <span class="accent">decisions</span>.</h1>
+    <p class="role">Data Analyst &nbsp;·&nbsp; SQL &nbsp;·&nbsp; Statistics &nbsp;·&nbsp; Visualization &nbsp;·&nbsp; Dashboards</p>
+    <p class="bio">A curated collection of analytics projects taking problems from raw data to insight to
+      polished, decision-driving deliverables. Each project states the business problem, describes the data
+      and approach, presents the analysis, and concludes with clear recommendations.</p>
+    <div class="cta">
+      <a class="btn primary" href="#dashboards">View live dashboards</a>
+      <a class="btn" href="#projects">Browse projects</a>
+    </div>
+    <div class="contacts">
+      <span><b>Name:</b> [ Your Name ]</span>
+      <span><b>Email:</b> [ your.email@example.com ]</span>
+      <span><b>GitHub:</b> [ github.com/yourhandle ]</span>
+      <span><b>LinkedIn:</b> [ linkedin.com/in/yourhandle ]</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">5</div><div class="l">Featured projects</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Interactive dashboards</div></div>
+      <div class="stat"><div class="n">End-to-end</div><div class="l">Data → insight → decision</div></div>
+      <div class="stat"><div class="n">Documented</div><div class="l">Professional reporting</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Featured Projects</h2>
+      <p>A varied selection demonstrating the breadth of the analytics workflow — from an end-to-end
+        capstone to SQL, statistics, visualization, and a published dashboard suite.</p>
+    </div>
+
+    <div class="filter" id="filter">
+      <button data-f="all" class="active">All</button>
+      <button data-f="capstone">End-to-End</button>
+      <button data-f="sql">SQL</button>
+      <button data-f="stats">Statistics</button>
+      <button data-f="viz">Visualization</button>
+      <button data-f="dashboard">Dashboards</button>
+    </div>
+
+    <div class="grid" id="grid">
+
+      <!-- FEATURED: Dashboard suite -->
+      <article class="project featured" data-cat="dashboard" id="dashboards">
+        <div class="thumb t-dash">Executive Dashboard Suite · Days 19–20</div>
+        <div class="p-body">
+          <h3>Executive Dashboard Suite</h3>
+          <div class="tags"><span class="tag">Power BI / Web</span><span class="tag">Dashboard Design</span><span class="tag">Storytelling</span></div>
+          <div class="block"><div class="h">Business problem</div>
+            <div class="b">Leadership needs strategic, glance-able dashboards to monitor performance
+              against targets and act on emerging problems.</div></div>
+          <div class="block"><div class="h">Approach</div>
+            <div class="b">Three interactive dashboards built on dashboard-design principles —
+              prominent KPIs, clear hierarchy, fit-for-purpose charts, conventional colour, and slicers
+              for focus. Each leads from headline performance to its underlying sources.</div></div>
+          <div class="insight"><b>Key insight:</b> revenue grows above target overall, yet a single
+            region and product category drive a localized decline — surfaced instantly by colour and breakdown.</div>
+
+          <div class="feat-links">
+            <a class="mini" href="../Case_Study_1_Executive_Sales_Dashboard/index.html">
+              <b>1 · Executive Sales</b><span>Revenue vs target, regional &amp; product drivers, growth momentum →</span></a>
+            <a class="mini" href="../Case_Study_2_Customer_Intelligence_Dashboard/index.html">
+              <b>2 · Customer Intelligence</b><span>Retention, segment value, customer mix &amp; loyalty →</span></a>
+            <a class="mini" href="../Case_Study_3_Business_Performance_Dashboard/index.html">
+              <b>3 · Business Performance</b><span>Integrated sales + customer + financial health →</span></a>
+          </div>
+          <div class="p-foot">
+            <a class="link-btn" href="../README.md">Case-study documentation →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Capstone -->
+      <article class="project" data-cat="capstone">
+        <div class="thumb t-cap">End-to-End Analytics Capstone · Day 10</div>
+        <div class="p-body">
+          <h3>Retail Sales Analysis — Capstone</h3>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">EDA</span></div>
+          <div class="block"><div class="h">Business problem</div>
+            <div class="b">Why are margins flat despite rising revenue, and where should the business invest?</div></div>
+          <div class="block"><div class="h">Data &amp; approach</div>
+            <div class="b">Cleaned a multi-table sales dataset, engineered features, and ran exploratory
+              analysis from ingestion through to a written report with recommendations.</div></div>
+          <div class="insight"><b>Key insight:</b> a small set of discounted lines erodes most of the
+            margin; reining them in lifts profit without hurting volume.</div>
+          <div class="p-foot"><span class="link-btn" style="color:var(--muted)">Report-style notebook (placeholder)</span></div>
+        </div>
+      </article>
+
+      <!-- SQL -->
+      <article class="project" data-cat="sql">
+        <div class="thumb t-sql">SQL Business Investigation · Day 14</div>
+        <div class="p-body">
+          <h3>Customer &amp; Revenue SQL Analysis</h3>
+          <div class="tags"><span class="tag">SQL</span><span class="tag">Joins</span><span class="tag">Window functions</span></div>
+          <div class="block"><div class="h">Business problem</div>
+            <div class="b">Which customers and cohorts drive revenue, and how is value concentrated?</div></div>
+          <div class="block"><div class="h">Approach</div>
+            <div class="b">Wrote analytical SQL — joins, aggregations, CTEs, and window functions — to
+              segment customers, rank revenue contributors, and measure cohort retention.</div></div>
+          <div class="insight"><b>Key insight:</b> the top customer decile contributes the majority of
+            revenue — a concentration that reshapes retention priorities.</div>
+          <div class="p-foot"><span class="link-btn" style="color:var(--muted)">Annotated query set (placeholder)</span></div>
+        </div>
+      </article>
+
+      <!-- Statistics -->
+      <article class="project" data-cat="stats">
+        <div class="thumb t-stat">Statistical Study · Days 15–16</div>
+        <div class="p-body">
+          <h3>Hypothesis Testing &amp; Segmentation</h3>
+          <div class="tags"><span class="tag">Statistics</span><span class="tag">A/B testing</span><span class="tag">Segmentation</span></div>
+          <div class="block"><div class="h">Business problem</div>
+            <div class="b">Does a pricing change move conversion, and which segments behave differently?</div></div>
+          <div class="block"><div class="h">Approach</div>
+            <div class="b">Designed an A/B comparison, tested significance, sized the effect, and profiled
+              customer segments by value and behaviour.</div></div>
+          <div class="insight"><b>Key insight:</b> the change is statistically significant but small;
+            the real lift comes from a high-value segment responding strongly.</div>
+          <div class="p-foot"><span class="link-btn" style="color:var(--muted)">Statistical report (placeholder)</span></div>
+        </div>
+      </article>
+
+      <!-- Visualization -->
+      <article class="project" data-cat="viz">
+        <div class="thumb t-viz">Data Visualization Project · Days 7–8</div>
+        <div class="p-body">
+          <h3>Exploratory Visual Storytelling</h3>
+          <div class="tags"><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Design</span></div>
+          <div class="block"><div class="h">Business problem</div>
+            <div class="b">Make a complex dataset legible, and reveal the story it contains.</div></div>
+          <div class="block"><div class="h">Approach</div>
+            <div class="b">Built a set of clear, well-labelled charts — distributions, trends, and
+              comparisons — applying visual-design principles to guide the eye to the finding.</div></div>
+          <div class="insight"><b>Key insight:</b> a seasonal pattern hidden in the raw numbers becomes
+            obvious once trend and seasonality are separated visually.</div>
+          <div class="p-foot"><span class="link-btn" style="color:var(--muted)">Figure gallery (placeholder)</span></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="note">
+      <b>Demo note:</b> the four non-dashboard cards are illustrative placeholders showing the structure
+      and standard expected of each portfolio project. Replace the placeholder links with your own
+      notebooks, queries, and reports. The dashboard suite cards link to fully working interactive demos.
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head"><h2>Skills</h2>
+      <p>The toolkit behind the projects above.</p></div>
+    <div class="skills">
+      <span class="skill">Python · Pandas · NumPy</span>
+      <span class="skill">SQL · Joins · Window functions</span>
+      <span class="skill">Statistics · Hypothesis testing</span>
+      <span class="skill">Matplotlib · Seaborn</span>
+      <span class="skill">Power BI · Tableau</span>
+      <span class="skill">Dashboard design</span>
+      <span class="skill">Data cleaning &amp; wrangling</span>
+      <span class="skill">Storytelling &amp; reporting</span>
+      <span class="skill">Excel</span>
+    </div>
+  </div>
+</section>
+
+<section id="standards">
+  <div class="wrap">
+    <div class="sec-head"><h2>Presentation &amp; Documentation Standards</h2>
+      <p>Every project in this portfolio follows the same professional reporting structure, so a viewer
+        can understand it without explanation.</p></div>
+    <div class="standards">
+      <div class="std"><div class="num">01</div><h4>State the problem</h4>
+        <p>Begin with the business question the work answers.</p></div>
+      <div class="std"><div class="num">02</div><h4>Describe data &amp; approach</h4>
+        <p>What data was used and how it was analysed.</p></div>
+      <div class="std"><div class="num">03</div><h4>Present the analysis</h4>
+        <p>Clear figures and visualizations that reveal the finding.</p></div>
+      <div class="std"><div class="num">04</div><h4>Conclude with recommendations</h4>
+        <p>Insights translated into decisions and next steps.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Data Analytics Portfolio — demonstration build · Day 20 (Dashboard Design Principles).<br/>
+    All data shown in linked dashboards is synthetic sample data. Contact fields are placeholders —
+    no real or personal data is included.
+  </div>
+</footer>
+
+<script>
+  // simple category filter
+  const buttons=document.querySelectorAll('#filter button');
+  const cards=document.querySelectorAll('#grid .project');
+  buttons.forEach(b=>b.addEventListener('click',()=>{
+    buttons.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const f=b.dataset.f;
+    cards.forEach(c=>{
+      const show = f==='all' || c.dataset.cat===f;
+      c.style.display = show ? '' : 'none';
+    });
+  }));
+</script>
+</body>
+</html>

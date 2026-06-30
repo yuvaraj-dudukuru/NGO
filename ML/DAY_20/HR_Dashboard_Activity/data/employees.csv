@@ -1,0 +1,662 @@
+employee_id,department,location,gender,role_level,hire_date,exit_date,status,exit_reason,tenure_months,tenure_band,engagement_score,performance_rating,salary_k
+E1001,HR,Regional-North,Male,Senior,2024-02-20,,Active,,22,18-36 mo,3.9,3.7,137
+E1002,Engineering,Remote,Male,Senior,2019-05-04,,Active,,79,5+ yrs,2.8,3.9,137
+E1003,Sales,Regional-South,Male,Mid,2021-12-16,,Active,,48,3-5 yrs,3.6,5,73
+E1004,Engineering,Regional-North,Non-binary / Other,Junior,2018-02-07,2025-08-05,Left,Compensation,90,5+ yrs,3.4,3.8,51
+E1005,Customer Support,Remote,Female,Junior,2023-09-03,2025-10-14,Left,Better offer,25,18-36 mo,4,3.9,49
+E1006,Operations,Regional-South,Female,Mid,2024-02-09,,Active,,22,18-36 mo,3.8,3.1,79
+E1007,Engineering,HQ,Male,Senior,2020-04-16,,Active,,68,5+ yrs,3.5,3.4,132
+E1008,HR,Regional-North,Male,Junior,2023-01-12,,Active,,35,18-36 mo,3.4,3.6,61
+E1009,Sales,Remote,Male,Junior,2019-09-05,,Active,,75,5+ yrs,4.7,4.1,64
+E1010,Sales,Remote,Male,Senior,2017-02-19,2025-11-10,Left,Compensation,105,5+ yrs,3.3,3.2,129
+E1011,Sales,Remote,Male,Junior,2023-10-12,,Active,,26,18-36 mo,3.1,3.6,56
+E1012,Operations,Remote,Female,Senior,2021-08-11,,Active,,52,3-5 yrs,3.8,3.5,121
+E1013,Marketing,Regional-South,Female,Junior,2024-04-22,2025-05-18,Left,Relocation,13,0-18 mo,3.8,4.2,63
+E1014,HR,HQ,Male,Junior,2024-10-07,,Active,,14,0-18 mo,2.3,2,64
+E1015,Finance,Remote,Female,Senior,2024-10-09,,Active,,14,0-18 mo,3.4,3.2,99
+E1016,HR,Regional-South,Male,Junior,2024-01-15,2025-03-21,Left,Relocation,14,0-18 mo,3.7,3.5,60
+E1017,Sales,Regional-South,Female,Junior,2018-02-10,,Active,,94,5+ yrs,4.3,4.3,59
+E1018,Engineering,Regional-North,Female,Senior,2024-04-15,2025-04-09,Left,Better offer,12,0-18 mo,4,3,117
+E1019,Engineering,Regional-South,Female,Mid,2023-04-04,2025-07-17,Left,Career growth,27,18-36 mo,2.8,3.1,89
+E1020,Finance,HQ,Male,Junior,2021-07-11,2025-08-20,Left,Compensation,49,3-5 yrs,5,2.7,65
+E1021,Operations,HQ,Male,Junior,2019-08-13,,Active,,76,5+ yrs,3.7,3.9,66
+E1022,Operations,Regional-South,Female,Lead,2021-07-08,,Active,,53,3-5 yrs,3.5,5,156
+E1023,Customer Support,HQ,Female,Senior,2020-09-20,,Active,,63,5+ yrs,4.1,3.3,104
+E1024,Engineering,Regional-South,Male,Junior,2022-06-10,2025-03-20,Left,Manager / culture,33,18-36 mo,3.4,2.8,64
+E1025,Sales,Regional-South,Female,Senior,2021-08-26,,Active,,52,3-5 yrs,4.9,3.6,127
+E1026,Operations,Regional-North,Female,Senior,2024-07-15,,Active,,17,0-18 mo,3.7,3.5,113
+E1027,Engineering,HQ,Female,Junior,2019-11-10,,Active,,73,5+ yrs,3.6,5,50
+E1028,Engineering,HQ,Female,Junior,2023-02-01,2025-02-23,Left,Better offer,24,18-36 mo,3.2,4.9,48
+E1029,Engineering,Regional-South,Female,Junior,2023-08-09,,Active,,28,18-36 mo,2.4,3.1,61
+E1030,Engineering,HQ,Male,Junior,2018-06-11,2025-09-02,Left,Better offer,87,5+ yrs,3.7,4.4,54
+E1031,Customer Support,Regional-North,Female,Mid,2020-04-12,,Active,,68,5+ yrs,4.2,3.4,88
+E1032,Sales,Regional-North,Female,Junior,2020-06-04,2025-10-06,Left,Personal,64,5+ yrs,3.6,3.9,50
+E1033,Engineering,Regional-North,Male,Mid,2018-08-24,,Active,,88,5+ yrs,2.3,3.8,93
+E1034,Engineering,Regional-South,Female,Junior,2023-10-21,2025-09-19,Left,Career growth,23,18-36 mo,1.6,3.5,70
+E1035,Operations,Regional-South,Male,Junior,2024-02-08,,Active,,22,18-36 mo,3,5,63
+E1036,Marketing,HQ,Male,Junior,2023-11-01,,Active,,25,18-36 mo,4,3.8,65
+E1037,Sales,Remote,Male,Senior,2021-04-21,,Active,,56,3-5 yrs,3.4,2.3,111
+E1038,Sales,Regional-North,Non-binary / Other,Senior,2022-03-03,,Active,,45,3-5 yrs,3.9,4,101
+E1039,Operations,Remote,Female,Mid,2024-11-06,2025-10-24,Left,Compensation,11,0-18 mo,3.9,2.9,69
+E1040,Engineering,Regional-South,Female,Mid,2017-12-26,,Active,,96,5+ yrs,3.3,3.9,75
+E1041,Marketing,Remote,Male,Mid,2019-07-15,,Active,,77,5+ yrs,3.4,2.4,92
+E1042,Sales,Regional-North,Female,Junior,2018-08-23,,Active,,88,5+ yrs,4,3.6,64
+E1043,Engineering,Remote,Female,Junior,2019-02-25,,Active,,82,5+ yrs,2.3,4.6,54
+E1044,Operations,Regional-North,Female,Junior,2020-08-17,,Active,,64,5+ yrs,3.3,3.8,62
+E1045,Engineering,Regional-North,Female,Mid,2018-05-13,,Active,,91,5+ yrs,3,3.4,66
+E1046,HR,HQ,Female,Mid,2018-06-03,,Active,,90,5+ yrs,3.5,3.3,89
+E1047,Marketing,Remote,Female,Mid,2023-06-19,,Active,,30,18-36 mo,3.9,3.1,76
+E1048,Engineering,Regional-North,Female,Mid,2019-06-23,,Active,,78,5+ yrs,3.8,2.7,66
+E1049,Operations,HQ,Male,Mid,2020-04-09,2025-07-19,Left,Manager / culture,63,5+ yrs,4,3.6,89
+E1050,Engineering,Regional-South,Male,Mid,2018-02-22,2025-04-08,Left,Career growth,86,5+ yrs,2.6,4.4,84
+E1051,Engineering,Regional-North,Female,Senior,2018-05-11,,Active,,91,5+ yrs,3.5,3.1,96
+E1052,Engineering,Regional-North,Female,Junior,2020-06-15,,Active,,66,5+ yrs,2.8,2.3,59
+E1053,Engineering,HQ,Male,Senior,2021-04-08,,Active,,56,3-5 yrs,2.8,3.8,114
+E1054,Engineering,HQ,Male,Mid,2018-01-19,2025-12-12,Left,Career growth,95,5+ yrs,2,3.8,78
+E1055,Engineering,Remote,Male,Junior,2020-07-04,2025-09-27,Left,Career growth,62,5+ yrs,3.3,2.4,60
+E1056,Operations,Regional-North,Male,Junior,2018-12-11,,Active,,84,5+ yrs,4.1,4.1,46
+E1057,Engineering,Regional-North,Male,Junior,2023-01-10,,Active,,35,18-36 mo,3.8,2.2,62
+E1058,Engineering,Remote,Male,Junior,2021-07-26,,Active,,53,3-5 yrs,3.2,2.6,61
+E1059,Operations,HQ,Male,Senior,2017-11-23,,Active,,97,5+ yrs,3.9,3.5,121
+E1060,Customer Support,HQ,Male,Senior,2023-11-08,,Active,,25,18-36 mo,2.8,4.1,129
+E1061,Engineering,Regional-North,Female,Junior,2018-12-22,,Active,,84,5+ yrs,1.9,4.2,50
+E1062,Engineering,Regional-South,Male,Junior,2018-01-20,2025-06-10,Left,Career growth,89,5+ yrs,3.2,3.5,51
+E1063,Engineering,Regional-South,Female,Senior,2024-06-05,2025-12-04,Left,Career growth,18,18-36 mo,3.5,3.9,110
+E1064,Engineering,Regional-South,Female,Junior,2021-05-06,2025-07-12,Left,Compensation,50,3-5 yrs,2.6,3.3,54
+E1065,Engineering,Regional-South,Female,Lead,2019-07-09,2025-03-04,Left,Compensation,68,5+ yrs,2.9,3.1,137
+E1066,Sales,HQ,Female,Senior,2017-12-11,,Active,,96,5+ yrs,4,2.5,127
+E1067,Operations,HQ,Male,Mid,2024-04-26,2025-09-21,Left,Personal,17,0-18 mo,4.2,3.7,77
+E1068,Operations,HQ,Male,Junior,2017-04-11,,Active,,104,5+ yrs,3.8,2.4,47
+E1069,Engineering,Regional-South,Male,Junior,2020-04-11,,Active,,68,5+ yrs,2.4,3.3,53
+E1070,Customer Support,Remote,Male,Junior,2022-05-26,,Active,,43,3-5 yrs,4.1,3.5,60
+E1071,Finance,HQ,Female,Senior,2018-04-14,,Active,,92,5+ yrs,4.2,4.6,100
+E1072,Engineering,Regional-North,Male,Junior,2022-05-19,2025-12-05,Left,Career growth,43,3-5 yrs,2.7,3.3,49
+E1073,Customer Support,HQ,Male,Junior,2023-09-18,,Active,,27,18-36 mo,4.4,4,59
+E1074,Engineering,Remote,Male,Senior,2019-09-20,,Active,,75,5+ yrs,3.5,3.3,130
+E1075,Engineering,Remote,Male,Senior,2022-11-08,,Active,,37,3-5 yrs,3.6,2.8,117
+E1076,Sales,Regional-South,Female,Junior,2019-07-19,,Active,,77,5+ yrs,3.1,3.3,45
+E1077,Operations,HQ,Male,Mid,2017-06-01,,Active,,102,5+ yrs,3.4,3.5,80
+E1078,Operations,Regional-South,Female,Senior,2023-04-24,,Active,,32,18-36 mo,4.3,4.6,126
+E1079,Engineering,HQ,Male,Lead,2017-09-19,2025-06-17,Left,Compensation,93,5+ yrs,2,2.7,167
+E1080,Operations,Remote,Female,Junior,2019-09-18,,Active,,75,5+ yrs,3.6,3.5,68
+E1081,Customer Support,Regional-North,Male,Junior,2022-01-11,,Active,,47,3-5 yrs,4.2,4,53
+E1082,Operations,Remote,Male,Mid,2021-01-05,,Active,,59,3-5 yrs,3.1,4.1,79
+E1083,Engineering,HQ,Male,Mid,2018-12-04,2025-10-17,Left,Compensation,82,5+ yrs,4.8,3.6,81
+E1084,Finance,Remote,Female,Mid,2017-07-23,,Active,,101,5+ yrs,2.4,4,83
+E1085,Customer Support,Regional-North,Female,Lead,2018-10-24,,Active,,86,5+ yrs,3.6,3.4,165
+E1086,Engineering,Remote,Male,Junior,2017-11-14,,Active,,97,5+ yrs,4.4,4,54
+E1087,Customer Support,Regional-South,Male,Senior,2023-02-21,,Active,,34,18-36 mo,3.5,4.2,126
+E1088,HR,Regional-North,Non-binary / Other,Mid,2024-08-20,,Active,,16,0-18 mo,3.5,4.1,70
+E1089,Engineering,Regional-North,Male,Junior,2020-06-25,2025-07-22,Left,Career growth,61,5+ yrs,3.2,4.4,60
+E1090,Engineering,Regional-South,Male,Mid,2018-09-18,,Active,,87,5+ yrs,4.2,4.2,74
+E1091,Sales,Regional-North,Male,Junior,2022-06-04,,Active,,42,3-5 yrs,4.7,3,48
+E1092,HR,Remote,Male,Junior,2018-11-16,,Active,,85,5+ yrs,4.1,3.8,57
+E1093,Operations,Regional-North,Female,Junior,2017-03-09,,Active,,105,5+ yrs,3.2,3.6,61
+E1094,Operations,HQ,Male,Junior,2019-05-11,,Active,,79,5+ yrs,3.4,4.1,60
+E1095,Marketing,Remote,Male,Junior,2022-05-18,,Active,,43,3-5 yrs,3.7,5,62
+E1096,Finance,HQ,Female,Lead,2020-01-26,,Active,,71,5+ yrs,4.1,3.1,170
+E1097,Sales,Regional-North,Female,Junior,2017-01-07,,Active,,107,5+ yrs,4.1,3.2,60
+E1098,Sales,Regional-South,Female,Mid,2019-07-26,,Active,,77,5+ yrs,3.2,2.5,90
+E1099,Marketing,HQ,Female,Junior,2018-08-14,,Active,,88,5+ yrs,2.7,2.9,65
+E1100,Operations,Regional-North,Male,Junior,2023-07-22,,Active,,29,18-36 mo,4.1,2.4,53
+E1101,Marketing,Remote,Male,Lead,2024-05-11,2025-03-08,Left,Manager / culture,10,0-18 mo,3.9,4,152
+E1102,Engineering,Regional-North,Female,Mid,2018-05-23,2025-06-02,Left,Compensation,85,5+ yrs,2,2.5,80
+E1103,HR,HQ,Male,Mid,2024-07-15,,Active,,17,0-18 mo,4,3,72
+E1104,Engineering,Regional-South,Female,Junior,2018-06-01,2025-03-02,Left,Better offer,81,5+ yrs,2.8,4.1,62
+E1105,Sales,Regional-North,Female,Mid,2022-05-14,,Active,,43,3-5 yrs,3.2,4.4,92
+E1106,Sales,Regional-North,Male,Junior,2020-11-25,,Active,,61,5+ yrs,3.3,4.1,66
+E1107,Sales,Regional-North,Male,Mid,2019-04-10,,Active,,80,5+ yrs,4.5,4,68
+E1108,Engineering,Remote,Female,Lead,2018-05-02,,Active,,91,5+ yrs,3.6,3.9,177
+E1109,Sales,Regional-North,Male,Mid,2018-08-14,,Active,,88,5+ yrs,4.7,3.9,81
+E1110,Engineering,Remote,Female,Mid,2018-08-24,,Active,,88,5+ yrs,1.8,3.6,74
+E1111,Engineering,Remote,Female,Lead,2017-06-12,,Active,,102,5+ yrs,2.5,4.4,161
+E1112,Engineering,Regional-North,Female,Junior,2019-02-24,2025-12-20,Left,Manager / culture,82,5+ yrs,2.9,3.4,54
+E1113,Engineering,Regional-South,Female,Junior,2017-03-27,,Active,,105,5+ yrs,1.5,3.2,61
+E1114,Operations,HQ,Female,Lead,2017-08-17,2025-02-09,Left,Relocation,90,5+ yrs,4.2,1.8,187
+E1115,Customer Support,HQ,Female,Senior,2020-09-18,,Active,,63,5+ yrs,2.9,3.9,112
+E1116,Engineering,HQ,Male,Mid,2022-08-24,,Active,,40,3-5 yrs,2.5,4.2,76
+E1117,Customer Support,Regional-North,Female,Senior,2020-11-11,,Active,,61,5+ yrs,4.1,4.9,115
+E1118,Operations,HQ,Male,Mid,2019-01-14,,Active,,83,5+ yrs,3,3.8,95
+E1119,Marketing,Regional-South,Female,Junior,2017-07-06,,Active,,101,5+ yrs,2.6,4.2,47
+E1120,Customer Support,Regional-South,Male,Junior,2022-11-20,2025-09-03,Left,Better offer,34,18-36 mo,3.7,3.4,55
+E1121,Sales,Regional-South,Male,Junior,2022-03-23,,Active,,45,3-5 yrs,3.3,3.7,56
+E1122,Engineering,Regional-South,Male,Mid,2022-12-26,,Active,,36,3-5 yrs,2.1,4.4,93
+E1123,Operations,Regional-South,Female,Mid,2019-04-21,2025-07-04,Left,Personal,75,5+ yrs,2.8,3.4,77
+E1124,Operations,Regional-North,Female,Junior,2019-05-14,2025-06-10,Left,Career growth,73,5+ yrs,3.1,4.3,47
+E1125,Operations,Regional-South,Female,Junior,2018-10-10,,Active,,86,5+ yrs,3.6,4.1,45
+E1126,Sales,Regional-North,Male,Mid,2021-03-17,,Active,,57,3-5 yrs,3.6,3.6,95
+E1127,Customer Support,Remote,Female,Junior,2017-09-18,,Active,,99,5+ yrs,3.6,2.9,67
+E1128,Marketing,Regional-South,Female,Junior,2024-02-08,,Active,,22,18-36 mo,4.6,2.3,68
+E1129,Engineering,HQ,Non-binary / Other,Mid,2017-07-09,2025-10-22,Left,Compensation,99,5+ yrs,3.4,4.8,69
+E1130,Engineering,HQ,Male,Junior,2021-05-06,,Active,,55,3-5 yrs,1.9,4.1,68
+E1131,Sales,HQ,Female,Mid,2018-07-06,2025-11-26,Left,Personal,88,5+ yrs,4,3.2,65
+E1132,Marketing,Remote,Male,Mid,2017-11-23,,Active,,97,5+ yrs,3.3,5,78
+E1133,HR,HQ,Female,Junior,2019-05-03,,Active,,79,5+ yrs,3,5,60
+E1134,Operations,Remote,Male,Senior,2022-07-03,,Active,,41,3-5 yrs,4.9,3.3,99
+E1135,Customer Support,HQ,Female,Lead,2020-12-21,,Active,,60,5+ yrs,2.7,4.3,137
+E1136,Engineering,Regional-North,Female,Junior,2022-12-07,2025-06-05,Left,Compensation,30,18-36 mo,3.1,3.9,66
+E1137,Sales,Remote,Male,Mid,2019-12-22,,Active,,72,5+ yrs,2.8,2.6,67
+E1138,Engineering,HQ,Male,Mid,2020-01-27,,Active,,71,5+ yrs,4.4,4.5,72
+E1139,Engineering,Remote,Male,Junior,2017-09-26,,Active,,99,5+ yrs,4,4,55
+E1140,Operations,Remote,Male,Mid,2020-06-16,,Active,,66,5+ yrs,3.9,3.9,89
+E1141,Engineering,Regional-North,Female,Senior,2022-12-07,2025-04-24,Left,Better offer,28,18-36 mo,3.1,3.5,101
+E1142,Finance,Regional-North,Female,Junior,2017-07-16,,Active,,101,5+ yrs,3.1,3.3,69
+E1143,Engineering,Remote,Male,Junior,2024-01-03,2025-11-17,Left,Career growth,22,18-36 mo,2.8,2.9,47
+E1144,Engineering,Remote,Male,Mid,2020-03-08,2025-05-18,Left,Career growth,62,5+ yrs,1.8,3.1,95
+E1145,Operations,Remote,Male,Junior,2024-09-14,,Active,,15,0-18 mo,3,3.5,66
+E1146,Engineering,HQ,Female,Junior,2021-07-04,,Active,,53,3-5 yrs,4,1.6,69
+E1147,Sales,Regional-South,Male,Lead,2022-12-12,2025-06-27,Left,Better offer,30,18-36 mo,3.6,2.3,186
+E1148,Engineering,HQ,Non-binary / Other,Junior,2018-01-08,,Active,,95,5+ yrs,4.3,4.8,58
+E1149,Customer Support,Regional-North,Male,Mid,2022-12-20,,Active,,36,3-5 yrs,3.1,3.1,82
+E1150,Customer Support,Regional-South,Male,Junior,2019-02-27,,Active,,82,5+ yrs,4.2,3.6,47
+E1151,HR,Regional-South,Female,Junior,2024-07-15,2025-09-08,Left,Career growth,14,0-18 mo,4,2.6,60
+E1152,Customer Support,Regional-South,Female,Mid,2017-02-23,,Active,,106,5+ yrs,2.7,3.2,89
+E1153,Sales,Remote,Female,Junior,2022-06-19,,Active,,42,3-5 yrs,3.5,3,64
+E1154,Engineering,HQ,Male,Junior,2023-09-11,,Active,,27,18-36 mo,1.8,3,55
+E1155,Customer Support,Regional-South,Female,Mid,2022-01-01,2025-03-16,Left,Personal,38,3-5 yrs,3.9,4.4,75
+E1156,Sales,Regional-South,Female,Junior,2019-11-08,,Active,,73,5+ yrs,3.6,4.4,70
+E1157,Customer Support,Regional-South,Male,Senior,2023-09-25,,Active,,27,18-36 mo,2.6,2.5,101
+E1158,Engineering,Remote,Female,Mid,2024-03-13,,Active,,21,18-36 mo,3.6,2.6,73
+E1159,Engineering,Remote,Female,Junior,2022-05-22,,Active,,43,3-5 yrs,3.2,3.1,53
+E1160,Sales,Remote,Female,Junior,2024-09-15,,Active,,15,0-18 mo,3.9,3.6,49
+E1161,Sales,Remote,Male,Mid,2024-09-02,2025-03-04,Left,Personal,6,0-18 mo,3.6,2.6,83
+E1162,Sales,Remote,Male,Junior,2020-03-08,2025-09-04,Left,Compensation,66,5+ yrs,3.7,3.8,48
+E1163,HR,Regional-North,Female,Senior,2019-11-14,,Active,,73,5+ yrs,4.1,5,112
+E1164,Engineering,Regional-South,Male,Junior,2024-06-26,2025-01-16,Left,Compensation,7,0-18 mo,3.5,3.6,45
+E1165,Customer Support,HQ,Male,Junior,2020-02-06,,Active,,70,5+ yrs,4.1,2.7,50
+E1166,Finance,Remote,Male,Junior,2020-05-11,,Active,,67,5+ yrs,4,4.1,64
+E1167,Customer Support,Regional-North,Female,Lead,2020-01-11,,Active,,71,5+ yrs,3.6,3.7,187
+E1168,Engineering,Regional-North,Male,Senior,2022-09-11,2025-06-20,Left,Better offer,33,18-36 mo,4.2,3.9,97
+E1169,Customer Support,Regional-North,Female,Mid,2020-03-20,,Active,,69,5+ yrs,3.5,4.1,73
+E1170,Finance,Regional-South,Female,Senior,2018-10-25,,Active,,86,5+ yrs,3.4,4.2,140
+E1171,Engineering,Regional-South,Female,Mid,2021-06-06,,Active,,54,3-5 yrs,2.7,4.2,78
+E1172,Engineering,Regional-North,Male,Junior,2019-01-12,2025-10-02,Left,Better offer,81,5+ yrs,3.4,3.4,51
+E1173,Finance,Regional-South,Male,Junior,2018-12-04,,Active,,84,5+ yrs,3.2,3.2,46
+E1174,Marketing,Regional-South,Female,Mid,2023-10-11,,Active,,26,18-36 mo,3.9,3.3,80
+E1175,Engineering,Regional-North,Female,Junior,2021-09-01,2025-10-07,Left,Compensation,49,3-5 yrs,2.6,3.3,53
+E1176,Operations,HQ,Female,Mid,2017-01-25,,Active,,107,5+ yrs,4.2,4,66
+E1177,Finance,Regional-North,Female,Mid,2023-04-25,,Active,,32,18-36 mo,3.4,3,86
+E1178,Customer Support,Remote,Female,Mid,2022-02-22,,Active,,46,3-5 yrs,3.3,3.5,74
+E1179,Sales,HQ,Female,Mid,2020-06-18,,Active,,66,5+ yrs,4.3,3.7,85
+E1180,Engineering,Remote,Male,Senior,2023-04-09,,Active,,32,18-36 mo,3.3,4.2,122
+E1181,Engineering,Regional-South,Male,Mid,2019-12-13,,Active,,72,5+ yrs,2.3,3.8,83
+E1182,Operations,Regional-North,Female,Mid,2023-07-12,,Active,,29,18-36 mo,4.3,4.3,79
+E1183,Sales,Regional-South,Female,Lead,2020-05-08,,Active,,67,5+ yrs,4.7,3,159
+E1184,Engineering,Remote,Male,Junior,2018-11-19,2025-09-08,Left,Career growth,82,5+ yrs,3.3,4.1,56
+E1185,Operations,Regional-North,Male,Junior,2024-10-05,,Active,,14,0-18 mo,4.9,2.7,63
+E1186,Operations,Regional-South,Male,Mid,2024-07-10,2025-08-11,Left,Manager / culture,13,0-18 mo,3.3,2.9,72
+E1187,Marketing,HQ,Non-binary / Other,Junior,2019-09-01,,Active,,75,5+ yrs,4.8,2.9,58
+E1188,Finance,Regional-North,Female,Senior,2021-07-16,,Active,,53,3-5 yrs,4.6,3.7,117
+E1189,Sales,Regional-South,Male,Mid,2019-04-03,,Active,,80,5+ yrs,3.8,2.2,86
+E1190,Engineering,Regional-South,Male,Junior,2017-02-17,,Active,,106,5+ yrs,2.4,4.2,45
+E1191,Customer Support,Remote,Female,Mid,2023-04-23,2025-10-23,Left,Relocation,30,18-36 mo,4.6,3.4,66
+E1192,Engineering,Regional-North,Male,Senior,2023-01-04,2025-12-01,Left,Compensation,35,18-36 mo,2.7,3.3,114
+E1193,Customer Support,Remote,Female,Senior,2022-10-05,,Active,,38,3-5 yrs,3.5,5,125
+E1194,Sales,Remote,Female,Senior,2017-01-17,,Active,,107,5+ yrs,4.6,2.5,124
+E1195,HR,Regional-South,Female,Junior,2018-11-06,2025-10-17,Left,Better offer,83,5+ yrs,4.7,2.9,63
+E1196,Customer Support,Regional-South,Female,Junior,2023-01-27,,Active,,35,18-36 mo,2.8,4.6,64
+E1197,Operations,HQ,Male,Senior,2024-08-15,,Active,,16,0-18 mo,4,3.2,133
+E1198,Customer Support,Regional-North,Female,Junior,2019-11-04,2025-06-10,Left,Better offer,67,5+ yrs,2.7,3.3,51
+E1199,Sales,Regional-North,Male,Mid,2021-09-19,,Active,,51,3-5 yrs,3.8,3.1,72
+E1200,Operations,HQ,Male,Junior,2024-12-01,,Active,,12,0-18 mo,4.3,3.5,58
+E1201,Engineering,Regional-South,Female,Mid,2019-11-12,,Active,,73,5+ yrs,2.5,3.2,69
+E1202,Customer Support,HQ,Female,Junior,2021-01-23,,Active,,59,3-5 yrs,1.3,3.9,67
+E1203,Marketing,Regional-South,Male,Junior,2023-10-23,,Active,,26,18-36 mo,2.6,3.4,68
+E1204,Finance,Regional-South,Male,Junior,2018-03-12,,Active,,93,5+ yrs,3.9,3.8,66
+E1205,Sales,Remote,Male,Senior,2024-12-01,2025-08-01,Left,Compensation,8,0-18 mo,2.6,3,125
+E1206,Customer Support,Regional-South,Male,Mid,2024-06-26,,Active,,18,18-36 mo,4.2,4.4,74
+E1207,Finance,Remote,Male,Mid,2018-03-07,,Active,,93,5+ yrs,3.7,4.3,88
+E1208,Sales,HQ,Female,Mid,2018-10-14,,Active,,86,5+ yrs,4.8,4.3,67
+E1209,Operations,Regional-South,Male,Junior,2017-11-01,,Active,,97,5+ yrs,4.1,4,51
+E1210,Operations,HQ,Male,Mid,2023-02-05,,Active,,34,18-36 mo,3.3,3.6,84
+E1211,Customer Support,HQ,Male,Lead,2023-07-06,,Active,,29,18-36 mo,4.4,4.8,179
+E1212,HR,HQ,Male,Mid,2017-05-01,,Active,,103,5+ yrs,5,4.5,69
+E1213,Marketing,Regional-South,Non-binary / Other,Junior,2022-07-22,,Active,,41,3-5 yrs,4.2,3.5,47
+E1214,Operations,Remote,Female,Senior,2022-11-12,,Active,,37,3-5 yrs,4.3,4.2,127
+E1215,Sales,Regional-South,Female,Junior,2022-06-16,,Active,,42,3-5 yrs,2.7,3.8,57
+E1216,Marketing,Remote,Male,Junior,2024-06-17,,Active,,18,18-36 mo,3.8,3.2,48
+E1217,Marketing,Remote,Female,Junior,2017-03-15,,Active,,105,5+ yrs,3.8,2.5,54
+E1218,Marketing,HQ,Female,Mid,2021-10-20,,Active,,50,3-5 yrs,5,5,82
+E1219,Customer Support,HQ,Male,Junior,2021-10-07,,Active,,50,3-5 yrs,3,4.4,70
+E1220,HR,Regional-South,Female,Junior,2018-02-17,,Active,,94,5+ yrs,3,3.1,63
+E1221,Finance,Regional-South,Female,Junior,2020-09-13,,Active,,63,5+ yrs,4.6,4.1,64
+E1222,Customer Support,Regional-North,Male,Senior,2020-08-20,,Active,,64,5+ yrs,2.6,3.3,127
+E1223,Operations,Regional-South,Male,Mid,2017-06-01,,Active,,102,5+ yrs,3.7,2.9,73
+E1224,Sales,HQ,Male,Junior,2019-06-11,,Active,,78,5+ yrs,1.9,3.1,68
+E1225,Marketing,Remote,Male,Mid,2017-07-22,,Active,,101,5+ yrs,4.1,3,83
+E1226,Engineering,HQ,Female,Mid,2019-01-01,2025-10-11,Left,Manager / culture,81,5+ yrs,2.7,4.8,72
+E1227,Engineering,Remote,Male,Mid,2019-08-03,,Active,,76,5+ yrs,3.8,3.9,85
+E1228,Operations,Regional-South,Non-binary / Other,Junior,2020-04-16,,Active,,68,5+ yrs,5,3.1,46
+E1229,Sales,HQ,Male,Senior,2023-10-03,2025-01-06,Left,Better offer,15,0-18 mo,3.7,2.9,110
+E1230,Engineering,Regional-North,Female,Senior,2024-01-15,,Active,,23,18-36 mo,3.6,3,109
+E1231,Finance,Regional-North,Male,Lead,2023-10-04,,Active,,26,18-36 mo,3.8,3.1,139
+E1232,Engineering,Regional-North,Female,Lead,2017-01-15,,Active,,107,5+ yrs,1.7,4,186
+E1233,Customer Support,Remote,Male,Mid,2019-02-05,,Active,,82,5+ yrs,3.9,3.1,83
+E1234,Marketing,Regional-South,Male,Mid,2021-09-09,,Active,,51,3-5 yrs,4,4.3,78
+E1235,Sales,HQ,Male,Mid,2017-04-18,,Active,,104,5+ yrs,3.2,4.1,86
+E1236,Engineering,Remote,Male,Senior,2017-12-14,,Active,,96,5+ yrs,3.3,3.1,99
+E1237,HR,Regional-North,Male,Junior,2018-10-01,,Active,,86,5+ yrs,3.7,1.7,47
+E1238,Sales,HQ,Female,Junior,2019-01-07,,Active,,83,5+ yrs,3.7,4.3,67
+E1239,Sales,Regional-North,Female,Senior,2022-03-03,,Active,,45,3-5 yrs,3.1,3.9,100
+E1240,Customer Support,Regional-North,Male,Mid,2018-09-04,,Active,,87,5+ yrs,2.9,3.7,84
+E1241,Marketing,HQ,Male,Junior,2022-06-24,,Active,,42,3-5 yrs,3.5,2.3,65
+E1242,Sales,HQ,Female,Mid,2021-12-09,,Active,,48,3-5 yrs,3.8,4.4,82
+E1243,Engineering,Remote,Non-binary / Other,Mid,2022-01-10,2025-10-12,Left,Manager / culture,45,3-5 yrs,2.9,3.1,74
+E1244,Operations,Remote,Male,Junior,2018-04-03,,Active,,92,5+ yrs,4.7,3.5,69
+E1245,Marketing,Regional-South,Female,Mid,2021-10-26,,Active,,50,3-5 yrs,4.1,4.5,87
+E1246,Operations,Regional-North,Male,Senior,2024-07-04,,Active,,17,0-18 mo,4.3,4.4,104
+E1247,Operations,Remote,Female,Mid,2022-04-20,,Active,,44,3-5 yrs,5,3.5,75
+E1248,Engineering,Regional-North,Male,Mid,2021-10-18,,Active,,50,3-5 yrs,3.3,3.7,81
+E1249,Customer Support,Regional-North,Female,Junior,2023-08-04,,Active,,28,18-36 mo,3.8,5,49
+E1250,Sales,Regional-South,Female,Lead,2023-03-25,2025-11-03,Left,Manager / culture,32,18-36 mo,3.9,3.7,136
+E1251,Finance,Remote,Female,Junior,2024-12-18,,Active,,12,0-18 mo,4.3,3.8,45
+E1252,HR,Remote,Male,Mid,2021-03-24,2025-03-27,Left,Career growth,48,3-5 yrs,3.6,2.6,80
+E1253,Customer Support,HQ,Male,Lead,2019-10-03,,Active,,74,5+ yrs,2.9,2.8,144
+E1254,Marketing,HQ,Female,Junior,2022-03-25,,Active,,45,3-5 yrs,3.6,3.5,49
+E1255,Engineering,Remote,Female,Junior,2019-03-21,2025-11-27,Left,Compensation,80,5+ yrs,1.7,3.5,55
+E1256,Operations,HQ,Female,Senior,2018-02-27,,Active,,94,5+ yrs,3.8,3.7,131
+E1257,Sales,Regional-South,Female,Junior,2023-08-05,2025-05-13,Left,Compensation,21,18-36 mo,3.9,3.4,58
+E1258,Engineering,Regional-North,Male,Junior,2019-08-18,,Active,,76,5+ yrs,2.5,2.8,65
+E1259,Engineering,HQ,Female,Mid,2017-01-16,,Active,,107,5+ yrs,2.8,3.7,66
+E1260,Sales,Regional-North,Male,Junior,2024-06-06,,Active,,18,18-36 mo,3.3,2.3,45
+E1261,Customer Support,HQ,Female,Mid,2019-08-03,,Active,,76,5+ yrs,3.1,4,74
+E1262,Engineering,Remote,Female,Senior,2023-11-22,2025-03-20,Left,Career growth,16,0-18 mo,4.6,3.2,108
+E1263,Sales,Regional-North,Female,Mid,2023-08-13,,Active,,28,18-36 mo,3.9,3.7,78
+E1264,Marketing,HQ,Female,Mid,2023-06-02,,Active,,30,18-36 mo,3.9,4.9,92
+E1265,Sales,Regional-North,Male,Junior,2024-02-11,2025-11-11,Left,Better offer,21,18-36 mo,2.1,4.5,65
+E1266,Operations,Regional-North,Male,Mid,2022-07-01,,Active,,41,3-5 yrs,4.2,3.8,71
+E1267,Operations,HQ,Female,Mid,2017-03-10,,Active,,105,5+ yrs,4.5,3.2,89
+E1268,Sales,HQ,Male,Mid,2019-03-05,2025-10-16,Left,Better offer,79,5+ yrs,4.8,3.8,69
+E1269,Marketing,HQ,Male,Junior,2019-11-11,2025-02-11,Left,Relocation,63,5+ yrs,4.2,4.5,47
+E1270,Sales,Regional-South,Female,Mid,2020-12-26,,Active,,60,5+ yrs,4.4,3,67
+E1271,Sales,Regional-South,Female,Junior,2018-01-11,,Active,,95,5+ yrs,3.8,3.4,54
+E1272,Sales,HQ,Female,Mid,2020-05-03,,Active,,67,5+ yrs,4.3,3.5,84
+E1273,Sales,Remote,Female,Junior,2020-05-14,,Active,,67,5+ yrs,4.7,4.1,55
+E1274,Customer Support,Regional-South,Male,Junior,2022-07-11,,Active,,41,3-5 yrs,3.7,3.8,67
+E1275,Engineering,Regional-North,Female,Junior,2023-10-13,2025-02-26,Left,Better offer,16,0-18 mo,3.4,2.7,62
+E1276,Operations,HQ,Male,Junior,2017-05-09,2025-09-21,Left,Relocation,100,5+ yrs,3.8,3.3,67
+E1277,Operations,HQ,Male,Mid,2017-05-02,,Active,,103,5+ yrs,3.5,4.7,72
+E1278,Marketing,Regional-North,Female,Junior,2018-10-25,,Active,,86,5+ yrs,3.7,4.8,66
+E1279,Sales,HQ,Female,Senior,2020-11-21,2025-04-01,Left,Manager / culture,53,3-5 yrs,4.7,4.6,129
+E1280,Engineering,Remote,Male,Senior,2022-11-21,,Active,,37,3-5 yrs,1.5,5,117
+E1281,Finance,HQ,Male,Lead,2021-11-22,,Active,,49,3-5 yrs,4.1,4.8,154
+E1282,Customer Support,HQ,Female,Junior,2017-05-24,,Active,,103,5+ yrs,4.1,3,58
+E1283,Customer Support,Regional-South,Female,Mid,2024-01-24,2025-04-20,Left,Manager / culture,15,0-18 mo,3.8,3.6,90
+E1284,HR,Regional-South,Non-binary / Other,Junior,2021-09-24,,Active,,51,3-5 yrs,4.1,2.6,60
+E1285,Engineering,Remote,Female,Junior,2019-05-25,,Active,,79,5+ yrs,3.8,2.9,68
+E1286,Sales,HQ,Female,Lead,2024-01-19,,Active,,23,18-36 mo,4.3,3.7,150
+E1287,Engineering,Regional-South,Non-binary / Other,Junior,2022-04-27,,Active,,44,3-5 yrs,3.4,4.9,66
+E1288,Operations,Regional-South,Male,Junior,2022-04-24,,Active,,44,3-5 yrs,2.7,3.1,66
+E1289,Engineering,HQ,Male,Mid,2018-01-10,,Active,,95,5+ yrs,2.4,4,77
+E1290,Engineering,Regional-South,Male,Mid,2023-11-20,,Active,,25,18-36 mo,1.7,4.5,68
+E1291,Engineering,Regional-North,Female,Lead,2020-07-23,,Active,,65,5+ yrs,4,3.6,179
+E1292,Engineering,Remote,Female,Senior,2019-06-26,,Active,,78,5+ yrs,3.5,3.1,104
+E1293,Sales,HQ,Male,Junior,2024-10-16,,Active,,14,0-18 mo,3.4,3,62
+E1294,Finance,Regional-South,Male,Junior,2020-02-06,,Active,,70,5+ yrs,2.5,3.6,63
+E1295,Sales,Regional-South,Male,Mid,2017-10-13,2025-12-04,Left,Personal,98,5+ yrs,2.1,4.4,68
+E1296,Operations,HQ,Female,Junior,2023-03-17,,Active,,33,18-36 mo,3.8,2.5,67
+E1297,Sales,Regional-North,Male,Junior,2021-10-08,2025-02-27,Left,Manager / culture,40,3-5 yrs,2.5,3.1,61
+E1298,Customer Support,Regional-South,Male,Junior,2018-07-14,,Active,,89,5+ yrs,4.5,4.5,65
+E1299,Operations,HQ,Female,Senior,2018-01-06,2025-04-04,Left,Manager / culture,87,5+ yrs,3.3,4,111
+E1300,Engineering,Remote,Male,Junior,2021-01-05,2025-04-05,Left,Compensation,51,3-5 yrs,2.7,3.1,66
+E1301,Engineering,Regional-South,Female,Senior,2017-04-22,,Active,,104,5+ yrs,3.2,3.9,109
+E1302,Sales,Regional-South,Female,Mid,2024-08-08,,Active,,16,0-18 mo,4,2,81
+E1303,Finance,Remote,Female,Junior,2018-01-20,,Active,,95,5+ yrs,3.3,3.3,46
+E1304,Engineering,HQ,Male,Mid,2024-06-07,,Active,,18,18-36 mo,3.9,4.5,84
+E1305,Customer Support,HQ,Male,Senior,2024-06-02,,Active,,18,18-36 mo,3.7,3,115
+E1306,Sales,Regional-South,Female,Mid,2019-06-26,,Active,,78,5+ yrs,3.9,4,77
+E1307,Engineering,Regional-South,Female,Mid,2018-04-10,,Active,,92,5+ yrs,3.7,3.8,73
+E1308,Operations,Regional-South,Male,Mid,2018-01-01,,Active,,95,5+ yrs,2.9,3,84
+E1309,Sales,Regional-South,Non-binary / Other,Junior,2023-10-16,,Active,,26,18-36 mo,3.6,5,58
+E1310,Engineering,Remote,Male,Mid,2018-02-09,,Active,,94,5+ yrs,1.5,2.9,67
+E1311,Engineering,Regional-North,Male,Lead,2018-04-06,2025-03-21,Left,Manager / culture,83,5+ yrs,2.8,3.6,180
+E1312,Sales,Regional-North,Female,Senior,2021-07-22,,Active,,53,3-5 yrs,4.7,2.3,124
+E1313,Engineering,Regional-North,Male,Junior,2017-03-06,2025-02-08,Left,Better offer,95,5+ yrs,4.4,5,56
+E1314,Engineering,Remote,Female,Mid,2017-11-19,,Active,,97,5+ yrs,3.2,2.2,71
+E1315,Sales,HQ,Male,Junior,2023-02-13,,Active,,34,18-36 mo,4.5,3.5,57
+E1316,Sales,HQ,Male,Junior,2024-07-01,,Active,,17,0-18 mo,3,4.1,47
+E1317,Marketing,Remote,Female,Junior,2024-05-19,,Active,,19,18-36 mo,4.4,2.7,66
+E1318,Marketing,Regional-South,Male,Junior,2020-12-16,,Active,,60,5+ yrs,3.7,4.1,47
+E1319,Customer Support,Regional-North,Female,Junior,2024-10-04,,Active,,14,0-18 mo,3.7,4.4,63
+E1320,Marketing,Regional-South,Male,Senior,2022-03-25,,Active,,45,3-5 yrs,3,3.2,122
+E1321,Customer Support,Regional-South,Male,Senior,2024-02-01,2025-04-20,Left,Career growth,14,0-18 mo,3.4,2.9,107
+E1322,Customer Support,Remote,Female,Senior,2022-03-15,,Active,,45,3-5 yrs,4.6,4,99
+E1323,Sales,HQ,Male,Junior,2024-10-06,,Active,,14,0-18 mo,3.5,4,46
+E1324,Engineering,Regional-South,Male,Mid,2020-01-20,2025-11-25,Left,Personal,70,5+ yrs,3.6,3.1,84
+E1325,Engineering,Regional-North,Female,Mid,2024-04-18,2025-02-17,Left,Career growth,10,0-18 mo,2.3,2.5,82
+E1326,Customer Support,Remote,Female,Junior,2024-08-21,,Active,,16,0-18 mo,2.5,2.7,52
+E1327,HR,Regional-North,Male,Senior,2019-10-06,,Active,,74,5+ yrs,3.3,4.3,114
+E1328,Customer Support,Regional-North,Female,Lead,2017-07-10,,Active,,101,5+ yrs,2.2,4.4,141
+E1329,Customer Support,HQ,Male,Senior,2020-06-15,,Active,,66,5+ yrs,4.3,4.3,100
+E1330,Engineering,Regional-South,Male,Senior,2024-11-13,,Active,,13,0-18 mo,4.1,2.9,123
+E1331,Sales,Regional-South,Male,Junior,2024-04-04,,Active,,20,18-36 mo,3.7,4.3,56
+E1332,Sales,Remote,Male,Junior,2020-11-12,,Active,,61,5+ yrs,3.4,4.3,48
+E1333,Sales,Regional-South,Male,Junior,2017-02-23,2025-05-21,Left,Career growth,99,5+ yrs,4.3,3.6,46
+E1334,Engineering,Regional-South,Female,Mid,2022-06-07,2025-09-09,Left,Career growth,39,3-5 yrs,2.6,3.3,83
+E1335,Operations,Remote,Male,Junior,2022-02-10,,Active,,46,3-5 yrs,3.7,4.3,49
+E1336,Operations,Regional-North,Female,Senior,2020-03-07,,Active,,69,5+ yrs,2.2,3.5,132
+E1337,HR,HQ,Male,Junior,2018-10-02,,Active,,86,5+ yrs,3,3.9,58
+E1338,Engineering,Remote,Female,Junior,2021-07-10,,Active,,53,3-5 yrs,2.6,2.9,62
+E1339,Sales,Regional-South,Female,Mid,2024-06-26,2025-02-11,Left,Personal,8,0-18 mo,3.2,3.7,74
+E1340,Engineering,Regional-North,Male,Junior,2020-10-13,,Active,,62,5+ yrs,3.5,2.6,65
+E1341,HR,Remote,Male,Senior,2022-02-01,,Active,,46,3-5 yrs,3.7,3,104
+E1342,Engineering,Remote,Male,Junior,2024-06-08,2025-03-20,Left,Compensation,9,0-18 mo,2.4,3.3,52
+E1343,Customer Support,Remote,Female,Junior,2018-10-11,,Active,,86,5+ yrs,3.3,4.3,54
+E1344,Engineering,Remote,Female,Mid,2021-01-02,,Active,,59,3-5 yrs,2.8,3.8,88
+E1345,Sales,Regional-South,Male,Mid,2020-04-12,,Active,,68,5+ yrs,3.2,1.8,85
+E1346,Customer Support,Remote,Female,Junior,2021-07-15,,Active,,53,3-5 yrs,4.2,3.5,50
+E1347,Engineering,Regional-South,Male,Junior,2020-08-18,2025-12-03,Left,Personal,64,5+ yrs,1.9,4.3,53
+E1348,HR,Remote,Female,Mid,2021-11-20,,Active,,49,3-5 yrs,3.7,3.7,92
+E1349,Finance,HQ,Female,Junior,2021-04-02,,Active,,56,3-5 yrs,4.2,3.8,57
+E1350,Operations,Regional-North,Female,Mid,2017-10-20,2025-01-14,Left,Better offer,87,5+ yrs,3.9,2.8,93
+E1351,Marketing,Regional-North,Female,Lead,2018-10-02,,Active,,86,5+ yrs,4.2,2.7,165
+E1352,Customer Support,Regional-South,Female,Mid,2019-03-07,,Active,,81,5+ yrs,4.7,5,83
+E1353,Marketing,Regional-North,Male,Mid,2023-09-25,2025-02-15,Left,Career growth,17,0-18 mo,3.8,4.5,89
+E1354,Engineering,Regional-South,Non-binary / Other,Junior,2021-05-20,,Active,,55,3-5 yrs,2,3.6,54
+E1355,Engineering,HQ,Male,Mid,2022-08-18,,Active,,40,3-5 yrs,4,3.1,74
+E1356,Engineering,Remote,Female,Mid,2024-09-09,2025-10-06,Left,Career growth,13,0-18 mo,3,2.1,79
+E1357,Finance,Regional-South,Female,Junior,2024-01-07,,Active,,23,18-36 mo,5,4,59
+E1358,Engineering,Regional-South,Male,Senior,2023-12-27,2025-05-17,Left,Better offer,17,0-18 mo,1.5,2.7,134
+E1359,Engineering,Remote,Female,Mid,2018-01-20,,Active,,95,5+ yrs,3.9,3.2,65
+E1360,Sales,Remote,Female,Lead,2018-08-05,,Active,,88,5+ yrs,3.1,2.8,189
+E1361,Engineering,Regional-North,Male,Mid,2017-03-17,,Active,,105,5+ yrs,3.5,4.8,89
+E1362,Customer Support,HQ,Male,Junior,2017-01-20,,Active,,107,5+ yrs,3.4,2.9,55
+E1363,Engineering,HQ,Male,Mid,2020-04-16,,Active,,68,5+ yrs,3.9,4.6,93
+E1364,Marketing,Regional-North,Female,Mid,2018-09-15,,Active,,87,5+ yrs,4.8,4.2,78
+E1365,Sales,Regional-North,Female,Junior,2023-11-02,2025-05-26,Left,Compensation,18,18-36 mo,3.7,2.8,64
+E1366,Engineering,HQ,Female,Junior,2024-05-21,2025-11-23,Left,Compensation,18,18-36 mo,2.1,3.6,62
+E1367,Operations,Regional-North,Male,Mid,2021-11-18,,Active,,49,3-5 yrs,4,3.7,69
+E1368,Engineering,Regional-North,Female,Mid,2023-09-24,,Active,,27,18-36 mo,3.6,3.8,89
+E1369,HR,Regional-North,Male,Senior,2024-06-02,,Active,,18,18-36 mo,2.8,2.7,132
+E1370,Operations,Regional-North,Male,Lead,2020-05-09,2025-04-16,Left,Compensation,59,3-5 yrs,4,4.6,164
+E1371,Finance,HQ,Male,Junior,2020-10-04,,Active,,62,5+ yrs,2.6,3.5,55
+E1372,Engineering,Regional-North,Female,Lead,2019-02-02,,Active,,82,5+ yrs,2.8,3.4,181
+E1373,Operations,Regional-South,Female,Junior,2024-05-11,,Active,,19,18-36 mo,4.2,2.3,65
+E1374,Sales,Regional-North,Male,Junior,2019-12-10,,Active,,72,5+ yrs,2.6,3.1,51
+E1375,Engineering,Regional-South,Male,Mid,2024-05-19,,Active,,19,18-36 mo,2.6,4.2,84
+E1376,Operations,HQ,Non-binary / Other,Junior,2021-11-22,,Active,,49,3-5 yrs,4.2,4,50
+E1377,Customer Support,Regional-North,Female,Senior,2017-03-17,2025-02-12,Left,Relocation,95,5+ yrs,3.3,5,97
+E1378,Engineering,Regional-North,Non-binary / Other,Senior,2023-08-02,2025-11-26,Left,Manager / culture,27,18-36 mo,2.1,2.8,96
+E1379,HR,Regional-South,Female,Mid,2023-11-16,,Active,,25,18-36 mo,3.4,2.7,87
+E1380,Engineering,Regional-North,Female,Mid,2019-06-18,,Active,,78,5+ yrs,2.5,3.4,69
+E1381,Operations,Regional-South,Female,Junior,2018-09-07,,Active,,87,5+ yrs,5,3.4,52
+E1382,Marketing,Regional-South,Female,Junior,2017-01-19,,Active,,107,5+ yrs,2.2,4.2,54
+E1383,Engineering,HQ,Female,Junior,2017-05-25,,Active,,103,5+ yrs,3.8,3.4,50
+E1384,Sales,Remote,Male,Mid,2018-03-21,,Active,,93,5+ yrs,2.7,3.1,75
+E1385,Sales,Regional-North,Female,Junior,2019-12-26,,Active,,72,5+ yrs,4.7,2.4,68
+E1386,Engineering,Remote,Male,Mid,2021-12-25,,Active,,48,3-5 yrs,3.3,4.9,95
+E1387,Engineering,Regional-North,Female,Mid,2024-07-04,,Active,,17,0-18 mo,2.2,3.5,77
+E1388,Engineering,Regional-North,Female,Senior,2018-10-07,2025-04-24,Left,Relocation,78,5+ yrs,3.5,2.7,129
+E1389,Marketing,Regional-South,Female,Junior,2023-07-22,,Active,,29,18-36 mo,3.5,3.7,48
+E1390,Finance,Regional-North,Male,Mid,2022-08-06,,Active,,40,3-5 yrs,5,3.4,66
+E1391,Sales,Remote,Male,Senior,2018-01-11,,Active,,95,5+ yrs,3.6,2.6,109
+E1392,Sales,Regional-South,Female,Junior,2021-01-04,,Active,,59,3-5 yrs,3.3,3.8,60
+E1393,Customer Support,Regional-North,Female,Senior,2021-10-01,,Active,,50,3-5 yrs,2.4,4.8,122
+E1394,Sales,HQ,Female,Senior,2024-03-10,2025-04-06,Left,Manager / culture,13,0-18 mo,2.7,3.9,121
+E1395,Sales,Remote,Female,Mid,2022-08-07,2025-03-04,Left,Relocation,31,18-36 mo,4,3.8,94
+E1396,HR,Remote,Male,Mid,2024-07-11,,Active,,17,0-18 mo,4.6,4.4,69
+E1397,Sales,Remote,Male,Senior,2020-09-05,,Active,,63,5+ yrs,3.8,2.5,108
+E1398,Customer Support,Remote,Female,Lead,2020-09-04,,Active,,63,5+ yrs,2.9,2.7,188
+E1399,Operations,HQ,Female,Junior,2022-05-11,,Active,,43,3-5 yrs,3.2,3.1,60
+E1400,Sales,Regional-South,Female,Mid,2023-03-26,,Active,,33,18-36 mo,3.3,2.6,69
+E1401,Engineering,Remote,Female,Junior,2024-05-09,,Active,,19,18-36 mo,4.3,3.7,69
+E1402,Sales,HQ,Female,Mid,2023-08-02,,Active,,28,18-36 mo,3.3,2.8,72
+E1403,Operations,HQ,Female,Junior,2021-10-04,,Active,,50,3-5 yrs,3.3,3.6,67
+E1404,Engineering,Remote,Female,Junior,2018-07-17,,Active,,89,5+ yrs,4.7,2.4,58
+E1405,Engineering,Regional-North,Male,Mid,2021-06-24,,Active,,54,3-5 yrs,2.8,3.2,94
+E1406,Finance,Remote,Female,Junior,2020-04-02,,Active,,68,5+ yrs,3.7,4.4,70
+E1407,Operations,HQ,Male,Junior,2024-02-27,,Active,,22,18-36 mo,3.7,3.7,52
+E1408,Sales,Regional-North,Male,Senior,2024-09-20,2025-11-11,Left,Career growth,14,0-18 mo,3.7,2.8,137
+E1409,Marketing,HQ,Female,Senior,2023-02-04,,Active,,34,18-36 mo,3.1,4.9,113
+E1410,Sales,HQ,Male,Junior,2021-01-21,2025-10-01,Left,Relocation,57,3-5 yrs,3.3,3.6,54
+E1411,Finance,Remote,Female,Senior,2024-09-05,,Active,,15,0-18 mo,3.7,4,123
+E1412,Sales,HQ,Male,Junior,2018-11-27,,Active,,85,5+ yrs,3.2,3.2,64
+E1413,Customer Support,HQ,Female,Mid,2020-06-21,,Active,,66,5+ yrs,3.7,3.2,90
+E1414,HR,Regional-North,Female,Mid,2021-04-20,2025-08-18,Left,Compensation,52,3-5 yrs,3.7,3.7,65
+E1415,Marketing,Remote,Female,Senior,2020-11-06,,Active,,61,5+ yrs,3.9,4.6,100
+E1416,Sales,Regional-North,Female,Senior,2019-02-12,,Active,,82,5+ yrs,3,3.8,119
+E1417,Operations,Regional-South,Male,Junior,2022-06-19,,Active,,42,3-5 yrs,2.8,5,68
+E1418,Marketing,Regional-North,Male,Junior,2020-10-19,,Active,,62,5+ yrs,4.3,4.4,46
+E1419,Engineering,HQ,Female,Junior,2021-03-16,,Active,,57,3-5 yrs,2.9,3.3,70
+E1420,Customer Support,Regional-South,Female,Mid,2019-10-23,,Active,,74,5+ yrs,2.2,3.6,70
+E1421,Operations,Regional-South,Male,Junior,2024-05-01,,Active,,19,18-36 mo,4,3.6,62
+E1422,HR,Remote,Male,Senior,2021-06-08,,Active,,54,3-5 yrs,4,3.6,108
+E1423,Operations,Regional-South,Male,Junior,2024-11-17,,Active,,13,0-18 mo,3.8,2.7,49
+E1424,Operations,Remote,Female,Mid,2023-04-14,,Active,,32,18-36 mo,3.7,4.3,72
+E1425,Sales,HQ,Female,Lead,2018-05-15,,Active,,91,5+ yrs,3.8,4.3,147
+E1426,Sales,Regional-South,Female,Mid,2019-12-02,,Active,,72,5+ yrs,4.2,3.8,72
+E1427,Engineering,Remote,Female,Junior,2017-11-18,2025-08-18,Left,Manager / culture,93,5+ yrs,3.7,4.7,52
+E1428,Engineering,Regional-North,Male,Senior,2017-06-15,,Active,,102,5+ yrs,4.4,2.7,109
+E1429,Customer Support,Regional-South,Male,Junior,2020-07-14,,Active,,65,5+ yrs,3.4,3.4,56
+E1430,Finance,Remote,Non-binary / Other,Junior,2018-03-06,,Active,,93,5+ yrs,4.5,2.8,56
+E1431,Marketing,HQ,Female,Mid,2017-05-27,,Active,,103,5+ yrs,2.9,3.5,93
+E1432,Engineering,Regional-South,Male,Mid,2021-02-05,,Active,,58,3-5 yrs,2.7,3.1,95
+E1433,Operations,Regional-North,Female,Mid,2018-08-09,,Active,,88,5+ yrs,4,3,86
+E1434,Marketing,Regional-South,Female,Senior,2022-01-15,,Active,,47,3-5 yrs,4.3,4.2,133
+E1435,Engineering,Remote,Male,Mid,2023-05-20,,Active,,31,18-36 mo,3.4,4,95
+E1436,Sales,Regional-South,Female,Junior,2020-12-03,,Active,,60,5+ yrs,3.8,3.4,62
+E1437,Operations,Remote,Male,Mid,2017-01-03,,Active,,107,5+ yrs,4.2,2,78
+E1438,Engineering,Regional-South,Female,Mid,2022-11-07,2025-09-11,Left,Better offer,34,18-36 mo,3.9,3,85
+E1439,Sales,Regional-South,Female,Junior,2023-04-06,2025-07-02,Left,Manager / culture,27,18-36 mo,3.2,3,59
+E1440,Customer Support,Regional-North,Female,Junior,2021-07-27,,Active,,53,3-5 yrs,2.9,2.6,50
+E1441,Engineering,Regional-South,Male,Senior,2019-08-03,,Active,,76,5+ yrs,2,2.7,99
+E1442,Sales,Regional-North,Female,Junior,2021-08-15,,Active,,52,3-5 yrs,3.7,3.9,57
+E1443,Engineering,Regional-North,Female,Junior,2017-05-18,,Active,,103,5+ yrs,3.2,3.1,56
+E1444,Engineering,Regional-North,Male,Senior,2022-07-16,,Active,,41,3-5 yrs,3.1,3.3,134
+E1445,HR,Remote,Male,Lead,2023-08-04,,Active,,28,18-36 mo,3.8,2.8,138
+E1446,Engineering,Regional-South,Male,Mid,2022-02-25,,Active,,46,3-5 yrs,2.1,2.3,67
+E1447,Engineering,Remote,Female,Mid,2018-06-27,,Active,,90,5+ yrs,2.9,3.8,68
+E1448,Sales,Remote,Male,Junior,2024-11-25,,Active,,13,0-18 mo,2.6,4.4,60
+E1449,Customer Support,HQ,Non-binary / Other,Junior,2023-03-04,2025-10-21,Left,Career growth,31,18-36 mo,3.6,3.2,54
+E1450,Sales,Regional-South,Male,Lead,2021-11-02,,Active,,49,3-5 yrs,4.2,2.9,150
+E1451,Sales,Remote,Female,Mid,2017-12-01,,Active,,96,5+ yrs,3.3,4.1,73
+E1452,Engineering,HQ,Female,Mid,2021-06-25,,Active,,54,3-5 yrs,3.4,3.4,81
+E1453,Sales,Regional-South,Male,Mid,2022-09-02,,Active,,39,3-5 yrs,4.4,3.7,94
+E1454,HR,Regional-South,Male,Mid,2017-01-17,,Active,,107,5+ yrs,2.7,4,75
+E1455,Finance,HQ,Female,Junior,2017-06-12,,Active,,102,5+ yrs,3.8,3.6,61
+E1456,Operations,HQ,Male,Mid,2022-02-14,,Active,,46,3-5 yrs,3.9,4.6,88
+E1457,Operations,Regional-South,Female,Lead,2020-02-09,,Active,,70,5+ yrs,4.1,4.7,171
+E1458,Marketing,HQ,Female,Mid,2023-03-17,,Active,,33,18-36 mo,4.3,3.2,80
+E1459,Sales,Regional-South,Male,Junior,2018-06-25,,Active,,90,5+ yrs,2.9,3.8,52
+E1460,Customer Support,Remote,Male,Senior,2020-12-01,,Active,,60,5+ yrs,5,2.7,115
+E1461,Engineering,Remote,Female,Junior,2019-10-06,2025-07-09,Left,Personal,69,5+ yrs,2.2,4.1,48
+E1462,HR,Remote,Male,Junior,2023-05-03,,Active,,31,18-36 mo,3.3,4.2,47
+E1463,Operations,Remote,Male,Senior,2023-09-06,,Active,,27,18-36 mo,3.7,3.4,111
+E1464,Customer Support,HQ,Male,Senior,2018-02-03,,Active,,94,5+ yrs,4.4,3.6,136
+E1465,Operations,Remote,Female,Junior,2017-12-04,,Active,,96,5+ yrs,3.3,3.8,53
+E1466,Sales,HQ,Male,Lead,2020-07-20,,Active,,65,5+ yrs,4.1,5,171
+E1467,Marketing,Remote,Male,Junior,2024-01-08,,Active,,23,18-36 mo,3.7,3,50
+E1468,Engineering,Regional-South,Female,Senior,2023-06-05,,Active,,30,18-36 mo,2.8,3.2,133
+E1469,Operations,HQ,Male,Mid,2024-06-08,,Active,,18,18-36 mo,4.3,4.3,79
+E1470,Engineering,Regional-South,Male,Mid,2023-11-15,2025-06-10,Left,Career growth,19,18-36 mo,2.4,2.2,70
+E1471,Customer Support,Regional-North,Female,Mid,2023-07-12,,Active,,29,18-36 mo,4.1,3.1,85
+E1472,Operations,Remote,Male,Junior,2023-10-02,,Active,,26,18-36 mo,4.9,3.2,64
+E1473,Engineering,Regional-South,Female,Mid,2021-08-17,,Active,,52,3-5 yrs,3.6,3.6,77
+E1474,Customer Support,Regional-South,Female,Junior,2018-12-22,,Active,,84,5+ yrs,3.1,2.9,51
+E1475,Engineering,Regional-North,Female,Mid,2022-11-11,,Active,,37,3-5 yrs,2.9,2.8,94
+E1476,HR,Regional-North,Female,Junior,2023-10-05,,Active,,26,18-36 mo,3.2,3.8,53
+E1477,Engineering,Regional-North,Male,Junior,2021-05-03,2025-05-04,Left,Compensation,48,3-5 yrs,3.3,3.5,56
+E1478,Engineering,Regional-South,Female,Senior,2023-01-01,2025-08-01,Left,Manager / culture,31,18-36 mo,2.7,3,108
+E1479,Operations,Remote,Male,Junior,2018-06-26,2025-05-14,Left,Compensation,83,5+ yrs,2.6,4.4,45
+E1480,Engineering,Remote,Female,Mid,2019-01-19,,Active,,83,5+ yrs,3.8,3.6,92
+E1481,Operations,Regional-North,Female,Mid,2022-03-11,,Active,,45,3-5 yrs,3.4,3.6,92
+E1482,Engineering,Regional-South,Male,Junior,2018-07-22,2025-08-14,Left,Compensation,85,5+ yrs,1.9,4.1,46
+E1483,Customer Support,Remote,Male,Junior,2017-04-17,,Active,,104,5+ yrs,2.8,3.3,49
+E1484,Operations,HQ,Male,Senior,2021-08-18,,Active,,52,3-5 yrs,4.3,2.7,138
+E1485,Customer Support,HQ,Female,Junior,2024-05-23,2025-01-26,Left,Relocation,8,0-18 mo,2.9,3.7,65
+E1486,Engineering,HQ,Male,Senior,2023-08-03,,Active,,28,18-36 mo,3.6,3.7,97
+E1487,Engineering,Regional-North,Female,Junior,2018-05-17,2025-03-15,Left,Better offer,82,5+ yrs,2.2,3.9,46
+E1488,Engineering,Remote,Male,Senior,2021-12-20,2025-10-14,Left,Compensation,46,3-5 yrs,2.8,5,107
+E1489,Operations,Remote,Male,Senior,2022-10-04,,Active,,38,3-5 yrs,3.5,4.4,137
+E1490,Engineering,Regional-South,Male,Senior,2018-12-08,,Active,,84,5+ yrs,3.7,4,99
+E1491,Operations,Regional-South,Non-binary / Other,Lead,2024-01-05,,Active,,23,18-36 mo,4.2,3.9,141
+E1492,Engineering,Regional-North,Female,Senior,2017-03-04,,Active,,105,5+ yrs,3.4,4.7,100
+E1493,Engineering,Regional-South,Female,Mid,2018-09-26,,Active,,87,5+ yrs,2.4,2.4,86
+E1494,Finance,Regional-South,Male,Junior,2019-02-23,,Active,,82,5+ yrs,4.3,4.4,60
+E1495,Engineering,HQ,Male,Senior,2018-01-10,,Active,,95,5+ yrs,4.3,3.6,128
+E1496,Finance,Regional-South,Female,Junior,2024-12-22,,Active,,12,0-18 mo,3.7,3.6,54
+E1497,Marketing,Regional-North,Female,Junior,2019-06-07,2025-06-17,Left,Personal,72,5+ yrs,3.2,3.3,67
+E1498,Engineering,Regional-North,Male,Senior,2024-06-11,,Active,,18,18-36 mo,3.8,4.5,119
+E1499,Customer Support,HQ,Female,Junior,2019-08-21,2025-06-10,Left,Compensation,70,5+ yrs,4.1,3.3,60
+E1500,Customer Support,HQ,Female,Mid,2023-02-01,,Active,,34,18-36 mo,3.5,3.2,65
+E1501,Engineering,Regional-North,Female,Mid,2024-04-10,2025-10-06,Left,Compensation,18,18-36 mo,3.3,3.9,72
+E1502,Customer Support,HQ,Male,Junior,2021-02-15,,Active,,58,3-5 yrs,4.1,3.4,51
+E1503,Sales,HQ,Male,Mid,2024-01-04,,Active,,23,18-36 mo,4.7,4.5,70
+E1504,Sales,HQ,Male,Senior,2024-04-07,2025-07-20,Left,Career growth,15,0-18 mo,4.7,3,107
+E1505,Marketing,HQ,Female,Lead,2024-07-26,2025-03-18,Left,Compensation,8,0-18 mo,3.4,3.7,144
+E1506,Marketing,HQ,Male,Junior,2024-10-23,,Active,,14,0-18 mo,3.7,4.5,55
+E1507,Sales,Regional-North,Male,Mid,2022-11-27,2025-06-06,Left,Personal,31,18-36 mo,3.7,3.4,88
+E1508,Marketing,Remote,Female,Mid,2017-11-01,2025-10-06,Left,Relocation,95,5+ yrs,4.5,4.2,82
+E1509,Engineering,Regional-North,Male,Mid,2019-09-23,,Active,,75,5+ yrs,4.8,3.3,88
+E1510,Sales,Regional-South,Male,Junior,2019-04-02,2025-05-11,Left,Manager / culture,73,5+ yrs,4.8,3.9,47
+E1511,Sales,Regional-North,Female,Senior,2022-06-18,,Active,,42,3-5 yrs,5,4,122
+E1512,Marketing,HQ,Female,Mid,2024-06-27,2025-01-17,Left,Career growth,7,0-18 mo,3,3.3,66
+E1513,Engineering,HQ,Non-binary / Other,Lead,2020-07-08,2025-07-08,Left,Compensation,60,5+ yrs,2.8,3.3,143
+E1514,Customer Support,HQ,Male,Junior,2020-09-11,,Active,,63,5+ yrs,4.2,4.2,70
+E1515,Engineering,Regional-North,Female,Senior,2018-07-02,,Active,,89,5+ yrs,4,4.6,103
+E1516,Operations,Regional-North,Male,Junior,2021-10-04,,Active,,50,3-5 yrs,4.4,3.4,69
+E1517,Engineering,Regional-South,Female,Mid,2018-03-11,,Active,,93,5+ yrs,3.4,4.8,69
+E1518,Customer Support,Regional-South,Female,Junior,2019-06-07,,Active,,78,5+ yrs,3.2,4.3,45
+E1519,Sales,Remote,Female,Junior,2021-03-26,,Active,,57,3-5 yrs,3.8,3.1,57
+E1520,Marketing,HQ,Male,Junior,2024-05-22,,Active,,19,18-36 mo,3,3,59
+E1521,Finance,Remote,Male,Mid,2021-05-07,,Active,,55,3-5 yrs,4.2,3.2,78
+E1522,Engineering,Remote,Female,Senior,2018-05-26,,Active,,91,5+ yrs,3,3.5,135
+E1523,Engineering,Regional-North,Female,Senior,2017-12-06,,Active,,96,5+ yrs,3.5,3.9,127
+E1524,Sales,Regional-North,Male,Mid,2017-09-21,,Active,,99,5+ yrs,3.5,4.7,91
+E1525,Sales,HQ,Female,Senior,2019-03-04,,Active,,81,5+ yrs,4.3,4.6,124
+E1526,Finance,Regional-North,Male,Lead,2024-09-18,,Active,,15,0-18 mo,3.3,3.2,166
+E1527,Engineering,Remote,Male,Mid,2022-06-11,2025-07-26,Left,Manager / culture,37,3-5 yrs,3.3,2.9,92
+E1528,Engineering,HQ,Female,Mid,2023-11-11,,Active,,25,18-36 mo,3.5,4,84
+E1529,Sales,Regional-South,Male,Junior,2023-02-07,2025-09-22,Left,Personal,31,18-36 mo,4,4.1,61
+E1530,Customer Support,HQ,Male,Mid,2022-07-09,,Active,,41,3-5 yrs,3.4,3.6,70
+E1531,Operations,HQ,Male,Mid,2022-02-19,,Active,,46,3-5 yrs,4,3.6,94
+E1532,Engineering,HQ,Female,Mid,2020-11-20,,Active,,61,5+ yrs,2.9,2.5,66
+E1533,Sales,Regional-South,Female,Mid,2020-07-20,,Active,,65,5+ yrs,4.2,3.8,86
+E1534,Operations,Remote,Female,Junior,2021-06-21,,Active,,54,3-5 yrs,4.8,3.5,46
+E1535,Customer Support,Regional-South,Female,Junior,2021-01-04,2025-02-20,Left,Career growth,49,3-5 yrs,4,3.5,47
+E1536,Customer Support,Regional-South,Female,Mid,2024-07-09,2025-02-09,Left,Manager / culture,7,0-18 mo,2.9,4.6,74
+E1537,Sales,Remote,Male,Mid,2017-02-16,,Active,,106,5+ yrs,4.5,3.3,76
+E1538,Sales,Regional-South,Female,Junior,2024-08-21,2025-11-10,Left,Better offer,15,0-18 mo,3.7,2.4,55
+E1539,Engineering,Regional-North,Male,Mid,2017-04-08,,Active,,104,5+ yrs,1,2.5,74
+E1540,Operations,HQ,Female,Junior,2024-06-08,,Active,,18,18-36 mo,2.4,2.7,63
+E1541,Engineering,Remote,Female,Junior,2017-05-09,,Active,,103,5+ yrs,3.9,4.3,54
+E1542,Sales,Regional-North,Male,Junior,2020-06-04,,Active,,66,5+ yrs,2.7,4.1,68
+E1543,Engineering,Remote,Female,Senior,2018-08-24,,Active,,88,5+ yrs,4.2,3.4,109
+E1544,Engineering,HQ,Female,Mid,2018-04-03,,Active,,92,5+ yrs,2.7,3.7,91
+E1545,Sales,Remote,Female,Junior,2023-03-19,,Active,,33,18-36 mo,4.4,3,53
+E1546,Engineering,Remote,Female,Junior,2020-03-08,2025-10-23,Left,Better offer,67,5+ yrs,3.5,3.3,65
+E1547,Sales,HQ,Female,Senior,2022-01-14,2025-06-14,Left,Compensation,41,3-5 yrs,3.6,3.6,125
+E1548,Engineering,HQ,Female,Junior,2021-08-05,2025-01-26,Left,Better offer,41,3-5 yrs,2.7,3.8,54
+E1549,Engineering,Regional-South,Female,Mid,2018-07-01,,Active,,89,5+ yrs,4.2,3.7,92
+E1550,Sales,Regional-South,Male,Senior,2020-03-11,2025-05-19,Left,Compensation,62,5+ yrs,3.6,2.9,96
+E1551,Finance,Regional-North,Male,Junior,2017-12-17,,Active,,96,5+ yrs,2.5,3.2,57
+E1552,HR,Regional-South,Female,Lead,2018-01-25,,Active,,95,5+ yrs,4.2,3.2,167
+E1553,Customer Support,Regional-South,Male,Senior,2019-06-20,,Active,,78,5+ yrs,4.6,3.3,127
+E1554,Engineering,Regional-North,Female,Mid,2018-01-19,,Active,,95,5+ yrs,3,4.5,92
+E1555,Engineering,Remote,Female,Senior,2017-08-14,2025-07-08,Left,Better offer,95,5+ yrs,3.2,4.2,126
+E1556,Engineering,Regional-North,Female,Junior,2020-10-21,2025-09-02,Left,Better offer,59,3-5 yrs,1.2,4,52
+E1557,Engineering,Remote,Female,Mid,2019-01-15,2025-02-25,Left,Manager / culture,73,5+ yrs,1.8,3.5,70
+E1558,Engineering,Regional-South,Female,Mid,2019-07-02,,Active,,77,5+ yrs,2.1,4,78
+E1559,HR,Regional-South,Female,Junior,2021-12-02,,Active,,48,3-5 yrs,3.4,2.9,59
+E1560,Engineering,Remote,Male,Junior,2020-02-05,,Active,,70,5+ yrs,3.3,3,49
+E1561,Sales,HQ,Male,Lead,2025-01-07,,Active,,11,0-18 mo,3.2,3.4,167
+E1562,Sales,Regional-North,Male,Senior,2025-01-03,,Active,,11,0-18 mo,4,3.5,118
+E1563,Sales,Remote,Female,Senior,2025-01-23,2025-04-25,Left,Personal,3,0-18 mo,4.5,2.9,131
+E1564,Sales,Regional-South,Female,Junior,2025-01-04,2025-03-21,Left,Personal,2,0-18 mo,4.3,3.8,66
+E1565,Engineering,Regional-South,Male,Junior,2025-01-15,2025-12-04,Left,Career growth,11,0-18 mo,2.3,3.4,61
+E1566,Operations,Regional-South,Male,Junior,2025-01-24,2025-04-25,Left,Compensation,3,0-18 mo,3.8,4.4,47
+E1567,Finance,Remote,Non-binary / Other,Mid,2025-02-27,2025-09-01,Left,Personal,7,0-18 mo,3.4,5,81
+E1568,Sales,HQ,Male,Mid,2025-02-02,2025-10-15,Left,Compensation,8,0-18 mo,4.4,3.4,74
+E1569,HR,Remote,Female,Mid,2025-02-26,,Active,,10,0-18 mo,3.8,3.3,89
+E1570,HR,HQ,Female,Mid,2025-02-16,,Active,,10,0-18 mo,3.7,3.7,83
+E1571,Engineering,Regional-North,Male,Junior,2025-02-13,2025-09-22,Left,Relocation,7,0-18 mo,2.9,5,69
+E1572,Customer Support,HQ,Female,Junior,2025-02-24,,Active,,10,0-18 mo,4.6,2.4,56
+E1573,HR,Regional-North,Female,Junior,2025-02-21,2025-09-02,Left,Personal,7,0-18 mo,3.7,4.4,62
+E1574,Finance,Regional-North,Female,Mid,2025-02-23,,Active,,10,0-18 mo,4,3.3,66
+E1575,Operations,Regional-South,Female,Junior,2025-02-12,2025-06-10,Left,Relocation,4,0-18 mo,2.8,3.6,50
+E1576,HR,HQ,Male,Junior,2025-03-05,2025-04-10,Left,Better offer,1,0-18 mo,4.7,3.4,56
+E1577,Engineering,Remote,Female,Mid,2025-03-27,2025-10-18,Left,Compensation,7,0-18 mo,3.7,4.2,85
+E1578,Operations,HQ,Male,Senior,2025-03-05,,Active,,9,0-18 mo,3.1,3.7,135
+E1579,Customer Support,Regional-South,Male,Junior,2025-03-15,2025-11-10,Left,Better offer,8,0-18 mo,3.6,3.8,49
+E1580,Sales,Remote,Female,Mid,2025-03-03,2025-06-06,Left,Personal,3,0-18 mo,2.4,3.5,86
+E1581,Engineering,Regional-South,Non-binary / Other,Senior,2025-03-21,,Active,,9,0-18 mo,3.7,2.2,105
+E1582,HR,HQ,Female,Mid,2025-03-13,,Active,,9,0-18 mo,4.3,3.4,76
+E1583,Customer Support,HQ,Male,Lead,2025-04-07,,Active,,8,0-18 mo,2.2,3.4,138
+E1584,Engineering,HQ,Male,Senior,2025-04-19,,Active,,8,0-18 mo,2.3,4.4,95
+E1585,Operations,Regional-North,Female,Mid,2025-04-27,,Active,,8,0-18 mo,3.9,3.7,66
+E1586,Engineering,Regional-South,Male,Junior,2025-04-17,2025-12-20,Left,Compensation,8,0-18 mo,4.4,3.4,57
+E1587,Finance,Regional-South,Male,Mid,2025-04-20,2025-07-20,Left,Personal,3,0-18 mo,2.9,3.4,82
+E1588,Sales,Regional-North,Male,Junior,2025-04-24,,Active,,8,0-18 mo,4.8,3,64
+E1589,Operations,Remote,Male,Lead,2025-04-07,2025-11-05,Left,Compensation,7,0-18 mo,4.3,3.4,188
+E1590,Sales,Remote,Female,Senior,2025-04-22,,Active,,8,0-18 mo,4.2,3.7,112
+E1591,Engineering,Regional-North,Male,Senior,2025-05-19,,Active,,7,0-18 mo,2.3,2.9,125
+E1592,Finance,HQ,Female,Mid,2025-05-01,,Active,,7,0-18 mo,4.6,2.7,78
+E1593,HR,Regional-North,Male,Senior,2025-05-03,2025-10-02,Left,Relocation,5,0-18 mo,3.9,4.7,104
+E1594,Sales,Remote,Female,Mid,2025-05-21,,Active,,7,0-18 mo,4.7,2.5,94
+E1595,HR,Regional-North,Female,Senior,2025-05-01,,Active,,7,0-18 mo,3.9,3.4,108
+E1596,Marketing,HQ,Male,Mid,2025-05-12,,Active,,7,0-18 mo,3.5,4.3,76
+E1597,Marketing,Remote,Male,Senior,2025-05-06,,Active,,7,0-18 mo,3.6,3.6,123
+E1598,Engineering,HQ,Male,Junior,2025-05-25,,Active,,7,0-18 mo,2.2,2.5,69
+E1599,Marketing,Regional-South,Male,Senior,2025-05-17,2025-08-17,Left,Compensation,3,0-18 mo,3.9,2.7,107
+E1600,Engineering,Regional-South,Female,Mid,2025-05-02,,Active,,7,0-18 mo,3.1,4.5,93
+E1601,Finance,HQ,Female,Mid,2025-05-11,2025-06-09,Left,Compensation,1,0-18 mo,2.9,3.4,91
+E1602,Customer Support,Regional-North,Male,Senior,2025-06-03,,Active,,6,0-18 mo,3.1,3.2,105
+E1603,Operations,Regional-North,Male,Junior,2025-06-27,,Active,,6,0-18 mo,4.3,3.2,66
+E1604,Engineering,Regional-North,Male,Lead,2025-06-04,,Active,,6,0-18 mo,2.2,2.7,148
+E1605,Sales,HQ,Female,Junior,2025-06-12,,Active,,6,0-18 mo,3.8,3.1,48
+E1606,Customer Support,Regional-South,Male,Junior,2025-06-13,,Active,,6,0-18 mo,3.5,3.1,49
+E1607,Customer Support,Remote,Male,Lead,2025-06-21,,Active,,6,0-18 mo,3.3,2.8,187
+E1608,Operations,Remote,Female,Senior,2025-06-08,2025-09-06,Left,Manager / culture,3,0-18 mo,5,4.5,111
+E1609,Sales,HQ,Female,Junior,2025-06-26,2025-09-26,Left,Manager / culture,3,0-18 mo,4.1,4,45
+E1610,Engineering,Remote,Female,Junior,2025-06-15,,Active,,6,0-18 mo,3.4,4.1,65
+E1611,Sales,HQ,Female,Junior,2025-06-06,2025-08-19,Left,Relocation,2,0-18 mo,3,1.9,51
+E1612,Customer Support,Regional-South,Female,Senior,2025-07-10,,Active,,5,0-18 mo,3.4,3.5,100
+E1613,Operations,HQ,Male,Junior,2025-07-08,,Active,,5,0-18 mo,3,3.3,48
+E1614,Engineering,Remote,Male,Lead,2025-07-06,,Active,,5,0-18 mo,3.2,3.5,158
+E1615,Finance,Regional-South,Male,Junior,2025-07-10,,Active,,5,0-18 mo,3.3,2.1,66
+E1616,Engineering,Regional-South,Female,Junior,2025-07-21,,Active,,5,0-18 mo,2,3.8,61
+E1617,Engineering,Remote,Female,Senior,2025-07-16,,Active,,5,0-18 mo,3.1,2.9,120
+E1618,HR,Remote,Male,Lead,2025-07-27,,Active,,5,0-18 mo,4.1,3.9,154
+E1619,Engineering,HQ,Female,Junior,2025-07-09,,Active,,5,0-18 mo,3.2,3.6,60
+E1620,Operations,Regional-South,Female,Junior,2025-07-03,,Active,,5,0-18 mo,4.4,2,46
+E1621,Engineering,Regional-South,Male,Junior,2025-07-23,,Active,,5,0-18 mo,1.9,4.6,66
+E1622,Operations,Remote,Female,Mid,2025-08-08,,Active,,4,0-18 mo,4.2,2.9,80
+E1623,Engineering,Remote,Female,Junior,2025-08-09,2025-12-02,Left,Compensation,4,0-18 mo,2.3,4.4,58
+E1624,HR,Regional-North,Male,Mid,2025-08-19,,Active,,4,0-18 mo,4.5,4.2,94
+E1625,Customer Support,HQ,Male,Junior,2025-08-02,,Active,,4,0-18 mo,3.9,3.4,49
+E1626,Engineering,HQ,Female,Mid,2025-08-26,,Active,,4,0-18 mo,2.1,3.5,86
+E1627,Operations,Remote,Female,Junior,2025-08-18,,Active,,4,0-18 mo,3.6,3.5,68
+E1628,Engineering,Regional-North,Female,Junior,2025-08-19,,Active,,4,0-18 mo,3.3,4.4,50
+E1629,Engineering,Remote,Female,Senior,2025-09-23,2025-12-27,Left,Career growth,3,0-18 mo,4.2,4.3,99
+E1630,Sales,Regional-North,Female,Junior,2025-09-15,2025-10-12,Left,Better offer,1,0-18 mo,3.8,3.6,46
+E1631,Operations,HQ,Female,Mid,2025-09-04,,Active,,3,0-18 mo,5,4,77
+E1632,Engineering,HQ,Male,Senior,2025-09-21,,Active,,3,0-18 mo,2.1,4.1,111
+E1633,Marketing,Regional-North,Female,Senior,2025-09-24,,Active,,3,0-18 mo,5,3.7,119
+E1634,Finance,Remote,Female,Senior,2025-09-14,,Active,,3,0-18 mo,2.2,2.8,99
+E1635,Engineering,Remote,Male,Junior,2025-09-26,2025-10-13,Left,Compensation,1,0-18 mo,3.5,1.7,61
+E1636,Operations,Regional-South,Male,Lead,2025-10-17,2025-11-19,Left,Career growth,1,0-18 mo,3.3,2.8,174
+E1637,Engineering,Regional-South,Female,Mid,2025-10-19,,Active,,2,0-18 mo,1.7,2.9,74
+E1638,HR,Remote,Female,Senior,2025-10-12,,Active,,2,0-18 mo,3.5,2.7,101
+E1639,Customer Support,HQ,Female,Junior,2025-10-23,2025-11-17,Left,Better offer,1,0-18 mo,2.7,3.5,68
+E1640,HR,HQ,Male,Senior,2025-10-12,,Active,,2,0-18 mo,1.8,3.7,136
+E1641,Operations,Regional-South,Male,Mid,2025-10-09,,Active,,2,0-18 mo,2.8,4.2,81
+E1642,Operations,Remote,Female,Mid,2025-10-21,,Active,,2,0-18 mo,3.5,4.9,77
+E1643,HR,HQ,Male,Junior,2025-10-06,,Active,,2,0-18 mo,3,2.9,59
+E1644,Customer Support,Regional-South,Male,Junior,2025-11-26,,Active,,1,0-18 mo,4.1,2.9,48
+E1645,Customer Support,HQ,Female,Mid,2025-11-22,,Active,,1,0-18 mo,3.9,3.7,83
+E1646,HR,HQ,Male,Mid,2025-11-26,,Active,,1,0-18 mo,3,3.7,75
+E1647,Engineering,Regional-South,Male,Junior,2025-11-09,,Active,,1,0-18 mo,3.7,3.5,51
+E1648,Sales,Regional-North,Female,Senior,2025-11-03,,Active,,1,0-18 mo,3.1,3.9,100
+E1649,Customer Support,Regional-North,Male,Junior,2025-11-06,,Active,,1,0-18 mo,3.7,3.1,66
+E1650,Customer Support,Remote,Male,Mid,2025-11-22,,Active,,1,0-18 mo,3.7,3.9,67
+E1651,Engineering,Regional-South,Male,Mid,2025-11-08,,Active,,1,0-18 mo,3,3.5,66
+E1652,Engineering,Regional-South,Male,Senior,2025-12-01,,Active,,0,0-18 mo,3.1,3.6,128
+E1653,Marketing,HQ,Male,Mid,2025-12-08,,Active,,0,0-18 mo,4.4,3.7,78
+E1654,Engineering,Remote,Female,Junior,2025-12-23,,Active,,0,0-18 mo,3.8,3.4,57
+E1655,Marketing,Regional-South,Male,Mid,2025-12-06,,Active,,0,0-18 mo,3.7,4.5,90
+E1656,Sales,Regional-South,Female,Mid,2025-12-03,,Active,,0,0-18 mo,2.9,3.9,94
+E1657,Sales,Regional-South,Male,Junior,2025-12-20,,Active,,0,0-18 mo,4,2.6,69
+E1658,Marketing,HQ,Male,Mid,2025-12-01,,Active,,0,0-18 mo,3.2,3.8,92
+E1659,Operations,HQ,Female,Junior,2025-12-22,,Active,,0,0-18 mo,4.3,2.8,55
+E1660,Sales,HQ,Male,Junior,2025-12-19,,Active,,0,0-18 mo,5,4,56
+E1661,Engineering,HQ,Male,Mid,2025-12-26,,Active,,0,0-18 mo,2.2,3.7,92

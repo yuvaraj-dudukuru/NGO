@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HR Workforce Dashboard</title>
+<style>
+  :root {
+    --panel: #ffffff; --muted: #64748b; --ink: #0f172a; --line: #e2e8f0;
+    --accent: #7c3aed; --accent-2: #8b5cf6;
+    --shadow: 0 1px 3px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; color: var(--ink); background: #f1f5f9; }
+  header.app { background: linear-gradient(120deg, #2e1065 0%, #5b21b6 55%, #7c3aed 100%); color: #fff; padding: 22px 28px; }
+  header.app h1 { margin: 0; font-size: 22px; }
+  header.app p { margin: 6px 0 0; color: #ddd6fe; font-size: 13px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 20px 28px 48px; }
+
+  .slicers { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); margin-top: -28px; position: relative; }
+  .slicer { display: flex; flex-direction: column; gap: 8px; }
+  .slicer .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: #f8fafc; color: var(--ink); padding: 6px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .15s ease; }
+  .chip:hover { border-color: var(--accent-2); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(124,58,237,.35); }
+  .reset { margin-left: auto; align-self: center; border: none; background: #ede9fe; color: var(--accent); font-weight: 600; padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; }
+  .reset:hover { background: #ddd6fe; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 18px 0; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .kpi::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--accent); }
+  .kpi .k-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .k-value { font-size: 30px; font-weight: 800; margin-top: 8px; letter-spacing: -.5px; }
+  .kpi .k-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi:nth-child(2)::before { background: #0ea5e9; }
+  .kpi:nth-child(3)::before { background: #16a34a; }
+  .kpi:nth-child(4)::before { background: #f59e0b; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 8px; box-shadow: var(--shadow); }
+  .card.full { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 2px; font-size: 15px; }
+  .card .hint { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+  .chart-box { position: relative; height: 300px; }
+  footer.note { color: var(--muted); font-size: 12px; margin-top: 22px; text-align: center; }
+  @media (max-width: 880px) { .kpis { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="app">
+  <h1>HR Workforce Dashboard</h1>
+  <p>Headcount, performance &amp; tenure across departments &middot; Day 19 BI Case Study 3</p>
+</header>
+
+<div class="wrap">
+  <div class="slicers">
+    <div class="slicer"><span class="lbl">Department</span><div class="chips" id="slc-dept"></div></div>
+    <div class="slicer"><span class="lbl">Performance Category</span><div class="chips" id="slc-cat"></div></div>
+    <button class="reset" id="reset">Reset filters</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k-label">Total Headcount</div><div class="k-value" id="kpi-head">—</div><div class="k-sub" id="kpi-head-sub"></div></div>
+    <div class="kpi"><div class="k-label">Avg Performance Score</div><div class="k-value" id="kpi-perf">—</div><div class="k-sub">out of 100</div></div>
+    <div class="kpi"><div class="k-label">Avg Tenure</div><div class="k-value" id="kpi-tenure">—</div><div class="k-sub">years with company</div></div>
+    <div class="kpi"><div class="k-label">High Performers</div><div class="k-value" id="kpi-high">—</div><div class="k-sub" id="kpi-high-sub"></div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Average Performance by Department</h3>
+      <p class="hint">Highest- and lowest-performing departments.</p>
+      <div class="chart-box"><canvas id="chartPerf"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Headcount by Department</h3>
+      <p class="hint">Distribution of the workforce.</p>
+      <div class="chart-box"><canvas id="chartHead"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Performance Category Distribution</h3>
+      <p class="hint">Spread of performance across the workforce (High / Medium / Low).</p>
+      <div class="chart-box"><canvas id="chartCat"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Performance Category by Department</h3>
+      <p class="hint">How each department splits across performance bands.</p>
+      <div class="chart-box"><canvas id="chartStack"></canvas></div>
+    </div>
+  </div>
+
+  <footer class="note">
+    Data is 100% synthetic and generated for training purposes — no personal data. Built with Chart.js (vendored locally).
+  </footer>
+</div>
+
+<script src="lib/chart.umd.min.js"></script>
+<script src="data/hr_data.js"></script>
+<script>
+(function () {
+  const DATA = window.HR_DATA || [];
+  const uniq = (arr, key) => [...new Set(arr.map(r => r[key]))];
+  const CAT_ORDER = ["High", "Medium", "Low"];
+  const CAT_COLORS = { High: "#16a34a", Medium: "#f59e0b", Low: "#ef4444" };
+
+  const state = { dept: "All", cat: "All" };
+  const depts = ["All", ...uniq(DATA, "Department").sort()];
+  const cats = ["All", ...CAT_ORDER.filter(c => uniq(DATA, "PerformanceCategory").includes(c))];
+
+  function buildChips(containerId, values, stateKey) {
+    const box = document.getElementById(containerId);
+    box.innerHTML = "";
+    values.forEach(v => {
+      const c = document.createElement("button");
+      c.className = "chip" + (state[stateKey] === v ? " active" : "");
+      c.textContent = v;
+      c.onclick = () => { state[stateKey] = v; [...box.children].forEach(ch => ch.classList.toggle("active", ch.textContent === v)); refresh(); };
+      box.appendChild(c);
+    });
+  }
+
+  function applyFilters() {
+    return DATA.filter(r =>
+      (state.dept === "All" || r.Department === state.dept) &&
+      (state.cat === "All" || r.PerformanceCategory === state.cat)
+    );
+  }
+
+  Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif';
+  Chart.defaults.color = "#64748b";
+
+  const perf = new Chart(document.getElementById("chartPerf"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Avg score", data: [], backgroundColor: [], borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.parsed.y.toFixed(1) + " / 100" } } }, scales: { y: { grid: { color: "#eef2f7" }, suggestedMax: 100 }, x: { grid: { display: false } } } }
+  });
+
+  const head = new Chart(document.getElementById("chartHead"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Headcount", data: [], backgroundColor: "#8b5cf6", borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: "#eef2f7" }, beginAtZero: true }, x: { grid: { display: false } } } }
+  });
+
+  const cat = new Chart(document.getElementById("chartCat"), {
+    type: "doughnut",
+    data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 2, borderColor: "#fff" }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: "55%", plugins: { legend: { position: "right" }, tooltip: { callbacks: { label: c => c.label + ": " + c.parsed + " (" + (c.parsed / c.dataset.data.reduce((a,b)=>a+b,0) * 100).toFixed(1) + "%)" } } } }
+  });
+
+  const stack = new Chart(document.getElementById("chartStack"), {
+    type: "bar",
+    data: { labels: [], datasets: CAT_ORDER.map(c => ({ label: c, data: [], backgroundColor: CAT_COLORS[c], borderRadius: 4 })) },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "bottom" } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid: { color: "#eef2f7" }, beginAtZero: true } } }
+  });
+
+  function refresh() {
+    const rows = applyFilters();
+    const n = rows.length;
+    const avgPerf = n ? rows.reduce((s, r) => s + r.PerformanceScore, 0) / n : 0;
+    const avgTen = n ? rows.reduce((s, r) => s + r.TenureYears, 0) / n : 0;
+    const high = rows.filter(r => r.PerformanceCategory === "High").length;
+
+    document.getElementById("kpi-head").textContent = n.toLocaleString();
+    document.getElementById("kpi-perf").textContent = avgPerf.toFixed(1);
+    document.getElementById("kpi-tenure").textContent = avgTen.toFixed(1) + " yrs";
+    document.getElementById("kpi-high").textContent = high.toLocaleString();
+    document.getElementById("kpi-head-sub").textContent = state.dept === "All" ? "all departments" : state.dept;
+    document.getElementById("kpi-high-sub").textContent = n ? (high / n * 100).toFixed(1) + "% of workforce" : "";
+
+    const presentDepts = uniq(rows, "Department").sort();
+
+    // avg performance by dept (sorted desc)
+    const avgByDept = presentDepts.map(d => {
+      const sub = rows.filter(r => r.Department === d);
+      return { d, v: sub.reduce((s, r) => s + r.PerformanceScore, 0) / sub.length, n: sub.length };
+    }).sort((a, b) => b.v - a.v);
+    perf.data.labels = avgByDept.map(x => x.d);
+    perf.data.datasets[0].data = avgByDept.map(x => x.v);
+    perf.data.datasets[0].backgroundColor = avgByDept.map((x, i) => i === 0 ? "#16a34a" : (i === avgByDept.length - 1 ? "#ef4444" : "#a78bfa"));
+    perf.update();
+
+    // headcount by dept (sorted desc)
+    const headByDept = presentDepts.map(d => ({ d, n: rows.filter(r => r.Department === d).length })).sort((a, b) => b.n - a.n);
+    head.data.labels = headByDept.map(x => x.d);
+    head.data.datasets[0].data = headByDept.map(x => x.n);
+    head.update();
+
+    // category distribution
+    const presentCats = CAT_ORDER.filter(c => rows.some(r => r.PerformanceCategory === c));
+    cat.data.labels = presentCats;
+    cat.data.datasets[0].data = presentCats.map(c => rows.filter(r => r.PerformanceCategory === c).length);
+    cat.data.datasets[0].backgroundColor = presentCats.map(c => CAT_COLORS[c]);
+    cat.update();
+
+    // stacked: category by dept
+    const stackDepts = headByDept.map(x => x.d);
+    stack.data.labels = stackDepts;
+    CAT_ORDER.forEach((c, i) => {
+      stack.data.datasets[i].data = stackDepts.map(d => rows.filter(r => r.Department === d && r.PerformanceCategory === c).length);
+    });
+    stack.update();
+  }
+
+  buildChips("slc-dept", depts, "dept");
+  buildChips("slc-cat", cats, "cat");
+  document.getElementById("reset").onclick = () => {
+    state.dept = "All"; state.cat = "All";
+    buildChips("slc-dept", depts, "dept");
+    buildChips("slc-cat", cats, "cat");
+    refresh();
+  };
+  refresh();
+})();
+</script>
+</body>
+</html>

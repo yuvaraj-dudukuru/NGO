@@ -1,0 +1,5 @@
+# Python dependencies for the hands-on activity.
+# sqlite3 is part of the Python standard library, so it is NOT listed here.
+pandas>=2.0
+# Optional - only needed to open/run the .ipynb notebook:
+# jupyter

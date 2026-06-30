@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sales Dashboard — Hands-On Activity</title>
+<style>
+  :root {
+    --panel: #ffffff; --muted: #64748b; --ink: #0f172a; --line: #e2e8f0;
+    --accent: #059669; --accent-2: #10b981;
+    --shadow: 0 1px 3px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; color: var(--ink); background: #f1f5f9; }
+  header.app { background: linear-gradient(120deg, #022c22 0%, #065f46 55%, #059669 100%); color: #fff; padding: 22px 28px; }
+  header.app h1 { margin: 0; font-size: 22px; }
+  header.app p { margin: 6px 0 0; color: #a7f3d0; font-size: 13px; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 20px 28px 48px; }
+
+  .slicers { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); margin-top: -28px; position: relative; }
+  .slicer { display: flex; flex-direction: column; gap: 8px; }
+  .slicer .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: #f8fafc; color: var(--ink); padding: 6px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .15s ease; }
+  .chip:hover { border-color: var(--accent-2); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(5,150,105,.35); }
+  .reset { margin-left: auto; align-self: center; border: none; background: #d1fae5; color: #047857; font-weight: 600; padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; }
+  .reset:hover { background: #a7f3d0; }
+
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 18px 0; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .kpi::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--accent); }
+  .kpi .k-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .k-value { font-size: 32px; font-weight: 800; margin-top: 8px; letter-spacing: -.5px; }
+  .kpi .k-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi:nth-child(2)::before { background: #0ea5e9; }
+  .kpi:nth-child(3)::before { background: #f59e0b; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 8px; box-shadow: var(--shadow); }
+  .card.full { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 2px; font-size: 15px; }
+  .card .hint { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+  .chart-box { position: relative; height: 300px; }
+  .chart-box.tall { height: 320px; }
+  footer.note { color: var(--muted); font-size: 12px; margin-top: 22px; text-align: center; }
+  @media (max-width: 880px) { .kpis { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="app">
+  <h1>Sales Dashboard</h1>
+  <p>Hands-On Activity — KPI cards, linked charts &amp; filters &middot; Day 19 Power BI / Tableau</p>
+</header>
+
+<div class="wrap">
+  <!-- STEP 5: SLICERS -->
+  <div class="slicers">
+    <div class="slicer"><span class="lbl">Region</span><div class="chips" id="slc-region"></div></div>
+    <div class="slicer"><span class="lbl">Category</span><div class="chips" id="slc-category"></div></div>
+    <div class="slicer"><span class="lbl">Date (Year)</span><div class="chips" id="slc-period"></div></div>
+    <button class="reset" id="reset">Reset filters</button>
+  </div>
+
+  <!-- STEP 4: KPI CARDS -->
+  <div class="kpis">
+    <div class="kpi"><div class="k-label">Total Sales</div><div class="k-value" id="kpi-sales">—</div><div class="k-sub" id="kpi-sales-sub"></div></div>
+    <div class="kpi"><div class="k-label">Total Profit</div><div class="k-value" id="kpi-profit">—</div><div class="k-sub" id="kpi-margin"></div></div>
+    <div class="kpi"><div class="k-label">Orders</div><div class="k-value" id="kpi-orders">—</div><div class="k-sub" id="kpi-aov"></div></div>
+  </div>
+
+  <!-- STEP 3: CHARTS -->
+  <div class="grid">
+    <div class="card full">
+      <h3>Sales Over Time</h3>
+      <p class="hint">Monthly sales — reveals the trend and seasonality.</p>
+      <div class="chart-box tall"><canvas id="chartTrend"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Sales by Region</h3>
+      <p class="hint">Top and bottom markets (leader highlighted).</p>
+      <div class="chart-box"><canvas id="chartRegion"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Sales by Product</h3>
+      <p class="hint">Best-selling products.</p>
+      <div class="chart-box"><canvas id="chartProduct"></canvas></div>
+    </div>
+  </div>
+
+  <footer class="note">
+    Data is 100% synthetic and generated for training purposes — no personal data. Built with Chart.js (vendored locally).
+  </footer>
+</div>
+
+<script src="lib/chart.umd.min.js"></script>
+<script src="data/sales_data.js"></script>
+<script>
+(function () {
+  const DATA = window.SALES_DATA || [];
+  const fmtMoney = n => "$" + Math.round(n).toLocaleString();
+  const fmtMoneyK = n => n >= 1e6 ? "$" + (n/1e6).toFixed(2) + "M" : (n >= 1e3 ? "$" + Math.round(n/1e3) + "K" : "$" + Math.round(n));
+  const uniq = (arr, key) => [...new Set(arr.map(r => r[key]))].sort();
+
+  const state = { region: "All", category: "All", period: "All" };
+  const regions = ["All", ...uniq(DATA, "Region")];
+  const categories = ["All", ...uniq(DATA, "Category")];
+  const years = [...new Set(DATA.map(r => r.Date.slice(0, 4)))].sort();
+  const periods = ["All", ...years];
+
+  function buildChips(containerId, values, stateKey) {
+    const box = document.getElementById(containerId);
+    box.innerHTML = "";
+    values.forEach(v => {
+      const c = document.createElement("button");
+      c.className = "chip" + (state[stateKey] === v ? " active" : "");
+      c.textContent = v;
+      c.onclick = () => { state[stateKey] = v; [...box.children].forEach(ch => ch.classList.toggle("active", ch.textContent === v)); refresh(); };
+      box.appendChild(c);
+    });
+  }
+
+  function applyFilters() {
+    return DATA.filter(r =>
+      (state.region === "All" || r.Region === state.region) &&
+      (state.category === "All" || r.Category === state.category) &&
+      (state.period === "All" || r.Date.slice(0, 4) === state.period)
+    );
+  }
+  function groupSum(rows, key, field) {
+    const m = {}; rows.forEach(r => { m[r[key]] = (m[r[key]] || 0) + r[field]; }); return m;
+  }
+
+  Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif';
+  Chart.defaults.color = "#64748b";
+  const ACCENT = "#059669";
+
+  const trend = new Chart(document.getElementById("chartTrend"), {
+    type: "line",
+    data: { labels: [], datasets: [{ label: "Sales", data: [], borderColor: ACCENT, backgroundColor: "rgba(5,150,105,.12)", fill: true, tension: .35, borderWidth: 2.5, pointRadius: 2, pointHoverRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } }, scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } } }
+  });
+
+  const region = new Chart(document.getElementById("chartRegion"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Sales", data: [], backgroundColor: "#10b981", borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } }, scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } } }
+  });
+
+  const product = new Chart(document.getElementById("chartProduct"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Sales", data: [], backgroundColor: "#0ea5e9", borderRadius: 6 }] },
+    options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.x) } } }, scales: { x: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, y: { grid: { display: false } } } }
+  });
+
+  function refresh() {
+    const rows = applyFilters();
+    const totSales = rows.reduce((s, r) => s + r.Sales, 0);
+    const totProfit = rows.reduce((s, r) => s + r.Profit, 0);
+    const orders = rows.length;
+
+    document.getElementById("kpi-sales").textContent = fmtMoney(totSales);
+    document.getElementById("kpi-profit").textContent = fmtMoney(totProfit);
+    document.getElementById("kpi-orders").textContent = orders.toLocaleString();
+    document.getElementById("kpi-sales-sub").textContent = state.period === "All" ? "all periods" : "year " + state.period;
+    document.getElementById("kpi-margin").textContent = totSales ? (totProfit / totSales * 100).toFixed(1) + "% margin" : "";
+    document.getElementById("kpi-aov").textContent = orders ? "avg " + fmtMoney(totSales / orders) + "/order" : "";
+
+    // trend (monthly)
+    const monthly = {};
+    rows.forEach(r => { const k = r.Date.slice(0, 7); monthly[k] = (monthly[k] || 0) + r.Sales; });
+    const months = Object.keys(monthly).sort();
+    trend.data.labels = months; trend.data.datasets[0].data = months.map(m => monthly[m]); trend.update();
+
+    // region
+    const byRegion = groupSum(rows, "Region", "Sales");
+    const rOrder = Object.keys(byRegion).sort((a, b) => byRegion[b] - byRegion[a]);
+    region.data.labels = rOrder;
+    region.data.datasets[0].data = rOrder.map(k => byRegion[k]);
+    region.data.datasets[0].backgroundColor = rOrder.map((_, i) => i === 0 ? "#047857" : "#6ee7b7");
+    region.update();
+
+    // product
+    const byProduct = groupSum(rows, "Product", "Sales");
+    const pOrder = Object.keys(byProduct).sort((a, b) => byProduct[b] - byProduct[a]);
+    product.data.labels = pOrder;
+    product.data.datasets[0].data = pOrder.map(k => byProduct[k]);
+    product.data.datasets[0].backgroundColor = pOrder.map((_, i) => i === 0 ? "#0284c7" : "#7dd3fc");
+    product.update();
+  }
+
+  buildChips("slc-region", regions, "region");
+  buildChips("slc-category", categories, "category");
+  buildChips("slc-period", periods, "period");
+  document.getElementById("reset").onclick = () => {
+    state.region = "All"; state.category = "All"; state.period = "All";
+    buildChips("slc-region", regions, "region");
+    buildChips("slc-category", categories, "category");
+    buildChips("slc-period", periods, "period");
+    refresh();
+  };
+  refresh();
+})();
+</script>
+</body>
+</html>

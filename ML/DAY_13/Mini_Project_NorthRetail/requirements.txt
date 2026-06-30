@@ -1,0 +1,3 @@
+# Python dependency for the mini project.
+# sqlite3 is part of the Python standard library, so it is NOT listed here.
+pandas>=2.0

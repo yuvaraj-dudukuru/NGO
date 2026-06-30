@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>InsightRetail — Sales Performance Dashboard</title>
+<style>
+  :root {
+    --panel: #ffffff; --muted: #64748b; --ink: #0f172a; --line: #e2e8f0;
+    --accent: #2563eb; --accent-2: #3b82f6;
+    --shadow: 0 1px 3px rgba(15,23,42,.08), 0 8px 24px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; color: var(--ink); background: #f1f5f9; }
+  header.app { background: linear-gradient(120deg, #0b1736 0%, #1e3a8a 55%, #2563eb 100%); color: #fff; padding: 22px 28px; }
+  header.app .brand { display: flex; align-items: baseline; gap: 12px; }
+  header.app h1 { margin: 0; font-size: 22px; }
+  header.app .tag { font-size: 12px; background: rgba(255,255,255,.16); padding: 3px 10px; border-radius: 999px; }
+  header.app p { margin: 6px 0 0; color: #bfdbfe; font-size: 13px; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 20px 28px 48px; }
+
+  .slicers { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); margin-top: -28px; position: relative; }
+  .slicer { display: flex; flex-direction: column; gap: 8px; }
+  .slicer .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: #f8fafc; color: var(--ink); padding: 6px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .15s ease; }
+  .chip:hover { border-color: var(--accent-2); }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,.35); }
+  .reset { margin-left: auto; align-self: center; border: none; background: #dbeafe; color: #1d4ed8; font-weight: 600; padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; }
+  .reset:hover { background: #bfdbfe; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 18px 0; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .kpi::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--accent); }
+  .kpi .k-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi .k-value { font-size: 30px; font-weight: 800; margin-top: 8px; letter-spacing: -.5px; }
+  .kpi .k-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .kpi:nth-child(2)::before { background: #16a34a; }
+  .kpi:nth-child(3)::before { background: #f59e0b; }
+  .kpi:nth-child(4)::before { background: #0ea5e9; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 8px; box-shadow: var(--shadow); }
+  .card.full { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 2px; font-size: 15px; }
+  .card .hint { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+  .card .hint b { color: var(--accent); }
+  .chart-box { position: relative; height: 300px; }
+  .chart-box.tall { height: 330px; }
+  .chart-box.map { height: 440px; }
+  .crumb { display: inline-block; margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+  .crumb b { color: var(--ink); }
+  footer.note { color: var(--muted); font-size: 12px; margin-top: 22px; text-align: center; }
+  .err { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 10px 12px; border-radius: 8px; font-size: 13px; }
+  @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="brand"><h1>InsightRetail</h1><span class="tag">Sales Performance</span></div>
+  <p>Interactive BI dashboard &middot; KPIs, trend, region / category, state map &amp; drill-down &middot; Day 19 Mini Project</p>
+</header>
+
+<div class="wrap">
+  <!-- SLICERS -->
+  <div class="slicers">
+    <div class="slicer"><span class="lbl">Region</span><div class="chips" id="slc-region"></div></div>
+    <div class="slicer"><span class="lbl">Category</span><div class="chips" id="slc-category"></div></div>
+    <div class="slicer"><span class="lbl">Segment</span><div class="chips" id="slc-segment"></div></div>
+    <div class="slicer"><span class="lbl">Time Period</span><div class="chips" id="slc-period"></div></div>
+    <button class="reset" id="reset">Reset filters</button>
+  </div>
+
+  <div class="crumb" id="crumb"></div>
+
+  <!-- KPI CARDS -->
+  <div class="kpis">
+    <div class="kpi"><div class="k-label">Total Revenue</div><div class="k-value" id="kpi-rev">—</div><div class="k-sub" id="kpi-rev-sub"></div></div>
+    <div class="kpi"><div class="k-label">Total Profit</div><div class="k-value" id="kpi-profit">—</div><div class="k-sub" id="kpi-margin"></div></div>
+    <div class="kpi"><div class="k-label">Number of Orders</div><div class="k-value" id="kpi-orders">—</div><div class="k-sub">in current selection</div></div>
+    <div class="kpi"><div class="k-label">Avg Order Value</div><div class="k-value" id="kpi-aov">—</div><div class="k-sub">revenue per order</div></div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="grid">
+    <div class="card full">
+      <h3>Revenue Trend</h3>
+      <p class="hint">Monthly revenue across 2024 — reveals the trend and seasonality.</p>
+      <div class="chart-box tall"><canvas id="chartTrend"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h3>Revenue by Region</h3>
+      <p class="hint">Strongest &amp; weakest regions. <b>Click a bar to drill into that region.</b></p>
+      <div class="chart-box"><canvas id="chartRegion"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Category</h3>
+      <p class="hint">Category mix. <b>Click a bar to filter by category.</b></p>
+      <div class="chart-box"><canvas id="chartCategory"></canvas></div>
+    </div>
+
+    <div class="card full">
+      <h3>Revenue by State (Map)</h3>
+      <p class="hint">Choropleth — darker = higher revenue. Hover a state for its figure.</p>
+      <div class="chart-box map"><canvas id="chartMap"></canvas></div>
+      <div id="mapErr"></div>
+    </div>
+
+    <div class="card">
+      <h3>Top States by Revenue</h3>
+      <p class="hint">Exact figures behind the map (top 10).</p>
+      <div class="chart-box"><canvas id="chartStates"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Customer Segment</h3>
+      <p class="hint">Which segments drive revenue.</p>
+      <div class="chart-box"><canvas id="chartSegment"></canvas></div>
+    </div>
+  </div>
+
+  <footer class="note">
+    Data is 100% synthetic and generated for training purposes — no personal data.
+    Built with Chart.js + chartjs-chart-geo (vendored locally). Map: US states GeoJSON.
+  </footer>
+</div>
+
+<script src="lib/chart.umd.min.js"></script>
+<script src="lib/chartjs-chart-geo.umd.min.js"></script>
+<script src="data/us-states-geo.js"></script>
+<script src="data/insightretail_sales.js"></script>
+<script>
+(function () {
+  const DATA = window.SALES_DATA || [];
+  const GEO = window.US_STATES_GEO || { features: [] };
+  const fmtMoney = n => "$" + Math.round(n).toLocaleString();
+  const fmtMoneyK = n => n >= 1e6 ? "$" + (n/1e6).toFixed(2) + "M" : (n >= 1e3 ? "$" + Math.round(n/1e3) + "K" : "$" + Math.round(n));
+  const uniq = (arr, key) => [...new Set(arr.map(r => r[key]))].sort();
+  const REV = "Revenue", PRO = "Profit", SEG = "Customer Segment";
+  const quarterOf = iso => "Q" + (Math.floor((+iso.slice(5, 7) - 1) / 3) + 1);
+
+  // register geo controller/scales/element (the UMD build does NOT auto-register)
+  if (window.ChartGeo) {
+    Chart.register(ChartGeo.ChoroplethController, ChartGeo.ProjectionScale, ChartGeo.ColorScale, ChartGeo.GeoFeature);
+  }
+
+  const state = { region: "All", category: "All", segment: "All", period: "All" };
+  const regions = ["All", ...uniq(DATA, "Region")];
+  const categories = ["All", ...uniq(DATA, "Category")];
+  const segments = ["All", ...uniq(DATA, SEG)];
+  const periods = ["All", "Q1", "Q2", "Q3", "Q4"];
+
+  function buildChips(containerId, values, stateKey) {
+    const box = document.getElementById(containerId);
+    box.innerHTML = "";
+    values.forEach(v => {
+      const c = document.createElement("button");
+      c.className = "chip" + (state[stateKey] === v ? " active" : "");
+      c.textContent = v;
+      c.onclick = () => { state[stateKey] = v; syncChips(); refresh(); };
+      box.appendChild(c);
+    });
+  }
+  function syncChips() {
+    buildChips("slc-region", regions, "region");
+    buildChips("slc-category", categories, "category");
+    buildChips("slc-segment", segments, "segment");
+    buildChips("slc-period", periods, "period");
+  }
+
+  function applyFilters() {
+    return DATA.filter(r =>
+      (state.region === "All" || r.Region === state.region) &&
+      (state.category === "All" || r.Category === state.category) &&
+      (state.segment === "All" || r[SEG] === state.segment) &&
+      (state.period === "All" || quarterOf(r.Date) === state.period)
+    );
+  }
+  function groupSum(rows, key, field) { const m = {}; rows.forEach(r => { m[r[key]] = (m[r[key]] || 0) + r[field]; }); return m; }
+
+  Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif';
+  Chart.defaults.color = "#64748b";
+
+  // ---- charts ----
+  const trend = new Chart(document.getElementById("chartTrend"), {
+    type: "line",
+    data: { labels: [], datasets: [{ label: "Revenue", data: [], borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,.12)", fill: true, tension: .35, borderWidth: 2.5, pointRadius: 2, pointHoverRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } }, scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } } }
+  });
+
+  const regionChart = new Chart(document.getElementById("chartRegion"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Revenue", data: [], backgroundColor: [], borderRadius: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      onClick: (e, els) => { if (els.length) { const r = regionChart.data.labels[els[0].index]; state.region = (state.region === r ? "All" : r); syncChips(); refresh(); } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } },
+      scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } }
+    }
+  });
+
+  const categoryChart = new Chart(document.getElementById("chartCategory"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Revenue", data: [], backgroundColor: [], borderRadius: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      onClick: (e, els) => { if (els.length) { const c0 = categoryChart.data.labels[els[0].index]; state.category = (state.category === c0 ? "All" : c0); syncChips(); refresh(); } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.y) } } },
+      scales: { y: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } }
+    }
+  });
+
+  const statesChart = new Chart(document.getElementById("chartStates"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Revenue", data: [], backgroundColor: "#3b82f6", borderRadius: 6 }] },
+    options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmtMoney(c.parsed.x) } } }, scales: { x: { ticks: { callback: v => fmtMoneyK(v) }, grid: { color: "#eef2f7" } }, y: { grid: { display: false } } } }
+  });
+
+  const segmentChart = new Chart(document.getElementById("chartSegment"), {
+    type: "doughnut",
+    data: { labels: [], datasets: [{ data: [], backgroundColor: ["#2563eb", "#60a5fa", "#a5b4fc"], borderWidth: 2, borderColor: "#fff" }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: "55%", plugins: { legend: { position: "right" }, tooltip: { callbacks: { label: c => c.label + ": " + fmtMoney(c.parsed) } } } }
+  });
+
+  // ---- map (choropleth) ----
+  let mapChart = null;
+  const feats = (GEO.features || []);
+  try {
+    if (!window.ChartGeo || !feats.length) throw new Error("geo plugin or GeoJSON not loaded");
+    mapChart = new Chart(document.getElementById("chartMap"), {
+      type: "choropleth",
+      data: {
+        labels: feats.map(f => f.properties.name),
+        datasets: [{ label: "Revenue by State", outline: feats, data: feats.map(f => ({ feature: f, value: 0 })) }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, showOutline: true, showGraticule: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { title: () => "", label: c => c.raw.feature.properties.name + ": " + fmtMoney(c.raw.value) } } },
+        scales: {
+          projection: { axis: "x", projection: "albersUsa" },
+          color: { axis: "x", interpolate: "blues", missing: "#eef2f7", legend: { position: "bottom-right", align: "right" } }
+        }
+      }
+    });
+  } catch (err) {
+    document.getElementById("mapErr").innerHTML =
+      '<div class="err">Map could not load (' + err.message + '). The “Top States by Revenue” chart below shows the same data.</div>';
+  }
+
+  function refresh() {
+    const rows = applyFilters();
+    const totRev = rows.reduce((s, r) => s + r[REV], 0);
+    const totPro = rows.reduce((s, r) => s + r[PRO], 0);
+    const n = rows.length;
+
+    document.getElementById("kpi-rev").textContent = fmtMoney(totRev);
+    document.getElementById("kpi-profit").textContent = fmtMoney(totPro);
+    document.getElementById("kpi-orders").textContent = n.toLocaleString();
+    document.getElementById("kpi-aov").textContent = n ? fmtMoney(totRev / n) : "$0";
+    document.getElementById("kpi-margin").textContent = totRev ? (totPro / totRev * 100).toFixed(1) + "% margin" : "";
+    document.getElementById("kpi-rev-sub").textContent = state.period === "All" ? "full year 2024" : state.period + " 2024";
+
+    // breadcrumb / drill state
+    const active = Object.entries(state).filter(([, v]) => v !== "All").map(([k, v]) => k + ": " + v);
+    document.getElementById("crumb").innerHTML = active.length
+      ? "Filtered → <b>" + active.join("</b> &middot; <b>") + "</b>"
+      : "Showing <b>all regions, categories, segments &amp; quarters</b> — use the slicers or click a bar to drill in.";
+
+    // trend
+    const monthly = {};
+    rows.forEach(r => { const k = r.Date.slice(0, 7); monthly[k] = (monthly[k] || 0) + r[REV]; });
+    const months = Object.keys(monthly).sort();
+    trend.data.labels = months; trend.data.datasets[0].data = months.map(m => monthly[m]); trend.update();
+
+    // region
+    const byRegion = groupSum(rows, "Region", REV);
+    const rOrder = Object.keys(byRegion).sort((a, b) => byRegion[b] - byRegion[a]);
+    regionChart.data.labels = rOrder;
+    regionChart.data.datasets[0].data = rOrder.map(k => byRegion[k]);
+    regionChart.data.datasets[0].backgroundColor = rOrder.map(k => k === state.region ? "#1d4ed8" : (rOrder.indexOf(k) === 0 ? "#2563eb" : "#93c5fd"));
+    regionChart.update();
+
+    // category
+    const byCat = groupSum(rows, "Category", REV);
+    const cOrder = Object.keys(byCat).sort((a, b) => byCat[b] - byCat[a]);
+    categoryChart.data.labels = cOrder;
+    categoryChart.data.datasets[0].data = cOrder.map(k => byCat[k]);
+    categoryChart.data.datasets[0].backgroundColor = cOrder.map(k => k === state.category ? "#1d4ed8" : "#60a5fa");
+    categoryChart.update();
+
+    // states (top 10) + map
+    const bySt = groupSum(rows, "State", REV);
+    const sOrder = Object.keys(bySt).sort((a, b) => bySt[b] - bySt[a]).slice(0, 10);
+    statesChart.data.labels = sOrder;
+    statesChart.data.datasets[0].data = sOrder.map(k => bySt[k]);
+    statesChart.update();
+
+    if (mapChart) {
+      mapChart.data.datasets[0].data.forEach(d => { d.value = bySt[d.feature.properties.name] || 0; });
+      mapChart.update();
+    }
+
+    // segment
+    const bySeg = groupSum(rows, SEG, REV);
+    const segOrder = Object.keys(bySeg).sort((a, b) => bySeg[b] - bySeg[a]);
+    segmentChart.data.labels = segOrder;
+    segmentChart.data.datasets[0].data = segOrder.map(k => bySeg[k]);
+    segmentChart.update();
+  }
+
+  document.getElementById("reset").onclick = () => {
+    state.region = "All"; state.category = "All"; state.segment = "All"; state.period = "All";
+    syncChips(); refresh();
+  };
+
+  syncChips();
+  refresh();
+})();
+</script>
+</body>
+</html>

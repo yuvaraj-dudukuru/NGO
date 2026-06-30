@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Intelligence Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0d1424; --panel:#15203a; --panel-2:#1b2746; --line:#283a5e;
+    --ink:#eaf0fc; --muted:#9fb0d0; --accent:#14b8a6; --good:#22c55e;
+    --bad:#ef4444; --premium:#f59e0b; --regular:#3b82f6; --new:#a855f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1240px;margin:0 auto;padding:22px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  header.top h1{margin:0;font-size:24px}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .period{text-align:right}
+  .period .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+  .period .val{font-size:18px;font-weight:600}
+  .slicers{display:flex;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:12px 16px;margin-bottom:18px}
+  .slicer{display:flex;flex-direction:column;gap:5px}
+  .slicer label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .slicer select{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;font-size:14px;min-width:150px}
+  button.reset{background:#22304f;color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:9px 14px;font-size:13px;cursor:pointer;height:38px}
+  button.reset:hover{border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+  .kpi{background:linear-gradient(160deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:14px;padding:18px 20px;position:relative;overflow:hidden}
+  .kpi .name{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .kpi .num{font-size:30px;font-weight:700;margin-top:8px;line-height:1}
+  .kpi .delta{font-size:13px;margin-top:10px;font-weight:600}
+  .kpi .bar{position:absolute;left:0;top:0;height:100%;width:5px}
+  .up{color:var(--good)} .down{color:var(--bad)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card.full{grid-column:1 / -1}
+  .card h3{margin:0 0 4px;font-size:15px}
+  .card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .canvas-box{position:relative;height:260px}
+  .canvas-box.tall{height:300px}
+  footer{color:var(--muted);font-size:12px;margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Customer Intelligence Dashboard</h1>
+      <div class="sub">Understanding the customer base to guide retention and acquisition strategy</div>
+    </div>
+    <div class="period">
+      <div class="label">Reporting Period</div>
+      <div class="val" id="periodLabel">FY 2025 · Jan–Dec</div>
+    </div>
+  </header>
+
+  <div class="slicers">
+    <div class="slicer">
+      <label for="fSeg">Segment</label>
+      <select id="fSeg"><option value="ALL">All segments</option></select>
+    </div>
+    <div class="slicer">
+      <label for="fRegion">Region</label>
+      <select id="fRegion"><option value="ALL">All regions</option></select>
+    </div>
+    <div class="slicer">
+      <label for="fPeriod">Period</label>
+      <select id="fPeriod">
+        <option value="ALL">Full year</option>
+        <option value="H1">H1 (Jan–Jun)</option>
+        <option value="H2">H2 (Jul–Dec)</option>
+        <option value="Q4">Q4 (Oct–Dec)</option>
+      </select>
+    </div>
+    <div class="slicer">
+      <label>&nbsp;</label>
+      <button class="reset" id="resetBtn">Reset filters</button>
+    </div>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><div class="bar" style="background:var(--accent)"></div>
+      <div class="name">Total Customers</div><div class="num" id="kCust">—</div>
+      <div class="delta" id="kCustDelta">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--good)"></div>
+      <div class="name">Retention Rate</div><div class="num" id="kRet">—</div>
+      <div class="delta" id="kRetDelta">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--premium)"></div>
+      <div class="name">Avg Customer Value</div><div class="num" id="kAcv">—</div>
+      <div class="delta" id="kAcvDelta">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--new)"></div>
+      <div class="name">New Customers</div><div class="num" id="kNew">—</div>
+      <div class="delta" id="kNewDelta">—</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card full">
+      <h3>Customer Growth</h3>
+      <p class="hint">Cumulative customers over time — the acquisition trajectory.</p>
+      <div class="canvas-box tall"><canvas id="growthChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Segment</h3>
+      <p class="hint">Where the value is — Premium punches above its weight.</p>
+      <div class="canvas-box"><canvas id="segRevChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Customer Mix</h3>
+      <p class="hint">Composition of the customer base by segment.</p>
+      <div class="canvas-box"><canvas id="mixChart"></canvas></div>
+    </div>
+    <div class="card full">
+      <h3>Retention Trend</h3>
+      <p class="hint">Monthly retention rate — loyalty over time.</p>
+      <div class="canvas-box"><canvas id="retChart"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    Synthetic sample data for demonstration of dashboard design principles (Day 20). No real or personal data is used.
+  </footer>
+</div>
+
+<script>
+/* ----------------------------------------------------------------------
+   Synthetic customer data model (no real/personal data).
+   Segments x regions over 12 months: customer counts, new customers,
+   retention, and revenue. Premium is a minority of customers but the
+   majority of revenue — the headline insight of customer intelligence.
+---------------------------------------------------------------------- */
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SEGMENTS=['Premium','Regular','Basic'];
+const REGIONS=['North','South','East','West'];
+
+// starting customer counts and monthly net adds per segment/region
+const startCount={
+  Premium:{North:280,South:240,East:210,West:260},
+  Regular:{North:900,South:820,East:760,West:880},
+  Basic:  {North:1300,South:1180,East:1090,West:1240},
+};
+const monthlyAdds={
+  Premium:{North:14,South:11,East:10,West:13},
+  Regular:{North:30,South:26,East:24,West:29},
+  Basic:  {North:38,South:34,East:31,West:36},
+};
+// average annual revenue per customer ($) by segment — Premium far higher
+const arpc={Premium:2400,Regular:520,Basic:160};
+// retention rate by segment (Premium most loyal)
+const baseRetention={Premium:0.94,Regular:0.86,Basic:0.78};
+
+// Build per-month cumulative counts
+const DATA=[];
+SEGMENTS.forEach(s=>REGIONS.forEach(r=>{
+  let count=startCount[s][r];
+  for(let m=0;m<12;m++){
+    const adds=monthlyAdds[s][r]+((m*3+r.length)%4-1); // new this month
+    count+=adds;
+    const ret=Math.min(0.99, baseRetention[s] + m*0.004 + ((r.length)%3)*0.003); // gentle improvement
+    DATA.push({month:m,segment:s,region:r,count:count,newCust:Math.max(0,adds),
+               retention:ret, revenue:count*arpc[s]/12});
+  }
+}));
+
+function periodMonths(p){
+  if(p==='H1')return[0,1,2,3,4,5];
+  if(p==='H2')return[6,7,8,9,10,11];
+  if(p==='Q4')return[9,10,11];
+  return[0,1,2,3,4,5,6,7,8,9,10,11];
+}
+function filtered(){
+  const s=document.getElementById('fSeg').value;
+  const r=document.getElementById('fRegion').value;
+  const months=periodMonths(document.getElementById('fPeriod').value);
+  return DATA.filter(d=>(s==='ALL'||d.segment===s)&&(r==='ALL'||d.region===r)&&months.includes(d.month));
+}
+const fmtNum=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
+const fmt$=v=>'$'+(v>=1000?(v/1000).toFixed(1)+'K':Math.round(v));
+
+let growthChart,segRevChart,mixChart,retChart;
+const GRID='#283a5e',TICK='#9fb0d0';
+Chart.defaults.color=TICK;Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+const SEG_COLORS={Premium:'#f59e0b',Regular:'#3b82f6',Basic:'#64748b'};
+
+function render(){
+  const rows=filtered();
+  const months=periodMonths(document.getElementById('fPeriod').value);
+  const lastMonth=Math.max(...months);
+
+  // Total customers = count at last month of period
+  const totCust=rows.filter(d=>d.month===lastMonth).reduce((s,d)=>s+d.count,0);
+  const newCust=rows.reduce((s,d)=>s+d.newCust,0);
+  const avgRet=rows.reduce((s,d)=>s+d.retention,0)/rows.length*100;
+  const totRevAnnual=rows.filter(d=>d.month===lastMonth).reduce((s,d)=>s+d.revenue*12,0);
+  const acv=totRevAnnual/totCust;
+
+  document.getElementById('kCust').textContent=fmtNum(totCust);
+  document.getElementById('kRet').textContent=avgRet.toFixed(1)+'%';
+  document.getElementById('kAcv').textContent=fmt$(acv);
+  document.getElementById('kNew').textContent=fmtNum(newCust);
+
+  document.getElementById('kCustDelta').innerHTML='<span class="up">▲ growing base</span>';
+  document.getElementById('kRetDelta').innerHTML='<span class="'+(avgRet>=80?'up':'down')+'">'+(avgRet>=80?'healthy':'at risk')+'</span>';
+  document.getElementById('kAcvDelta').innerHTML='annualised';
+  document.getElementById('kNewDelta').innerHTML='in period';
+
+  // Customer growth (cumulative total per month)
+  const growthSeries=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.count,0));
+  drawGrowth(months.map(m=>MONTHS[m]),growthSeries);
+
+  // Revenue by segment (annualised, at last month)
+  const segRev=SEGMENTS.map(s=>rows.filter(d=>d.segment===s&&d.month===lastMonth).reduce((a,d)=>a+d.revenue*12,0));
+  drawSegRev(segRev);
+
+  // Customer mix (counts at last month)
+  const segCount=SEGMENTS.map(s=>rows.filter(d=>d.segment===s&&d.month===lastMonth).reduce((a,d)=>a+d.count,0));
+  drawMix(segCount);
+
+  // Retention trend
+  const retSeries=months.map(m=>{
+    const r=rows.filter(d=>d.month===m);
+    return r.length? (r.reduce((a,d)=>a+d.retention,0)/r.length*100):null;
+  });
+  drawRet(months.map(m=>MONTHS[m]),retSeries);
+}
+
+function drawGrowth(labels,vals){
+  const ctx=document.getElementById('growthChart');if(growthChart)growthChart.destroy();
+  growthChart=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Total customers',data:vals,borderColor:'#14b8a6',backgroundColor:'rgba(20,184,166,.15)',
+     fill:true,tension:.35,borderWidth:3,pointRadius:3}]},options:opts(false)});
+}
+function drawSegRev(vals){
+  const ctx=document.getElementById('segRevChart');if(segRevChart)segRevChart.destroy();
+  segRevChart=new Chart(ctx,{type:'bar',data:{labels:SEGMENTS,datasets:[
+    {label:'Annual revenue',data:vals,backgroundColor:SEGMENTS.map(s=>SEG_COLORS[s]),borderRadius:6}]},
+    options:{...opts(true)}});
+}
+function drawMix(vals){
+  const ctx=document.getElementById('mixChart');if(mixChart)mixChart.destroy();
+  mixChart=new Chart(ctx,{type:'doughnut',data:{labels:SEGMENTS,datasets:[
+    {data:vals,backgroundColor:SEGMENTS.map(s=>SEG_COLORS[s]),borderColor:'#15203a',borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ('+(c.parsed/vals.reduce((a,b)=>a+b,0)*100).toFixed(0)+'%)'}}}}});
+}
+function drawRet(labels,vals){
+  const ctx=document.getElementById('retChart');if(retChart)retChart.destroy();
+  retChart=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Retention %',data:vals,borderColor:'#22c55e',backgroundColor:'rgba(34,197,94,.12)',
+     fill:true,tension:.35,borderWidth:3,pointRadius:3}]},
+    options:{...opts(false),scales:{x:{grid:{color:GRID}},
+      y:{grid:{color:GRID},min:70,max:100,ticks:{callback:v=>v+'%'}}}}});
+}
+function opts(money){
+  return{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>{const v=c.parsed.y!=null?c.parsed.y:c.parsed;return (c.dataset.label||'')+': '+(money?fmt$(v):fmtNum(v));}}}},
+    scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID}}}};
+}
+
+function fillSelect(id,opts){const s=document.getElementById(id);opts.forEach(o=>{const e=document.createElement('option');e.value=o;e.textContent=o;s.appendChild(e);});}
+fillSelect('fSeg',SEGMENTS);
+fillSelect('fRegion',REGIONS);
+['fSeg','fRegion','fPeriod'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{updatePeriodLabel();render();}));
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  document.getElementById('fSeg').value='ALL';
+  document.getElementById('fRegion').value='ALL';
+  document.getElementById('fPeriod').value='ALL';
+  updatePeriodLabel();render();
+});
+function updatePeriodLabel(){
+  const p=document.getElementById('fPeriod').value;
+  const map={ALL:'FY 2025 · Jan–Dec',H1:'FY 2025 · Jan–Jun',H2:'FY 2025 · Jul–Dec',Q4:'FY 2025 · Oct–Dec'};
+  document.getElementById('periodLabel').textContent=map[p];
+}
+updatePeriodLabel();render();
+</script>
+</body>
+</html>

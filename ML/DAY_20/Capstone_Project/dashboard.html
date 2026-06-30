@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GreenCart — Profitability Dashboard (Capstone)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/data.js"></script>
+<style>
+  :root{
+    --bg:#0c1322; --panel:#15203a; --panel-2:#1b2746; --line:#27365a;
+    --ink:#eaf0fc; --muted:#9fb0d0; --accent:#22c55e; --rev:#3b82f6;
+    --good:#22c55e; --bad:#ef4444; --warn:#f59e0b; --chip:#22304f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1280px;margin:0 auto;padding:22px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+  header.top h1{margin:0;font-size:23px}
+  header.top .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  header.top a.back{color:var(--muted);font-size:13px;text-decoration:none}
+  header.top a.back:hover{color:var(--accent)}
+  .period{text-align:right}
+  .period .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}
+  .period .val{font-size:18px;font-weight:600}
+  .slicers{display:flex;gap:14px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:12px 16px;margin-bottom:18px}
+  .slicer{display:flex;flex-direction:column;gap:5px}
+  .slicer label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .slicer select{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;font-size:14px;min-width:140px}
+  button.reset{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:9px 14px;font-size:13px;cursor:pointer;height:38px}
+  button.reset:hover{border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}
+  .kpi{background:linear-gradient(160deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;position:relative;overflow:hidden}
+  .kpi .name{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  .kpi .num{font-size:24px;font-weight:700;margin-top:7px;line-height:1}
+  .kpi .delta{font-size:12px;margin-top:8px;font-weight:600}
+  .kpi .bar{position:absolute;left:0;top:0;height:100%;width:4px;background:var(--rev)}
+  .up{color:var(--good)} .down{color:var(--bad)} .neu{color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card.full{grid-column:1 / -1}
+  .card h3{margin:0 0 4px;font-size:15px}
+  .card .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .canvas-box{position:relative;height:260px}
+  .canvas-box.tall{height:300px}
+  footer{color:var(--muted);font-size:12px;margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+  @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>GreenCart — Profitability &amp; Growth Dashboard</h1>
+      <div class="sub">Capstone deliverable · why profit growth is lagging revenue growth — and where to act &nbsp;|&nbsp;
+        <a class="back" href="index.html">← back to capstone report</a></div>
+    </div>
+    <div class="period">
+      <div class="label">Reporting Period</div>
+      <div class="val" id="periodLabel">FY 2025 · Full year</div>
+    </div>
+  </header>
+
+  <div class="slicers">
+    <div class="slicer"><label for="fRegion">Region</label>
+      <select id="fRegion"><option value="ALL">All regions</option></select></div>
+    <div class="slicer"><label for="fCat">Category</label>
+      <select id="fCat"><option value="ALL">All categories</option></select></div>
+    <div class="slicer"><label for="fSeg">Segment</label>
+      <select id="fSeg"><option value="ALL">All segments</option></select></div>
+    <div class="slicer"><label for="fQ">Quarter</label>
+      <select id="fQ"><option value="ALL">Full year</option>
+        <option value="1">Q1</option><option value="2">Q2</option>
+        <option value="3">Q3</option><option value="4">Q4</option></select></div>
+    <div class="slicer"><label>&nbsp;</label><button class="reset" id="resetBtn">Reset</button></div>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><div class="bar" style="background:var(--rev)"></div>
+      <div class="name">Revenue</div><div class="num" id="kRev">—</div><div class="delta" id="kRevD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:var(--good)"></div>
+      <div class="name">Profit</div><div class="num" id="kProfit">—</div><div class="delta" id="kProfitD">—</div></div>
+    <div class="kpi"><div class="bar" id="kMarginBar" style="background:var(--bad)"></div>
+      <div class="name">Profit Margin</div><div class="num" id="kMargin">—</div><div class="delta" id="kMarginD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:#0ea5e9"></div>
+      <div class="name">Avg Order Value</div><div class="num" id="kAov">—</div><div class="delta" id="kAovD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:#8b5cf6"></div>
+      <div class="name">Orders</div><div class="num" id="kOrders">—</div><div class="delta" id="kOrdersD">—</div></div>
+    <div class="kpi"><div class="bar" style="background:#14b8a6"></div>
+      <div class="name">Active Customers</div><div class="num" id="kCust">—</div><div class="delta" id="kCustD">—</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card full">
+      <h3>Revenue, Profit &amp; Margin Trend</h3>
+      <p class="hint">Revenue keeps climbing (bars) while the profit margin line slides — the core problem.</p>
+      <div class="canvas-box tall"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue by Category</h3>
+      <p class="hint">Where the money comes from — Electronics dominates but at a thin margin.</p>
+      <div class="canvas-box"><canvas id="catChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Revenue vs Margin by Region</h3>
+      <p class="hint">South sells the most yet earns the least per dollar — a discount problem.</p>
+      <div class="canvas-box"><canvas id="regionChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Customer Value by Segment</h3>
+      <p class="hint">Premium is a minority of customers but the largest share of revenue.</p>
+      <div class="canvas-box"><canvas id="segChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Discount vs Margin (monthly)</h3>
+      <p class="hint">The driver: as the average discount rises, the margin falls.</p>
+      <div class="canvas-box"><canvas id="discChart"></canvas></div>
+    </div>
+  </section>
+
+  <footer>
+    Synthetic capstone dataset (3,617 orders, FY2025). Generated locally — no real or personal data.
+    Built for Day 20 (Dashboard Design Principles).
+  </footer>
+</div>
+
+<script>
+const DATA = window.CAPSTONE_DATA || [];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const REGIONS=[...new Set(DATA.map(d=>d.region))];
+const CATS=[...new Set(DATA.map(d=>d.category))];
+const SEGS=['Premium','Regular','Basic'];
+const SEG_COLORS={Premium:'#f59e0b',Regular:'#3b82f6',Basic:'#64748b'};
+
+const GRID='#27365a',TICK='#9fb0d0';
+Chart.defaults.color=TICK;Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+const fmt$=v=>'$'+(Math.abs(v)>=1000?(v/1000).toFixed(2)+'M':Math.round(v)+'K');
+const fmtN=v=>v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);
+
+function qMonths(q){return q==='ALL'?[1,2,3,4,5,6,7,8,9,10,11,12]:
+  {'1':[1,2,3],'2':[4,5,6],'3':[7,8,9],'4':[10,11,12]}[q];}
+function filtered(){
+  const r=v('fRegion'),c=v('fCat'),s=v('fSeg'),m=qMonths(v('fQ'));
+  return DATA.filter(d=>(r==='ALL'||d.region===r)&&(c==='ALL'||d.category===c)&&
+    (s==='ALL'||d.segment===s)&&m.includes(d.month));
+}
+function v(id){return document.getElementById(id).value;}
+
+let trendChart,catChart,regionChart,segChart,discChart;
+
+function render(){
+  const rows=filtered();
+  const months=qMonths(v('fQ'));
+  const rev=rows.reduce((s,d)=>s+d.revenue,0);
+  const profit=rows.reduce((s,d)=>s+d.profit,0);
+  const margin=rev?profit/rev*100:0;
+  const orders=rows.length;
+  const aov=orders?rev/orders:0;
+  const custs=new Set(rows.map(d=>d.customer_id)).size;
+
+  // margin direction: first present month vs last present month
+  const monthsPresent=months.filter(m=>rows.some(d=>d.month===m));
+  const mFirst=monthMargin(rows,monthsPresent[0]);
+  const mLast=monthMargin(rows,monthsPresent[monthsPresent.length-1]);
+  const marginFalling=mLast<mFirst;
+
+  set('kRev',fmt$(rev)); set('kProfit',fmt$(profit));
+  set('kMargin',margin.toFixed(1)+'%'); set('kAov','$'+Math.round(aov));
+  set('kOrders',fmtN(orders)); set('kCust',fmtN(custs));
+
+  document.getElementById('kRevD').innerHTML='<span class="up">▲ revenue growing</span>';
+  document.getElementById('kProfitD').innerHTML='<span class="neu">profit pool</span>';
+  document.getElementById('kMarginD').innerHTML='<span class="'+(marginFalling?'down':'up')+'">'+
+    (marginFalling?'▼ eroding over period':'▲ improving')+'</span>';
+  document.getElementById('kMarginBar').style.background=marginFalling?'var(--bad)':'var(--good)';
+  document.getElementById('kAovD').innerHTML='<span class="neu">'+ (rows.reduce((s,d)=>s+d.units,0)/Math.max(1,orders)).toFixed(1)+' units/order</span>';
+  const newOrders=rows.filter(d=>d.is_new_customer===1).length;
+  document.getElementById('kOrdersD').innerHTML='<span class="neu">'+Math.round((1-newOrders/Math.max(1,orders))*100)+'% returning</span>';
+  document.getElementById('kCustD').innerHTML='<span class="neu">active in period</span>';
+
+  drawTrend(rows,months);
+  drawCat(rows);
+  drawRegion(rows);
+  drawSeg(rows);
+  drawDisc(rows,months);
+}
+function monthMargin(rows,m){const r=rows.filter(d=>d.month===m);const rv=r.reduce((s,d)=>s+d.revenue,0);
+  return rv?r.reduce((s,d)=>s+d.profit,0)/rv*100:0;}
+function set(id,t){document.getElementById(id).textContent=t;}
+
+function drawTrend(rows,months){
+  const labels=months.map(m=>MONTHS[m-1]);
+  const revS=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.revenue,0));
+  const profS=months.map(m=>rows.filter(d=>d.month===m).reduce((s,d)=>s+d.profit,0));
+  const marS=months.map(m=>monthMargin(rows,m));
+  if(trendChart)trendChart.destroy();
+  trendChart=new Chart(document.getElementById('trendChart'),{data:{labels,datasets:[
+    {type:'bar',label:'Revenue',data:revS,backgroundColor:'rgba(59,130,246,.65)',borderRadius:5,yAxisID:'y'},
+    {type:'bar',label:'Profit',data:profS,backgroundColor:'rgba(34,197,94,.7)',borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Margin %',data:marS.map(x=>+x.toFixed(1)),borderColor:'#f59e0b',
+      backgroundColor:'#f59e0b',borderWidth:3,tension:.35,pointRadius:3,yAxisID:'y1'}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?c.parsed.y+'%':fmt$(c.parsed.y))}}},
+    scales:{x:{grid:{color:GRID}},
+      y:{position:'left',grid:{color:GRID},ticks:{callback:v=>fmt$(v)}},
+      y1:{position:'right',grid:{drawOnChartArea:false},min:0,max:35,ticks:{callback:v=>v+'%'}}}}});
+}
+function drawCat(rows){
+  const vals=CATS.map(c=>rows.filter(d=>d.category===c).reduce((s,d)=>s+d.revenue,0));
+  const order=CATS.map((c,i)=>[c,vals[i]]).sort((a,b)=>b[1]-a[1]);
+  if(catChart)catChart.destroy();
+  catChart=new Chart(document.getElementById('catChart'),{type:'bar',
+    data:{labels:order.map(o=>o[0]),datasets:[{label:'Revenue',data:order.map(o=>o[1]),
+      backgroundColor:'#3b82f6',borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>fmt$(c.parsed.x)}}},
+      scales:{x:{grid:{color:GRID},ticks:{callback:v=>fmt$(v)}},y:{grid:{color:GRID}}}}});
+}
+function drawRegion(rows){
+  const rev=REGIONS.map(r=>rows.filter(d=>d.region===r).reduce((s,d)=>s+d.revenue,0));
+  const mar=REGIONS.map(r=>{const rr=rows.filter(d=>d.region===r);const rv=rr.reduce((s,d)=>s+d.revenue,0);
+    return rv?rr.reduce((s,d)=>s+d.profit,0)/rv*100:0;});
+  if(regionChart)regionChart.destroy();
+  regionChart=new Chart(document.getElementById('regionChart'),{data:{labels:REGIONS,datasets:[
+    {type:'bar',label:'Revenue',data:rev,backgroundColor:'rgba(59,130,246,.65)',borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Margin %',data:mar.map(x=>+x.toFixed(1)),borderColor:'#f59e0b',
+      backgroundColor:'#f59e0b',borderWidth:3,pointRadius:4,yAxisID:'y1'}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?c.parsed.y+'%':fmt$(c.parsed.y))}}},
+    scales:{x:{grid:{color:GRID}},
+      y:{position:'left',grid:{color:GRID},ticks:{callback:v=>fmt$(v)}},
+      y1:{position:'right',grid:{drawOnChartArea:false},min:0,max:35,ticks:{callback:v=>v+'%'}}}}});
+}
+function drawSeg(rows){
+  const vals=SEGS.map(s=>rows.filter(d=>d.segment===s).reduce((a,d)=>a+d.revenue,0));
+  if(segChart)segChart.destroy();
+  segChart=new Chart(document.getElementById('segChart'),{type:'doughnut',
+    data:{labels:SEGS,datasets:[{data:vals,backgroundColor:SEGS.map(s=>SEG_COLORS[s]),
+      borderColor:'#15203a',borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+      plugins:{legend:{position:'right',labels:{usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:c=>c.label+': '+fmt$(c.parsed)+' ('+(c.parsed/vals.reduce((a,b)=>a+b,0)*100).toFixed(0)+'%)'}}}}});
+}
+function drawDisc(rows,months){
+  const labels=months.map(m=>MONTHS[m-1]);
+  const disc=months.map(m=>{const r=rows.filter(d=>d.month===m);return r.length?r.reduce((s,d)=>s+d.discount_pct,0)/r.length:null;});
+  const mar=months.map(m=>monthMargin(rows,m));
+  if(discChart)discChart.destroy();
+  discChart=new Chart(document.getElementById('discChart'),{data:{labels,datasets:[
+    {type:'line',label:'Avg discount %',data:disc.map(x=>x==null?null:+x.toFixed(1)),borderColor:'#ef4444',
+      backgroundColor:'rgba(239,68,68,.12)',fill:true,tension:.35,borderWidth:3,pointRadius:3},
+    {type:'line',label:'Margin %',data:mar.map(x=>+x.toFixed(1)),borderColor:'#22c55e',
+      borderWidth:3,tension:.35,pointRadius:3}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{usePointStyle:true,boxWidth:8}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'%'}}},
+    scales:{x:{grid:{color:GRID}},y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}}}}});
+}
+
+function fill(id,opts){const s=document.getElementById(id);opts.forEach(o=>{const e=document.createElement('option');e.value=o;e.textContent=o;s.appendChild(e);});}
+fill('fRegion',REGIONS); fill('fCat',CATS); fill('fSeg',SEGS);
+['fRegion','fCat','fSeg','fQ'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{pl();render();}));
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  ['fRegion','fCat','fSeg'].forEach(id=>document.getElementById(id).value='ALL');
+  document.getElementById('fQ').value='ALL';pl();render();});
+function pl(){const q=v('fQ');document.getElementById('periodLabel').textContent=
+  q==='ALL'?'FY 2025 · Full year':'FY 2025 · Q'+q;}
+
+if(!DATA.length){
+  document.querySelector('.wrap').insertAdjacentHTML('beforeend',
+    '<p style="color:#ef4444">Data not loaded. Run <code>node data/generate_data.js</code> first.</p>');
+}else{ pl(); render(); }
+</script>
+</body>
+</html>
