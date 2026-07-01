@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A responsive blog layout with a sidebar.">
+    <title>The Dev Journal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">The Dev Journal</div>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Articles</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+
+    <!-- BLOG LAYOUT (Grid: main + sidebar) -->
+    <div class="layout">
+        <!-- MAIN CONTENT -->
+        <main class="content">
+            <article class="post">
+                <h1>Understanding CSS Grid in 10 Minutes</h1>
+                <p class="meta">By Aarav Mehta · June 28, 2026 · 6 min read</p>
+                <p>CSS Grid is a two-dimensional layout system that lets you
+                   control rows and columns at the same time. In this article we
+                   walk through the core properties you actually use day to day.</p>
+                <p>We'll cover defining tracks with <code>grid-template-columns</code>,
+                   the magical <code>fr</code> unit, and how
+                   <code>repeat(auto-fit, minmax())</code> builds responsive grids
+                   without a single media query.</p>
+            </article>
+
+            <article class="post">
+                <h2>Flexbox vs Grid: Which One?</h2>
+                <p class="meta">By Aarav Mehta · June 20, 2026 · 4 min read</p>
+                <p>Use Flexbox when content flows in one direction — navbars,
+                   button rows, toolbars. Reach for Grid when you're arranging an
+                   overall page layout across rows and columns.</p>
+            </article>
+
+            <article class="post">
+                <h2>Mobile-First: A Practical Guide</h2>
+                <p class="meta">By Aarav Mehta · June 12, 2026 · 5 min read</p>
+                <p>Start your CSS for the smallest screen, then enhance upward with
+                   <code>min-width</code> media queries. Leaner code, faster pages,
+                   happier users.</p>
+            </article>
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="widget">
+                <h3>About</h3>
+                <p>Notes on front-end development, one short article at a time.</p>
+            </div>
+            <div class="widget">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">Responsive Design</a></li>
+                    <li><a href="#">Tooling</a></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h3>Newsletter</h3>
+                <p>Get new posts in your inbox.</p>
+                <a href="#" class="sub-btn">Subscribe</a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 The Dev Journal. All rights reserved.</p>
+    </footer>
+</body>
+</html>

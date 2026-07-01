@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive admin dashboard with stat cards.">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">⚡ AdminPro</div>
+            <nav class="menu">
+                <a href="#" class="active">📊 Overview</a>
+                <a href="#">🧾 Orders</a>
+                <a href="#">👥 Customers</a>
+                <a href="#">📦 Products</a>
+                <a href="#">📈 Analytics</a>
+                <a href="#">⚙️ Settings</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <h1>Overview</h1>
+                <div class="user">
+                    <span>Hello, Alex</span>
+                    <div class="avatar">A</div>
+                </div>
+            </header>
+
+            <!-- STAT CARDS -->
+            <section class="stats">
+                <div class="stat-card">
+                    <p class="stat-label">Revenue</p>
+                    <p class="stat-value">$48,920</p>
+                    <p class="stat-change up">▲ 12.5%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Orders</p>
+                    <p class="stat-value">1,284</p>
+                    <p class="stat-change up">▲ 8.1%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">New Customers</p>
+                    <p class="stat-value">312</p>
+                    <p class="stat-change down">▼ 2.3%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Refunds</p>
+                    <p class="stat-value">$1,140</p>
+                    <p class="stat-change down">▼ 4.0%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Conversion</p>
+                    <p class="stat-value">3.8%</p>
+                    <p class="stat-change up">▲ 0.6%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Avg. Order</p>
+                    <p class="stat-value">$38.10</p>
+                    <p class="stat-change up">▲ 1.9%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Active Users</p>
+                    <p class="stat-value">894</p>
+                    <p class="stat-change up">▲ 5.4%</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Tickets Open</p>
+                    <p class="stat-value">27</p>
+                    <p class="stat-change down">▼ 9.0%</p>
+                </div>
+            </section>
+
+            <!-- LOWER PANELS -->
+            <section class="panels">
+                <div class="panel chart">
+                    <h2>Sales This Week</h2>
+                    <div class="bars">
+                        <div class="bar" style="height: 45%"><span>Mon</span></div>
+                        <div class="bar" style="height: 70%"><span>Tue</span></div>
+                        <div class="bar" style="height: 55%"><span>Wed</span></div>
+                        <div class="bar" style="height: 85%"><span>Thu</span></div>
+                        <div class="bar" style="height: 60%"><span>Fri</span></div>
+                        <div class="bar" style="height: 95%"><span>Sat</span></div>
+                        <div class="bar" style="height: 40%"><span>Sun</span></div>
+                    </div>
+                </div>
+                <div class="panel activity">
+                    <h2>Recent Activity</h2>
+                    <ul>
+                        <li><strong>Order #1042</strong> placed — $129.00</li>
+                        <li><strong>Priya S.</strong> signed up</li>
+                        <li><strong>Order #1041</strong> shipped</li>
+                        <li><strong>Refund</strong> issued — $24.00</li>
+                        <li><strong>Order #1040</strong> placed — $58.50</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

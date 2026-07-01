@@ -1,0 +1,83 @@
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937; background: #f1f5f9; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== HEADER ===== */
+.page-header { text-align: center; padding: 3rem 1.5rem 1rem; }
+.page-header h1 { font-size: 2.25rem; margin-bottom: 0.5rem; color: #0f172a; }
+.page-header p { color: #475569; }
+
+/* ===== PRICING (Flexbox, equal-height plans) ===== */
+.pricing {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;     /* equal height — cards stretch to tallest */
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+.plan {
+    flex: 1 1 280px;          /* grow/shrink, ideal width 280px */
+    max-width: 320px;
+    background: white;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;   /* lets the button push to the bottom */
+    position: relative;
+}
+.plan-name { font-size: 1.4rem; color: #1e293b; margin-bottom: 0.5rem; }
+.price { font-size: 1.1rem; color: #475569; margin-bottom: 1.5rem; }
+.price span { font-size: 2.5rem; font-weight: bold; color: #0f172a; }
+
+.features { list-style: none; margin-bottom: 1.5rem; }
+.features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+.features li::before { content: "✓ "; color: #16a34a; font-weight: bold; }
+
+.plan-btn {
+    margin-top: auto;         /* aligns all buttons to the bottom edge */
+    text-align: center;
+    background: #e2e8f0;
+    color: #1e293b;
+    padding: 0.85rem;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.plan-btn:hover { background: #cbd5e1; }
+
+/* ===== FEATURED PLAN ===== */
+.featured {
+    border: 2px solid #2563eb;
+    transform: scale(1.05);
+}
+.featured .plan-btn { background: #2563eb; color: white; }
+.featured .plan-btn:hover { background: #1d4ed8; }
+.badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2563eb;
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* ===== FOOTER ===== */
+.footer { text-align: center; padding: 2rem; color: #64748b; }
+
+/* ===== MOBILE: stack the plans ===== */
+@media (max-width: 768px) {
+    .pricing { flex-direction: column; align-items: center; }
+    .plan { width: 100%; max-width: 400px; }
+    .featured { transform: none; }   /* no scaling when stacked */
+}

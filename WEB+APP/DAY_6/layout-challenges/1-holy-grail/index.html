@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Classic Holy Grail layout built with CSS Grid.">
+    <title>Holy Grail Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grail">
+        <header class="header">Header</header>
+
+        <nav class="left-sidebar">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1>Main Content</h1>
+            <p>This is the classic <strong>Holy Grail</strong> layout: a header
+               and footer spanning full width, with a left sidebar, a central
+               content area, and a right sidebar in between.</p>
+            <p>On desktop it's three columns. On tablet the right sidebar drops
+               below. On mobile everything stacks into a single column — handled
+               entirely by CSS Grid and <code>grid-template-areas</code>.</p>
+            <p>Resize the browser to watch the regions rearrange.</p>
+        </main>
+
+        <aside class="right-sidebar">
+            <h3>Related</h3>
+            <p>Ads, links, or extra widgets live here.</p>
+        </aside>
+
+        <footer class="footer">Footer</footer>
+    </div>
+</body>
+</html>

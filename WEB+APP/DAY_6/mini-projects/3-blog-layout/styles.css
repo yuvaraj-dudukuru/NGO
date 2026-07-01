@@ -1,0 +1,94 @@
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.7; color: #2d2d2d; background: #f8fafc; }
+a { text-decoration: none; color: inherit; }
+code {
+    font-family: Consolas, monospace;
+    background: #e2e8f0;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1e293b;
+    color: white;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.logo { font-size: 1.5rem; font-weight: bold; }
+.nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.nav-links a { color: white; }
+.nav-links a:hover { color: #38bdf8; }
+
+/* ===== BLOG LAYOUT (Grid) ===== */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;   /* main content + fixed sidebar */
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* ===== MAIN CONTENT ===== */
+.content { display: flex; flex-direction: column; gap: 1.5rem; }
+.post {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.post h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #1e293b; }
+.post h2 { font-size: 1.4rem; margin-bottom: 0.5rem; color: #1e293b; }
+.post .meta { font-size: 0.85rem; color: #64748b; margin-bottom: 1rem; font-style: italic; }
+.post p { margin-bottom: 1rem; }
+
+/* ===== SIDEBAR ===== */
+.sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+.widget {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.widget h3 {
+    margin-bottom: 0.75rem;
+    color: #1e293b;
+    border-bottom: 2px solid #38bdf8;
+    padding-bottom: 0.4rem;
+}
+.widget ul { list-style: none; }
+.widget li { margin-bottom: 0.4rem; }
+.widget a:hover { color: #2563eb; }
+.sub-btn {
+    display: inline-block;
+    margin-top: 0.75rem;
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+.sub-btn:hover { background: #1d4ed8; }
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #1e293b;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* ===== RESPONSIVE: stack sidebar under content on mobile ===== */
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;   /* single column */
+    }
+}

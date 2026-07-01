@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive navbar that collapses into a hamburger menu.">
+    <title>Hamburger Navbar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">BrandName</div>
+
+        <!-- Hamburger button (visible on mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Nav links -->
+        <nav class="nav-links" id="navLinks">
+            <a href="#">Home</a>
+            <a href="#">Features</a>
+            <a href="#">Pricing</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="content">
+        <h1>Responsive Navbar with Hamburger Menu</h1>
+        <p>Resize the window below 768px (or use DevTools device mode) and the
+           links collapse behind a hamburger button. Tap it to toggle the menu.</p>
+        <p>The toggle is powered by a small piece of JavaScript that adds and
+           removes an <code>.open</code> class on the nav.</p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

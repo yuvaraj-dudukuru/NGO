@@ -1,0 +1,115 @@
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937; background: #f1f5f9; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== DASHBOARD SHELL (Grid: sidebar + main) ===== */
+.dashboard {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    background: #0f172a;
+    color: #cbd5e1;
+    padding: 1.5rem 1rem;
+}
+.brand { font-size: 1.4rem; font-weight: bold; color: white; margin-bottom: 2rem; padding: 0 0.5rem; }
+.menu { display: flex; flex-direction: column; gap: 0.25rem; }
+.menu a { padding: 0.75rem 1rem; border-radius: 8px; }
+.menu a:hover { background: #1e293b; color: white; }
+.menu a.active { background: #2563eb; color: white; }
+
+/* ===== MAIN ===== */
+.main { padding: 1.5rem 2rem; }
+
+/* ===== TOPBAR ===== */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.topbar h1 { font-size: 1.6rem; color: #0f172a; }
+.user { display: flex; align-items: center; gap: 0.75rem; }
+.avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+}
+
+/* ===== STAT CARDS (responsive Grid) ===== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.stat-label { color: #64748b; font-size: 0.9rem; }
+.stat-value { font-size: 1.8rem; font-weight: bold; color: #0f172a; margin: 0.25rem 0; }
+.stat-change { font-size: 0.85rem; font-weight: bold; }
+.stat-change.up { color: #16a34a; }
+.stat-change.down { color: #dc2626; }
+
+/* ===== LOWER PANELS ===== */
+.panels {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.25rem;
+}
+.panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.panel h2 { font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a; }
+
+/* Simple CSS bar chart */
+.bars { display: flex; align-items: flex-end; gap: 0.75rem; height: 180px; }
+.bar {
+    flex: 1;
+    background: linear-gradient(180deg, #38bdf8, #2563eb);
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    min-height: 10px;
+}
+.bar span {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Activity list */
+.activity ul { list-style: none; }
+.activity li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .panels { grid-template-columns: 1fr; }   /* stack chart + activity */
+}
+@media (max-width: 700px) {
+    .dashboard { grid-template-columns: 1fr; }  /* sidebar on top */
+    .sidebar { display: flex; flex-direction: column; }
+    .menu { flex-direction: row; flex-wrap: wrap; }
+}
