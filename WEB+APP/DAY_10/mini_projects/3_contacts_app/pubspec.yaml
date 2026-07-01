@@ -1,0 +1,19 @@
+name: contacts_app
+description: Mini Project 3 — a contacts app (list -> contact details).
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
